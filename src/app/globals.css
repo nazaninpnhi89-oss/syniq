@@ -1,26 +1,159 @@
 @import "tailwindcss";
 
+/* ===== SYNIQ Design Tokens (از روی برند گاید نازنین پناهی) ===== */
+@theme {
+  /* پایه‌ی تیره premium */
+  --color-bg: #121217; /* Background */
+  --color-surface: #1c2129; /* Surface */
+  --color-surface-2: #232a34;
+  --color-line: #2b333f;
+  --color-fg: #f4f6fa;
+  --color-muted: #b8bcc6; /* Gray */
+
+  /* خانواده‌ی آبی برند */
+  --color-brand-dark: #1e4970; /* Dark Blue */
+  --color-brand: #2e6687; /* Blue */
+  --color-brand-light: #4a8fb8; /* Light Blue */
+
+  /* اکسنت طلایی */
+  --color-gold: #c9b247; /* Accent */
+  --color-gold-soft: #d8c468;
+
+  /* فونت‌ها (از next/font تزریق می‌شوند) */
+  --font-sans: var(--font-vazir), var(--font-poppins), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-latin: var(--font-poppins), var(--font-vazir), ui-sans-serif, sans-serif;
+
+  /* شعاع گوشه‌ها */
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* فارسی → Vazirmatn ، انگلیسی → Poppins */
+html[lang="fa"] body {
+  font-family: var(--font-vazir), var(--font-poppins), sans-serif;
+}
+html[lang="en"] body {
+  font-family: var(--font-poppins), var(--font-vazir), sans-serif;
+}
+
+/* متن لاتین (تگ‌لاین/ورد‌مارک) همیشه با Poppins */
+.font-latin {
+  font-family: var(--font-latin);
+}
+
+/* انتخاب متن با رنگ برند */
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 30%, transparent);
+  color: var(--color-fg);
+}
+
+/* اسکرول نرم */
+html {
+  scroll-behavior: smooth;
+}
+
+/* اسکرول‌بار تیره */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand);
+}
+
+/* ===== کمک‌کلاس‌های برند ===== */
+
+/* خط طلایی کوتاه — موتیف تکرارشونده‌ی برند */
+.brand-rule {
+  display: inline-block;
+  width: 3rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--color-gold);
+}
+
+/* پس‌زمینه‌ی گرید نقطه‌ای ملایم */
+.bg-grid {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-brand-light) 14%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+/* هاله‌ی گرادیان برند (در هیرو) */
+.brand-glow {
+  background: radial-gradient(
+      60% 60% at 20% 0%,
+      color-mix(in srgb, var(--color-brand) 35%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 50% at 100% 20%,
+      color-mix(in srgb, var(--color-gold) 18%, transparent),
+      transparent 70%
+    );
+}
+
+/* کارت شیشه‌ای */
+.glass {
+  background: color-mix(in srgb, var(--color-surface) 80%, transparent);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(12px);
+}
+
+/* متن گرادیانی برند */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-fg) 0%,
+    var(--color-brand-light) 60%,
+    var(--color-gold) 120%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* انیمیشن ظهور تدریجی هنگام اسکرول */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-fade-up {
+    animation: none;
+  }
 }

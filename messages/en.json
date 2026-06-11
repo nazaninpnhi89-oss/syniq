@@ -1,0 +1,201 @@
+{
+  "brand": {
+    "name": "SYNIQ",
+    "expansion": "Scale Your Next Intelligent Growth",
+    "expansionFa": "گام بعدی، رشد هوشمند کسب‌وکارت را بزرگ‌تر بردار",
+    "tagline": "Where data becomes direction."
+  },
+  "nav": {
+    "services": "Services",
+    "about": "About",
+    "process": "Process",
+    "contact": "Contact",
+    "book": "Book a consultation",
+    "login": "Log in",
+    "signup": "Sign up",
+    "dashboard": "My account",
+    "menu": "Menu"
+  },
+  "hero": {
+    "badge": "AI Consultant · B2B · Global",
+    "titleLead": "Turn your business into an",
+    "titleHighlight": "intelligent growth machine",
+    "titleTail": "",
+    "subtitle": "We help businesses automate operations, optimize workflows, and accelerate growth through AI-powered systems.",
+    "ctaPrimary": "Book a consultation",
+    "ctaSecondary": "Explore services",
+    "photoAlt": "Nazanin Panahi — AI Consultant"
+  },
+  "stats": {
+    "items": [
+      { "value": "30 Days", "label": "Result delivery" },
+      { "value": "B2B", "label": "Core expertise" },
+      { "value": "AI", "label": "Custom-built" },
+      { "value": "60 Days", "label": "ROI focus" }
+    ]
+  },
+  "usp": {
+    "kicker": "Why SYNIQ",
+    "title": "AI that learns your business — not a generic toolbox",
+    "body": "SYNIQ builds custom AI systems that grow with your operations. A dedicated growth partner, designed around your data and your goals."
+  },
+  "services": {
+    "kicker": "Services",
+    "title": "Where to start",
+    "subtitle": "The first service is consultation. Live webinars and online courses are coming soon.",
+    "soonLabel": "Coming soon",
+    "items": {
+      "consult": {
+        "title": "AI Strategy Consultation",
+        "desc": "A focused one-to-one session to map where AI delivers the highest ROI for your business, with a clear action plan you can execute.",
+        "meta": "Private session · Online",
+        "cta": "Book & pay"
+      },
+      "webinar": {
+        "title": "Live Webinars",
+        "desc": "Live group sessions on the practical use of AI in business."
+      },
+      "course": {
+        "title": "Online Courses",
+        "desc": "Step-by-step training to implement AI across your team and operations."
+      }
+    }
+  },
+  "about": {
+    "kicker": "About",
+    "name": "Nazanin Panahi",
+    "role": "AI Consultant · B2B · Global",
+    "body": "Nazanin helps founders and executives turn AI from hype into measurable growth. [Your full bio goes here — your background, milestones, and the results you have delivered for clients. Your photo and résumé will replace this text soon.]",
+    "valuesTitle": "What I stand for",
+    "values": [
+      { "title": "Continuous innovation", "desc": "Always a step ahead — today's technology turned into your next move." },
+      { "title": "Trust and transparency", "desc": "Relationships built on full honesty and clear data." },
+      { "title": "Global thinking", "desc": "Solutions that work anywhere in the world." },
+      { "title": "Real partnership", "desc": "Working shoulder to shoulder with you for shared success." },
+      { "title": "Tangible impact", "desc": "Every solution must deliver a real, measurable result." }
+    ]
+  },
+  "process": {
+    "kicker": "Process",
+    "title": "How we work",
+    "steps": [
+      { "no": "01", "title": "Consult", "desc": "We map your goals and where AI delivers the most value." },
+      { "no": "02", "title": "Design", "desc": "A custom AI system blueprint, tailored to your data." },
+      { "no": "03", "title": "Build", "desc": "We implement and integrate it into your daily workflows." },
+      { "no": "04", "title": "Optimize", "desc": "Measure, refine, and scale the results." }
+    ]
+  },
+  "why": {
+    "kicker": "Approach",
+    "title": "Built around your data, focused on ROI",
+    "items": [
+      { "title": "Custom, not generic", "desc": "The system is designed around your business, not a ready-made template." },
+      { "title": "ROI focus", "desc": "Decisions are made with data, not guesswork." },
+      { "title": "Direct partnership", "desc": "From first call to delivery, you work directly with me." }
+    ]
+  },
+  "quote": {
+    "main": "Where data becomes direction.",
+    "sub": "The future of business runs on AI."
+  },
+  "finalCta": {
+    "title": "Ready to grow with AI?",
+    "subtitle": "Book a consultation and let's map the intelligent path to growing your business.",
+    "button": "Book a consultation"
+  },
+  "footer": {
+    "tagline": "Where data becomes direction.",
+    "rights": "All rights reserved.",
+    "nav": "Navigation",
+    "social": "Social",
+    "contact": "Contact"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "loginSubtitle": "Log in to book your consultation.",
+    "signupTitle": "Create account",
+    "signupSubtitle": "Sign up to book a consultation.",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Log in",
+    "signupButton": "Sign up",
+    "haveAccount": "Already have an account?",
+    "noAccount": "No account yet?",
+    "goLogin": "Log in",
+    "goSignup": "Sign up",
+    "orContinueWith": "or continue with",
+    "google": "Continue with Google",
+    "checkEmail": "Check your email to confirm your account.",
+    "genericError": "Something went wrong. Please try again."
+  },
+  "booking": {
+    "title": "Book a consultation",
+    "subtitle": "Choose an available date and time.",
+    "service": "Service",
+    "duration": "Duration",
+    "minutes": "minutes",
+    "price": "Price",
+    "pickDate": "Pick a day",
+    "pickTime": "Pick a time",
+    "noSlots": "No times available for this day.",
+    "timezoneNote": "Times are shown in your timezone.",
+    "yourTimezone": "Your timezone",
+    "notes": "Short note (optional)",
+    "notesPlaceholder": "Tell me your biggest AI challenge.",
+    "continue": "Continue to payment",
+    "loginRequired": "Please log in to book.",
+    "processing": "Redirecting to checkout…",
+    "successTitle": "Your booking is confirmed",
+    "successBody": "Payment succeeded and your session is booked. Details will be sent to your email.",
+    "cancelTitle": "Payment not completed",
+    "cancelBody": "The payment was cancelled and no booking was made. You can try again.",
+    "backToDashboard": "Go to my account",
+    "tryAgain": "Try again"
+  },
+  "dashboard": {
+    "title": "My account",
+    "welcome": "Welcome",
+    "myBookings": "My bookings",
+    "noBookings": "You have no bookings yet.",
+    "bookNow": "Book a consultation",
+    "status": "Status",
+    "when": "When",
+    "logout": "Log out",
+    "statuses": {
+      "pending": "Pending payment",
+      "paid": "Paid",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "testimonials": {
+    "kicker": "Client Results",
+    "title": "Trusted by founders & executives",
+    "items": [
+      {
+        "quote": "Nazanin mapped our entire AI opportunity in a single session. Within three weeks we had a working prototype that cut our data-processing time in half.",
+        "name": "Sarah K.",
+        "role": "Founder & CEO",
+        "company": "HealthTech startup"
+      },
+      {
+        "quote": "We went in sceptical about ROI on AI. SYNIQ delivered a clear strategy and we saw measurable results within 30 days. Worth every dollar.",
+        "name": "David R.",
+        "role": "COO",
+        "company": "Logistics group"
+      },
+      {
+        "quote": "The depth of strategic thinking is what sets SYNIQ apart. Nazanin doesn't just know the tools — she understands how to apply them to your specific business model.",
+        "name": "Leila M.",
+        "role": "Chief Strategy Officer",
+        "company": "SaaS company"
+      }
+    ]
+  },
+  "common": {
+    "langToggle": "فا",
+    "loading": "Loading…",
+    "comingSoon": "Coming soon"
+  }
+}
