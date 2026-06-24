@@ -36,13 +36,13 @@ export async function sendBookingConfirmation(input: BookingEmailInput) {
 
   const customerHtml = `
     <div style="font-family:Arial,sans-serif;max-width:560px;margin:auto">
-      <h2 style="color:#1E4970">SYNIQ</h2>
+      <h2 style="color:#1E4A66">SYNIQ</h2>
       <p>${isFa ? `سلام ${input.customerName ?? ""}،` : `Hi ${input.customerName ?? ""},`}</p>
       <p>${isFa ? "رزرو شما تأیید شد." : "Your booking is confirmed."}</p>
       <p><strong>${input.serviceTitle}</strong></p>
       <p>${isFa ? "زمان" : "When"}: ${when} (${BUSINESS_TIMEZONE})</p>
       ${meetRow}
-      <p style="color:#888;font-size:12px">Where data becomes direction.</p>
+      <p style="color:#888;font-size:12px">From Strategy to Intelligent Growth.</p>
     </div>`;
 
   await resend.emails.send({

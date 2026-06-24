@@ -1,9 +1,9 @@
 {
   "brand": {
     "name": "SYNIQ",
-    "expansion": "Scale Your Next Intelligent Growth",
-    "expansionFa": "گام بعدی، رشد هوشمند کسب‌وکارت را بزرگ‌تر بردار",
-    "tagline": "Where data becomes direction."
+    "expansion": "From Strategy to Intelligent Growth.",
+    "expansionFa": "از استراتژی تا رشد هوشمند",
+    "tagline": "From Strategy to Intelligent Growth."
   },
   "nav": {
     "services": "Services",
@@ -17,27 +17,30 @@
     "menu": "Menu"
   },
   "hero": {
-    "badge": "AI Consultant · B2B · Global",
-    "titleLead": "Turn your business into an",
-    "titleHighlight": "intelligent growth machine",
+    "badge": "Nazanin Panahi · AI Consultant",
+    "titleLead": "From strategy,",
+    "titleHighlight": "to intelligent growth",
     "titleTail": "",
-    "subtitle": "We help businesses automate operations, optimize workflows, and accelerate growth through AI-powered systems.",
+    "subtitle": "I'm Nazanin Panahi, an AI consultant. I help you clarify your brand and make your business processes faster and smarter with AI.",
     "ctaPrimary": "Book a consultation",
-    "ctaSecondary": "Explore services",
-    "photoAlt": "Nazanin Panahi — AI Consultant"
+    "ctaSecondary": "Learn more",
+    "photoAlt": "Nazanin Panahi — AI Consultant",
+    "badgeA": "1-to-1",
+    "badgeASub": "Online session",
+    "badgeB": "Open for booking"
   },
   "stats": {
     "items": [
-      { "value": "30 Days", "label": "Result delivery" },
-      { "value": "B2B", "label": "Core expertise" },
-      { "value": "AI", "label": "Custom-built" },
-      { "value": "60 Days", "label": "ROI focus" }
+      { "value": "1:1", "label": "Private session" },
+      { "value": "Bilingual", "label": "Persian & English" },
+      { "value": "Online", "label": "Worldwide" },
+      { "value": "2-in-1", "label": "Brand + AI" }
     ]
   },
   "usp": {
     "kicker": "Why SYNIQ",
-    "title": "AI that learns your business — not a generic toolbox",
-    "body": "SYNIQ builds custom AI systems that grow with your operations. A dedicated growth partner, designed around your data and your goals."
+    "title": "One project, two tangible results",
+    "body": "SYNIQ combines brand-identity clarity with real AI implementation in a single path — not a separate branding consultancy, and not a standalone tool course. First we make your brand clear, then we make your processes smarter with AI."
   },
   "services": {
     "kicker": "Services",
@@ -47,64 +50,75 @@
     "items": {
       "consult": {
         "title": "AI Strategy Consultation",
-        "desc": "A focused one-to-one session to map where AI delivers the highest ROI for your business, with a clear action plan you can execute.",
+        "desc": "A focused one-to-one session where I listen to your real business challenge and we map where AI delivers the highest ROI — with a clear next step you can start tomorrow.",
         "meta": "Private session · Online",
         "cta": "Book & pay"
       },
       "webinar": {
         "title": "Live Webinars",
-        "desc": "Live group sessions on the practical use of AI in business."
+        "desc": "Live group sessions on the practical use of AI in business, with real-world examples."
       },
       "course": {
         "title": "Online Courses",
-        "desc": "Step-by-step training to implement AI across your team and operations."
+        "desc": "Patient, step-by-step training to implement AI across your team and operations."
       }
     }
   },
   "about": {
-    "kicker": "About",
+    "kicker": "About me",
     "name": "Nazanin Panahi",
-    "role": "AI Consultant · B2B · Global",
-    "body": "Nazanin helps founders and executives turn AI from hype into measurable growth. [Your full bio goes here — your background, milestones, and the results you have delivered for clients. Your photo and résumé will replace this text soon.]",
-    "valuesTitle": "What I stand for",
+    "role": "AI Consultant · Founder of SYNIQ",
+    "body": "Nazanin helps business owners, freelancers, and startups look more professional as a brand while working faster and more affordably with AI. [Your full bio goes here — your background, milestones, and the results you have delivered for clients. Your photo and résumé will replace this text soon.]",
+    "valuesTitle": "What I stand for — SYNIQ",
     "values": [
-      { "title": "Continuous innovation", "desc": "Always a step ahead — today's technology turned into your next move." },
-      { "title": "Trust and transparency", "desc": "Relationships built on full honesty and clear data." },
-      { "title": "Global thinking", "desc": "Solutions that work anywhere in the world." },
-      { "title": "Real partnership", "desc": "Working shoulder to shoulder with you for shared success." },
-      { "title": "Tangible impact", "desc": "Every solution must deliver a real, measurable result." }
-    ]
+      { "title": "Strategy-led (S)", "desc": "Every proposal starts with a clear map, not guesswork and trial-and-error." },
+      { "title": "Your Vision (Y)", "desc": "The solution starts from your business reality, not a one-size-fits-all template." },
+      { "title": "Navigate Change (N)", "desc": "We turn change from fear into a clear, actionable path." },
+      { "title": "Applied Intelligence (I)", "desc": "We use the right tool in the right place — a solution, not a trend." },
+      { "title": "Quantify Growth (Q)", "desc": "Every action must deliver a visible, measurable result for your business." }
+    ],
+    "badge": "Applied",
+    "badgeSub": "AI"
   },
   "process": {
-    "kicker": "Process",
+    "kicker": "How we work",
     "title": "How we work",
     "steps": [
-      { "no": "01", "title": "Consult", "desc": "We map your goals and where AI delivers the most value." },
-      { "no": "02", "title": "Design", "desc": "A custom AI system blueprint, tailored to your data." },
-      { "no": "03", "title": "Build", "desc": "We implement and integrate it into your daily workflows." },
-      { "no": "04", "title": "Optimize", "desc": "Measure, refine, and scale the results." }
+      { "no": "01", "title": "Listen", "desc": "First we listen to your real business challenge, then we build the solution." },
+      { "no": "02", "title": "Strategy", "desc": "A clear brand map and where AI delivers the most value." },
+      { "no": "03", "title": "Build", "desc": "We automate and integrate AI into your daily workflows." },
+      { "no": "04", "title": "Grow", "desc": "Measure, refine, and scale the real result." }
     ]
   },
   "why": {
-    "kicker": "Approach",
-    "title": "Built around your data, focused on ROI",
+    "kicker": "Brand voice",
+    "title": "Like an experienced colleague beside your business",
     "items": [
-      { "title": "Custom, not generic", "desc": "The system is designed around your business, not a ready-made template." },
-      { "title": "ROI focus", "desc": "Decisions are made with data, not guesswork." },
-      { "title": "Direct partnership", "desc": "From first call to delivery, you work directly with me." }
+      { "title": "Peer and warm", "desc": "We sit beside your business, not above it — we listen first, then advise." },
+      { "title": "Practical and data-driven", "desc": "Every proposal must be executable tomorrow, not just an attractive theory." },
+      { "title": "Honest and realistic", "desc": "We don't make promises that can't be measured." }
+    ]
+  },
+  "principles": {
+    "kicker": "What we believe",
+    "title": "AI done right — and measurable",
+    "items": [
+      { "title": "Opportunity, not threat", "desc": "AI doesn't threaten your job or your brand; whoever uses it right moves a step ahead." },
+      { "title": "Brand first, then automation", "desc": "First we clarify your brand identity, then we automate it with AI." },
+      { "title": "Results, not just tools", "desc": "AI consulting means measurable business results, not just learning a new tool." }
     ]
   },
   "quote": {
-    "main": "Where data becomes direction.",
-    "sub": "The future of business runs on AI."
+    "main": "From Strategy to Intelligent Growth.",
+    "sub": "Brand clarity first — then real AI."
   },
   "finalCta": {
     "title": "Ready to grow with AI?",
-    "subtitle": "Book a consultation and let's map the intelligent path to growing your business.",
+    "subtitle": "Book a consultation and let's map the intelligent path to growing your business together.",
     "button": "Book a consultation"
   },
   "footer": {
-    "tagline": "Where data becomes direction.",
+    "tagline": "From Strategy to Intelligent Growth.",
     "rights": "All rights reserved.",
     "nav": "Navigation",
     "social": "Social",
@@ -168,30 +182,6 @@
       "confirmed": "Confirmed",
       "cancelled": "Cancelled"
     }
-  },
-  "testimonials": {
-    "kicker": "Client Results",
-    "title": "Trusted by founders & executives",
-    "items": [
-      {
-        "quote": "Nazanin mapped our entire AI opportunity in a single session. Within three weeks we had a working prototype that cut our data-processing time in half.",
-        "name": "Sarah K.",
-        "role": "Founder & CEO",
-        "company": "HealthTech startup"
-      },
-      {
-        "quote": "We went in sceptical about ROI on AI. SYNIQ delivered a clear strategy and we saw measurable results within 30 days. Worth every dollar.",
-        "name": "David R.",
-        "role": "COO",
-        "company": "Logistics group"
-      },
-      {
-        "quote": "The depth of strategic thinking is what sets SYNIQ apart. Nazanin doesn't just know the tools — she understands how to apply them to your specific business model.",
-        "name": "Leila M.",
-        "role": "Chief Strategy Officer",
-        "company": "SaaS company"
-      }
-    ]
   },
   "common": {
     "langToggle": "فا",

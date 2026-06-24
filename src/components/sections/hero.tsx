@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/container";
 import { buttonVariants } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
+import { ParticlePortrait } from "./particle-portrait";
 
 type Stat = { value: string; label: string };
 
@@ -61,59 +62,12 @@ export function Hero() {
             </Reveal>
           </div>
 
-          {/* Portrait */}
+          {/* عکس نازنین — افکت ذرات شبکه‌ای */}
           <Reveal delay={0.2}>
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm">
-              {/* Main frame */}
-              <div className="absolute inset-0 overflow-hidden rounded-[2rem] ring-1 ring-line">
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand/70 to-surface" />
-                <div className="bg-grid absolute inset-0 opacity-25 [mask-image:radial-gradient(80%_80%_at_50%_50%,black,transparent)]" />
-                {/* Decorative rings */}
-                <div className="absolute inset-10 rounded-full border border-gold/15" />
-                <div className="absolute inset-16 rounded-full border border-brand-light/20" />
-                {/* Ambient glow */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="h-56 w-56 rounded-full bg-brand-light/10 blur-3xl" />
-                </div>
-                {/* Portrait mark */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-brand-light/20 to-brand/20 ring-2 ring-gold/50">
-                    <span className="font-latin text-3xl font-extrabold tracking-tight text-fg">
-                      NP
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <p className="font-latin text-sm font-semibold text-fg">
-                      Nazanin Panahi
-                    </p>
-                    <p className="font-latin mt-0.5 text-xs text-muted">
-                      {t("badge")}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating badge — ROI */}
-              <div className="glass absolute -left-4 top-10 rounded-2xl px-4 py-2.5 shadow-lg">
-                <p className="font-latin text-xs font-semibold text-fg">
-                  ⚡ 30-day results
-                </p>
-                <p className="font-latin mt-0.5 text-[10px] text-muted">
-                  Measurable ROI focus
-                </p>
-              </div>
-
-              {/* Floating badge — availability */}
-              <div className="glass absolute -right-3 bottom-14 flex items-center gap-2 rounded-full px-3.5 py-2">
-                <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                </span>
-                <span className="font-latin text-xs font-medium text-fg">
-                  Available now
-                </span>
-              </div>
-            </div>
+            <ParticlePortrait
+              src="/logo-icon.jpg"
+              className="relative mx-auto aspect-square w-full max-w-sm"
+            />
           </Reveal>
         </div>
 
@@ -125,7 +79,7 @@ export function Hero() {
                 key={s.label}
                 className="bg-surface/60 px-6 py-7 text-center"
               >
-                <dt className="font-latin text-2xl font-bold text-gold sm:text-3xl">
+                <dt className="text-2xl font-bold text-brand-light sm:text-3xl">
                   {s.value}
                 </dt>
                 <dd className="mt-1 text-sm text-muted">{s.label}</dd>

@@ -7,7 +7,7 @@ import { Services } from "@/components/sections/services";
 import { About } from "@/components/sections/about";
 import { Process } from "@/components/sections/process";
 import { Why } from "@/components/sections/why";
-import { Testimonials } from "@/components/sections/testimonials";
+import { Principles } from "@/components/sections/principles";
 import { Quote } from "@/components/sections/quote";
 import { FinalCta } from "@/components/sections/final-cta";
 
@@ -29,7 +29,7 @@ export default async function HomePage({
         <About />
         <Process />
         <Why />
-        <Testimonials />
+        <Principles />
         <Quote />
         <FinalCta />
       </main>

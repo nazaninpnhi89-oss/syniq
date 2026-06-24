@@ -2,27 +2,27 @@
 
 /* ===== SYNIQ Design Tokens (از روی برند گاید نازنین پناهی) ===== */
 @theme {
-  /* پایه‌ی تیره premium */
-  --color-bg: #121217; /* Background */
-  --color-surface: #1c2129; /* Surface */
-  --color-surface-2: #232a34;
-  --color-line: #2b333f;
+  /* پایه‌ی تیره premium — مقادیر دقیق برند گاید v0.1 */
+  --color-bg: #12161c; /* Background */
+  --color-surface: #1b222b; /* Surface — سطح کارت‌ها و پنل‌ها */
+  --color-surface-2: #232c38;
+  --color-line: #2c3744;
   --color-fg: #f4f6fa;
-  --color-muted: #b8bcc6; /* Gray */
+  --color-muted: #a7b7c0; /* Silver / Gray — متن ثانویه */
 
-  /* خانواده‌ی آبی برند */
-  --color-brand-dark: #1e4970; /* Dark Blue */
-  --color-brand: #2e6687; /* Blue */
-  --color-brand-light: #4a8fb8; /* Light Blue */
+  /* خانواده‌ی آبی برند — اشباع‌شده برای کنتراست بهتر روی پس‌زمینه‌ی تیره */
+  --color-brand-dark: #1a4d72; /* Dark Blue — هدر بخش‌ها، تأکید اصلی */
+  --color-brand: #1f7bb5; /* Blue — دکمه‌ها، لینک‌ها */
+  --color-brand-light: #3db2ec; /* Light Blue — تیترها، هایلایت */
+  --color-ice: #8ddaf5; /* Ice Accent — هایلایت ویژه، نشان‌ها */
 
-  /* اکسنت طلایی */
-  --color-gold: #c9b247; /* Accent */
+  /* اکسنت طلایی ظریف (فقط جزئیات لوکس) */
+  --color-gold: #c9b247;
   --color-gold-soft: #d8c468;
 
-  /* فونت‌ها (از next/font تزریق می‌شوند) */
-  --font-sans: var(--font-vazir), var(--font-poppins), ui-sans-serif, system-ui,
-    sans-serif;
-  --font-latin: var(--font-poppins), var(--font-vazir), ui-sans-serif, sans-serif;
+  /* فونت سایت: Vazirmatn برای همه‌چیز (فارسی و لاتین) */
+  --font-sans: var(--font-vazir), ui-sans-serif, system-ui, sans-serif;
+  --font-latin: var(--font-vazir), ui-sans-serif, sans-serif;
 
   /* شعاع گوشه‌ها */
   --radius-xl: 1.25rem;
@@ -40,17 +40,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* فارسی → Vazirmatn ، انگلیسی → Poppins */
-html[lang="fa"] body {
-  font-family: var(--font-vazir), var(--font-poppins), sans-serif;
-}
+/* کل سایت (فارسی و انگلیسی) → Vazirmatn */
+html[lang="fa"] body,
 html[lang="en"] body {
-  font-family: var(--font-poppins), var(--font-vazir), sans-serif;
+  font-family: var(--font-vazir), sans-serif;
 }
 
-/* متن لاتین (تگ‌لاین/ورد‌مارک) همیشه با Poppins */
+/* کلاس font-latin هم به Vazirmatn نگاشت می‌شود (سازگاری عقب‌رو) */
 .font-latin {
-  font-family: var(--font-latin);
+  font-family: var(--font-vazir), sans-serif;
 }
 
 /* انتخاب متن با رنگ برند */
@@ -109,7 +107,7 @@ html {
     ),
     radial-gradient(
       50% 50% at 100% 20%,
-      color-mix(in srgb, var(--color-gold) 18%, transparent),
+      color-mix(in srgb, var(--color-brand-light) 22%, transparent),
       transparent 70%
     );
 }
@@ -121,13 +119,13 @@ html {
   backdrop-filter: blur(12px);
 }
 
-/* متن گرادیانی برند */
+/* متن گرادیانی برند — آبی‌محور (Light Blue → Ice) */
 .text-gradient {
   background: linear-gradient(
     100deg,
     var(--color-fg) 0%,
-    var(--color-brand-light) 60%,
-    var(--color-gold) 120%
+    var(--color-brand-light) 55%,
+    var(--color-ice) 110%
   );
   -webkit-background-clip: text;
   background-clip: text;

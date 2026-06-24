@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { Container } from "@/components/ui/container";
@@ -13,38 +14,19 @@ export function About() {
     <section id="about" className="scroll-mt-24 py-16 sm:py-24">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          {/* Portrait placeholder */}
+          {/* Logo — بدون باکس، با هاله‌ی ملایم */}
           <Reveal>
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-xs lg:mx-0">
-              {/* Main frame */}
-              <div className="absolute inset-0 overflow-hidden rounded-[2rem] ring-1 ring-line">
-                <div className="absolute inset-0 bg-gradient-to-br from-surface to-brand-dark/40" />
-                <div className="bg-grid absolute inset-0 opacity-20 [mask-image:radial-gradient(70%_70%_at_50%_40%,black,transparent)]" />
-                {/* Decorative rings */}
-                <div className="absolute inset-8 rounded-full border border-brand-light/10" />
-                <div className="absolute inset-14 rounded-full border border-gold/15" />
-                {/* Ambient glow */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="h-40 w-40 rounded-full bg-brand-light/10 blur-2xl" />
-                </div>
-                {/* Portrait mark */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-light/20 to-gold/10 ring-2 ring-gold/40">
-                    <span className="font-latin text-2xl font-extrabold tracking-tight text-fg">
-                      NP
-                    </span>
-                  </div>
-                  <p className="font-latin text-xs text-muted/80">{t("name")}</p>
-                </div>
+            <div className="relative mx-auto w-full max-w-sm lg:mx-0">
+              <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+                <div className="h-48 w-48 rounded-full bg-brand-light/10 blur-3xl" />
               </div>
-
-              {/* Credential badge */}
-              <div className="glass absolute -right-4 bottom-12 rounded-2xl px-4 py-2.5 text-center shadow-lg">
-                <p className="font-latin text-lg font-bold text-gold">B2B AI</p>
-                <p className="font-latin mt-0.5 text-[10px] text-muted">
-                  Global Expert
-                </p>
-              </div>
+              <Image
+                src="/logo.jpg"
+                alt={t("name")}
+                width={1280}
+                height={698}
+                className="h-auto w-full"
+              />
             </div>
           </Reveal>
 

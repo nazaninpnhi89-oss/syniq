@@ -34,6 +34,7 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
 export function Footer() {
   const t = useTranslations("footer");
   const nav = useTranslations("nav");
+  const brand = useTranslations("brand");
 
   return (
     <footer className="border-t border-line bg-surface/40">
@@ -104,7 +105,7 @@ export function Footer() {
             © {new Date().getFullYear()} SYNIQ. {t("rights")}
           </span>
           <span className="font-latin tracking-wide text-fg/50">
-            Scale Your Next Intelligent Growth
+            {brand("expansion")}
           </span>
         </div>
       </Container>

@@ -7,10 +7,12 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
+        // دکمه‌ی اصلی برند: پرکننده‌ی آبی با حلقه‌ی ظریف طلایی (اکسنت لوکس)
         primary:
-          "bg-gold text-bg hover:bg-gold-soft shadow-[0_8px_30px_-8px_rgba(201,178,71,0.5)]",
-        brand:
-          "bg-brand-light text-bg hover:bg-brand-light/90 shadow-[0_8px_30px_-10px_rgba(74,143,184,0.6)]",
+          "bg-gradient-to-b from-brand-light to-brand text-bg font-semibold ring-1 ring-gold/25 hover:from-brand-light hover:to-brand-light shadow-[0_10px_34px_-10px_rgba(61,124,158,0.7)]",
+        // اکسنت طلایی — فقط برای موارد خاص و کم‌تکرار
+        gold:
+          "bg-gold text-bg hover:bg-gold-soft shadow-[0_8px_30px_-8px_rgba(201,178,71,0.45)]",
         outline:
           "border border-line text-fg hover:border-brand-light hover:text-brand-light bg-transparent",
         ghost: "text-fg/80 hover:text-fg hover:bg-surface",
