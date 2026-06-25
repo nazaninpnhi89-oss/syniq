@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync-knowledge": "node scripts/sync-knowledge.mjs"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",
@@ -16,6 +17,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
+    "groq-sdk": "^1.3.0",
     "lucide-react": "^1.17.0",
     "motion": "^12.40.0",
     "next": "16.2.7",
@@ -25,6 +27,7 @@
     "resend": "^6.12.4",
     "stripe": "^22.2.0",
     "tailwind-merge": "^3.6.0",
+    "voyageai": "^0.4.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {

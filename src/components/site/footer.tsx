@@ -78,7 +78,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-muted">
               <li>
                 <a
-                  href="https://www.linkedin.com/in/nazaninpanahi"
+                  href="https://www.linkedin.com/in/spanahii"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 hover:text-fg"
@@ -88,12 +88,12 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://instagram.com/nazaninpanahi.ai"
+                  href="https://instagram.com/syniq.ai.agancy"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 hover:text-fg"
                 >
-                  <InstagramIcon size={16} /> @nazaninpanahi.ai
+                  <InstagramIcon size={16} /> @syniq.ai.agancy
                 </a>
               </li>
             </ul>

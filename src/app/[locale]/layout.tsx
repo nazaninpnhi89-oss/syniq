@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { ChatBubble } from "@/components/chat/chat-bubble";
 import "../globals.css";
 
 // تنها فونتِ سایت: Vazirmatn (هم فارسی، هم لاتین) — مطابق برند گاید
@@ -57,7 +58,10 @@ export default async function LocaleLayout({
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full antialiased">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          {children}
+          <ChatBubble />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

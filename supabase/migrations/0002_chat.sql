@@ -20,7 +20,7 @@ create table if not exists public.chat_embeddings (
   document_id uuid not null references public.chat_documents(id) on delete cascade,
   chunk_index int not null,
   content text not null,
-  embedding vector(1536),
+  embedding vector(1024),
   created_at timestamptz not null default now()
 );
 
@@ -112,7 +112,7 @@ create policy "leads_insert" on public.leads
 
 -- ---------- match_documents RPC (pgvector similarity search) ----------
 create or replace function public.match_documents(
-  query_embedding vector(1536),
+  query_embedding vector(1024),
   match_threshold float,
   match_count int,
   p_locale text default 'fa'

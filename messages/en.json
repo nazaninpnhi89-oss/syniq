@@ -45,8 +45,7 @@
   "services": {
     "kicker": "Services",
     "title": "Where to start",
-    "subtitle": "The first service is consultation. Live webinars and online courses are coming soon.",
-    "soonLabel": "Coming soon",
+    "subtitle": "Two services, one goal: make your business smarter with AI.",
     "items": {
       "consult": {
         "title": "AI Strategy Consultation",
@@ -54,13 +53,11 @@
         "meta": "Private session · Online",
         "cta": "Book & pay"
       },
-      "webinar": {
-        "title": "Live Webinars",
-        "desc": "Live group sessions on the practical use of AI in business, with real-world examples."
-      },
-      "course": {
-        "title": "Online Courses",
-        "desc": "Patient, step-by-step training to implement AI across your team and operations."
+      "chatbot": {
+        "title": "Personalize Your Chatbot",
+        "desc": "I design and build a custom AI chatbot for your business — trained on your content, aligned with your brand, and built to automate your team's most repetitive tasks. To get started, we'll need a 30-minute call to understand your business and find the best solution.",
+        "meta": "Custom project · Online",
+        "cta": "Book a free 30-min call"
       }
     }
   },
@@ -187,5 +184,15 @@
     "langToggle": "فا",
     "loading": "Loading…",
     "comingSoon": "Coming soon"
+  },
+  "chat": {
+    "title": "AI Assistant",
+    "placeholder": "Ask me anything…",
+    "send": "Send",
+    "thinking": "Thinking",
+    "newChat": "New conversation",
+    "poweredBy": "Powered by SYNIQ AI",
+    "greeting": "Hello! I'm SYNIQ's AI assistant. How can I help you today? 👋",
+    "close": "Close chat"
   }
 }
