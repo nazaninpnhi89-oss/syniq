@@ -1,4 +1,4 @@
-import Groq from "groq-sdk";
+import OpenAI from "openai";
 import { getHistory, saveMessage } from "./memory";
 import { search } from "./rag";
 import { toolDefinitions, executeTool } from "./tools";
@@ -7,10 +7,15 @@ import type { Locale } from "./types";
 const CHAT_MODEL = "llama-3.3-70b-versatile";
 const MAX_OUTPUT_TOKENS = 1024;
 
-let _groq: Groq | null = null;
-function getGroq(): Groq {
-  if (!_groq) _groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
-  return _groq;
+let _client: OpenAI | null = null;
+function getClient(): OpenAI {
+  if (!_client) {
+    _client = new OpenAI({
+      baseURL: "https://api.groq.com/openai/v1",
+      apiKey: process.env.GROQ_API_KEY!,
+    });
+  }
+  return _client;
 }
 
 function buildSystem(ragContext: string, locale: Locale): string {
@@ -33,14 +38,14 @@ KNOWLEDGE BASE:
 ${ragContext || "No relevant context found."}`;
 }
 
-type GroqMessage = Groq.Chat.ChatCompletionMessageParam;
+type Message = OpenAI.Chat.ChatCompletionMessageParam;
 
 function historyToMessages(
   history: Awaited<ReturnType<typeof getHistory>>,
   userMessage: string,
   system: string,
-): GroqMessage[] {
-  const msgs: GroqMessage[] = [{ role: "system", content: system }];
+): Message[] {
+  const msgs: Message[] = [{ role: "system", content: system }];
 
   for (const msg of history) {
     if (msg.role === "user") {
@@ -54,9 +59,12 @@ function historyToMessages(
   return msgs;
 }
 
+const LITE_MODE = process.env.CHAT_LITE === "true";
+
 /**
- * Stream-first: yields text tokens as soon as Groq starts responding.
+ * Stream-first: yields text tokens as soon as the model starts responding.
  * If a tool call is detected, executes it and streams the follow-up answer.
+ * Set CHAT_LITE=true to skip RAG and tools (useful for quick testing).
  */
 export async function* processMessage(
   sessionId: string,
@@ -67,7 +75,7 @@ export async function* processMessage(
 
   const [history, ragChunks] = await Promise.all([
     getHistory(sessionId, 20),
-    search(userMessage, locale).catch(() => []),
+    LITE_MODE ? Promise.resolve([]) : search(userMessage, locale).catch(() => []),
   ]);
 
   const ragContext = ragChunks
@@ -76,10 +84,31 @@ export async function* processMessage(
 
   const system = buildSystem(ragContext, locale);
   const messages = historyToMessages(history.slice(0, -1), userMessage, system);
-  const groq = getGroq();
+  const client = getClient();
+
+  if (LITE_MODE) {
+    // Lite mode: plain chat, no tools
+    const stream = await client.chat.completions.create({
+      model: CHAT_MODEL,
+      messages,
+      max_tokens: MAX_OUTPUT_TOKENS,
+      stream: true,
+    });
+
+    let replyText = "";
+    for await (const chunk of stream) {
+      const text = chunk.choices[0]?.delta?.content ?? "";
+      if (text) {
+        replyText += text;
+        yield text;
+      }
+    }
+    await saveMessage(sessionId, "assistant", replyText);
+    return;
+  }
 
   // Phase 1 — stream with tools enabled
-  const stream1 = await groq.chat.completions.create({
+  const stream1 = await client.chat.completions.create({
     model: CHAT_MODEL,
     messages,
     tools: toolDefinitions,
@@ -97,7 +126,6 @@ export async function* processMessage(
       firstPassText += delta.content;
       yield delta.content;
     }
-    // Accumulate tool call deltas
     if (delta?.tool_calls) {
       for (const tc of delta.tool_calls) {
         const idx = tc.index;
@@ -118,13 +146,17 @@ export async function* processMessage(
   }
 
   // Phase 2 — execute tools and stream final answer
-  const toolMessages: GroqMessage[] = [
+  const toolMessages: Message[] = [
     ...messages,
-    { role: "assistant", content: firstPassText || null, tool_calls: toolCalls.map((tc, i) => ({
-      id: `call_${i}`,
-      type: "function" as const,
-      function: { name: tc.name, arguments: tc.args },
-    })) },
+    {
+      role: "assistant",
+      content: firstPassText || null,
+      tool_calls: toolCalls.map((tc, i) => ({
+        id: `call_${i}`,
+        type: "function" as const,
+        function: { name: tc.name, arguments: tc.args },
+      })),
+    },
   ];
 
   for (let i = 0; i < toolCalls.length; i++) {
@@ -139,7 +171,7 @@ export async function* processMessage(
     });
   }
 
-  const stream2 = await groq.chat.completions.create({
+  const stream2 = await client.chat.completions.create({
     model: CHAT_MODEL,
     messages: toolMessages,
     max_tokens: MAX_OUTPUT_TOKENS,
