@@ -74,7 +74,9 @@ export function chunkText(
 
 export async function extractTextFromPDF(buffer: Buffer): Promise<string> {
   // Dynamic import to avoid issues in edge environments
-  const pdfParse = (await import("pdf-parse")).default;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pdfModule = await import("pdf-parse") as any;
+  const pdfParse = pdfModule.default ?? pdfModule;
   const result = await pdfParse(buffer);
   return result.text;
 }
