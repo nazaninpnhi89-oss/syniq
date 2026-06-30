@@ -24,7 +24,7 @@
     "subtitle": "I'm Nazanin Panahi, an AI consultant. I help you clarify your brand and make your business processes faster and smarter with AI.",
     "ctaPrimary": "Book a consultation",
     "ctaSecondary": "Learn more",
-    "photoAlt": "Nazanin Panahi — AI Consultant",
+    "photoAlt": "Nazanin Panahi, AI Consultant",
     "badgeA": "1-to-1",
     "badgeASub": "Online session",
     "badgeB": "Open for booking"
@@ -40,7 +40,7 @@
   "usp": {
     "kicker": "Why SYNIQ",
     "title": "One project, two tangible results",
-    "body": "SYNIQ combines brand-identity clarity with real AI implementation in a single path — not a separate branding consultancy, and not a standalone tool course. First we make your brand clear, then we make your processes smarter with AI."
+    "body": "SYNIQ combines brand-identity clarity with real AI implementation in a single path, not a separate branding consultancy, and not a standalone tool course. First we make your brand clear, then we make your processes smarter with AI."
   },
   "services": {
     "kicker": "Services",
@@ -49,19 +49,19 @@
     "items": {
       "consult": {
         "title": "AI Strategy Consultation",
-        "desc": "A focused one-to-one session where I listen to your real business challenge and we map where AI delivers the highest ROI — with a clear next step you can start tomorrow.",
+        "desc": "A focused one-to-one session where I listen to your real business challenge and we map where AI delivers the highest ROI, with a clear next step you can start tomorrow.",
         "meta": "Free · 30-min online session",
         "cta": "Book a free 30-min call"
       },
       "chatbot": {
         "title": "Personalize Your Chatbot",
-        "desc": "I design and build a custom AI chatbot for your business — trained on your content, aligned with your brand, and built to automate your team's most repetitive tasks. To get started, we'll need a 30-minute call to understand your business and find the best solution.",
+        "desc": "I design and build a custom AI chatbot for your business, trained on your content, aligned with your brand, and built to automate your team's most repetitive tasks. To get started, we'll need a 30-minute call to understand your business and find the best solution.",
         "meta": "Free · 30-min discovery call",
         "cta": "Book a free 30-min call"
       },
       "webdesign": {
         "title": "Professional Website Design",
-        "desc": "I design and build clean, modern websites tailored to your brand — fast, mobile-friendly, and built to convert visitors into clients. We start with a free 30-minute call to understand your goals and vision.",
+        "desc": "I design and build clean, modern websites tailored to your brand, fast, mobile-friendly, and built to convert visitors into clients. We start with a free 30-minute call to understand your goals and vision.",
         "meta": "Free · 30-min discovery call",
         "cta": "Book a free 30-min call"
       }
@@ -71,13 +71,13 @@
     "kicker": "About me",
     "name": "Nazanin Panahi",
     "role": "AI Consultant · Founder of SYNIQ",
-    "body": "I'm an AI consultant with a background in construction project management and five years of experience working on complex construction projects. That experience gave me firsthand insight into the challenges businesses face every day — managing client relationships, responding quickly to enquiries, staying organised, and keeping up with rapidly changing technology.\n\nI founded my AI consultancy to help business owners, freelancers, and startups use practical AI solutions to save time, improve customer experience, and operate more efficiently. From AI-powered customer support and content creation to workflow automation and branding, I help businesses look more professional while working smarter and more affordably.\n\nMy approach combines real-world business understanding with modern AI tools, ensuring that technology solves genuine business problems rather than adding complexity.",
-    "valuesTitle": "What I stand for — SYNIQ",
+    "body": "I'm an AI consultant with a background in construction project management and five years of experience working on complex construction projects. That experience gave me firsthand insight into the challenges businesses face every day, managing client relationships, responding quickly to enquiries, staying organised, and keeping up with rapidly changing technology.\n\nI founded my AI consultancy to help business owners, freelancers, and startups use practical AI solutions to save time, improve customer experience, and operate more efficiently. From AI-powered customer support and content creation to workflow automation and branding, I help businesses look more professional while working smarter and more affordably.\n\nMy approach combines real-world business understanding with modern AI tools, ensuring that technology solves genuine business problems rather than adding complexity.",
+    "valuesTitle": "What I stand for, SYNIQ",
     "values": [
       { "title": "Strategy-led (S)", "desc": "Every proposal starts with a clear map, not guesswork and trial-and-error." },
       { "title": "Your Vision (Y)", "desc": "The solution starts from your business reality, not a one-size-fits-all template." },
       { "title": "Navigate Change (N)", "desc": "We turn change from fear into a clear, actionable path." },
-      { "title": "Applied Intelligence (I)", "desc": "We use the right tool in the right place — a solution, not a trend." },
+      { "title": "Applied Intelligence (I)", "desc": "We use the right tool in the right place, a solution, not a trend." },
       { "title": "Quantify Growth (Q)", "desc": "Every action must deliver a visible, measurable result for your business." }
     ],
     "badge": "Applied",
@@ -97,14 +97,14 @@
     "kicker": "Brand voice",
     "title": "Like an experienced colleague beside your business",
     "items": [
-      { "title": "Peer and warm", "desc": "We sit beside your business, not above it — we listen first, then advise." },
+      { "title": "Peer and warm", "desc": "We sit beside your business, not above it, we listen first, then advise." },
       { "title": "Practical and data-driven", "desc": "Every proposal must be executable tomorrow, not just an attractive theory." },
       { "title": "Honest and realistic", "desc": "We don't make promises that can't be measured." }
     ]
   },
   "principles": {
     "kicker": "What we believe",
-    "title": "AI done right — and measurable",
+    "title": "AI done right, and measurable",
     "items": [
       { "title": "Opportunity, not threat", "desc": "AI doesn't threaten your job or your brand; whoever uses it right moves a step ahead." },
       { "title": "Brand first, then automation", "desc": "First we clarify your brand identity, then we automate it with AI." },
@@ -113,7 +113,7 @@
   },
   "quote": {
     "main": "From Strategy to Intelligent Growth.",
-    "sub": "Brand clarity first — then real AI."
+    "sub": "Brand clarity first, then real AI."
   },
   "finalCta": {
     "title": "Ready to grow with AI?",
