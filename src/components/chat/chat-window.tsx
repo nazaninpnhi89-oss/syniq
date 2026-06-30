@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { MessageBubble } from "./message-bubble";
+import { MessageBubble, type RagSource } from "./message-bubble";
 import { ChatInput } from "./chat-input";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +10,9 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   streaming?: boolean;
+  dbMessageId?: string;
+  sources?: RagSource[];
+  feedbackGiven?: 1 | -1;
 }
 
 interface Props {
@@ -23,12 +26,19 @@ interface Props {
     newChat: string;
     poweredBy: string;
     greeting: string;
+    feedbackThanks?: string;
+    sources?: string;
+    helpful?: string;
+    notHelpful?: string;
   };
+  starterQuestions?: string[];
+  ctaLabel?: string;
+  ctaMessage?: string;
 }
 
 const SESSION_KEY = "syniq_session_id";
 
-export function ChatWindow({ locale, source, t }: Props) {
+export function ChatWindow({ locale, source, t, starterQuestions, ctaLabel, ctaMessage }: Props) {
   const [messages, setMessages] = useState<Message[]>([
     { id: "greeting", role: "assistant", content: t.greeting },
   ]);
@@ -38,127 +48,170 @@ export function ChatWindow({ locale, source, t }: Props) {
   });
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  const [startersVisible, setStartersVisible] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
   const isWidget = source === "widget";
+  const isRtl = locale === "fa";
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const send = useCallback(async () => {
-    const text = input.trim();
-    if (!text || isStreaming) return;
+  const sendText = useCallback(
+    async (text: string) => {
+      if (!text.trim() || isStreaming) return;
 
-    const userMsg: Message = {
-      id: `u_${Date.now()}`,
-      role: "user",
-      content: text,
-    };
-    const assistantMsgId = `a_${Date.now()}`;
+      setStartersVisible(false);
 
-    setMessages((prev) => [
-      ...prev,
-      userMsg,
-      { id: assistantMsgId, role: "assistant", content: "", streaming: true },
-    ]);
-    setInput("");
-    setIsStreaming(true);
+      const userMsg: Message = {
+        id: `u_${Date.now()}`,
+        role: "user",
+        content: text,
+      };
+      const assistantMsgId = `a_${Date.now()}`;
 
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: text,
-          sessionId: sessionId ?? undefined,
-          locale,
-          source,
-        }),
-      });
+      setMessages((prev) => [
+        ...prev,
+        userMsg,
+        { id: assistantMsgId, role: "assistant", content: "", streaming: true },
+      ]);
+      setInput("");
+      setIsStreaming(true);
 
-      if (!res.ok || !res.body) throw new Error("Chat request failed");
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: text,
+            sessionId: sessionId ?? undefined,
+            locale,
+            source,
+          }),
+        });
 
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
+        if (!res.ok || !res.body) throw new Error("Chat request failed");
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
 
-        const lines = buffer.split("\n");
-        buffer = lines.pop() ?? "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
 
-        for (const line of lines) {
-          if (!line.startsWith("data: ")) continue;
-          try {
-            const evt = JSON.parse(line.slice(6));
-            if (evt.type === "session") {
-              setSessionId(evt.id);
-              localStorage.setItem(SESSION_KEY, evt.id);
-            } else if (evt.type === "token") {
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === assistantMsgId
-                    ? { ...m, content: m.content + evt.content }
-                    : m,
-                ),
-              );
-            } else if (evt.type === "done") {
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === assistantMsgId ? { ...m, streaming: false } : m,
-                ),
-              );
-            } else if (evt.type === "error") {
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === assistantMsgId
-                    ? {
-                        ...m,
-                        content:
-                          locale === "fa"
-                            ? "خطایی رخ داد. لطفاً دوباره تلاش کنید."
-                            : "Something went wrong. Please try again.",
-                        streaming: false,
-                      }
-                    : m,
-                ),
-              );
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+
+          for (const line of lines) {
+            if (!line.startsWith("data: ")) continue;
+            try {
+              const evt = JSON.parse(line.slice(6));
+              if (evt.type === "session") {
+                setSessionId(evt.id);
+                localStorage.setItem(SESSION_KEY, evt.id);
+              } else if (evt.type === "token") {
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === assistantMsgId
+                      ? { ...m, content: m.content + evt.content }
+                      : m,
+                  ),
+                );
+              } else if (evt.type === "message_id") {
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === assistantMsgId ? { ...m, dbMessageId: String(evt.id) } : m,
+                  ),
+                );
+              } else if (evt.type === "sources") {
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === assistantMsgId ? { ...m, sources: evt.chunks ?? [] } : m,
+                  ),
+                );
+              } else if (evt.type === "done") {
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === assistantMsgId ? { ...m, streaming: false } : m,
+                  ),
+                );
+              } else if (evt.type === "error") {
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === assistantMsgId
+                      ? {
+                          ...m,
+                          content:
+                            locale === "fa"
+                              ? "خطایی رخ داد. لطفاً دوباره تلاش کنید."
+                              : "Something went wrong. Please try again.",
+                          streaming: false,
+                        }
+                      : m,
+                  ),
+                );
+              }
+            } catch {
+              // malformed SSE line — skip
             }
-          } catch {
-            // malformed SSE line — skip
           }
         }
+      } catch {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantMsgId
+              ? {
+                  ...m,
+                  content:
+                    locale === "fa"
+                      ? "متأسفم، مشکلی پیش آمد. لطفاً دوباره تلاش کنید."
+                      : "Sorry, something went wrong. Please try again.",
+                  streaming: false,
+                }
+              : m,
+          ),
+        );
+      } finally {
+        setIsStreaming(false);
       }
+    },
+    [isStreaming, sessionId, locale, source],
+  );
+
+  const send = useCallback(() => sendText(input.trim()), [input, sendText]);
+
+  const handleFeedback = useCallback(async (messageId: string, rating: 1 | -1) => {
+    setMessages((prev) =>
+      prev.map((m) =>
+        m.dbMessageId === messageId ? { ...m, feedbackGiven: rating } : m,
+      ),
+    );
+    try {
+      await fetch("/api/chat/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message_id: messageId, rating }),
+      });
     } catch {
-      setMessages((prev) =>
-        prev.map((m) =>
-          m.id === assistantMsgId
-            ? {
-                ...m,
-                content:
-                  locale === "fa"
-                    ? "متأسفم، مشکلی پیش آمد. لطفاً دوباره تلاش کنید."
-                    : "Sorry, something went wrong. Please try again.",
-                streaming: false,
-              }
-            : m,
-        ),
-      );
-    } finally {
-      setIsStreaming(false);
+      // silent — feedback is best-effort
     }
-  }, [input, isStreaming, sessionId, locale, source]);
+  }, []);
 
   function resetChat() {
     localStorage.removeItem(SESSION_KEY);
     setSessionId(null);
+    setStartersVisible(true);
     setMessages([{ id: "greeting", role: "assistant", content: t.greeting }]);
   }
 
-  const isRtl = locale === "fa";
+  const feedbackT = {
+    sources: t.sources ?? "Sources",
+    helpful: t.helpful ?? "Helpful",
+    notHelpful: t.notHelpful ?? "Not helpful",
+    feedbackThanks: t.feedbackThanks ?? "Thanks!",
+  };
 
   return (
     <div
@@ -186,8 +239,19 @@ export function ChatWindow({ locale, source, t }: Props) {
           title={t.newChat}
           className="text-muted hover:text-fg transition-colors p-1.5 rounded-lg hover:bg-surface-2"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.8}
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
           </svg>
         </button>
       </header>
@@ -198,16 +262,47 @@ export function ChatWindow({ locale, source, t }: Props) {
           <MessageBubble
             key={msg.id}
             role={msg.role}
-            content={
-              msg.streaming && !msg.content
-                ? `${t.thinking}...`
-                : msg.content
-            }
+            content={msg.streaming && !msg.content ? `${t.thinking}...` : msg.content}
             isStreaming={msg.streaming}
+            messageId={msg.dbMessageId}
+            sources={msg.sources}
+            feedbackGiven={msg.feedbackGiven}
+            onFeedback={handleFeedback}
+            locale={locale}
+            feedbackT={feedbackT}
           />
         ))}
         <div ref={bottomRef} />
       </div>
+
+      {/* Starter questions */}
+      {startersVisible && (starterQuestions?.length ?? 0) > 0 && (
+        <div className={cn("px-4 pb-3 flex flex-wrap gap-2", isRtl ? "justify-end" : "justify-start")}>
+          {starterQuestions!.map((q, i) => (
+            <button
+              key={i}
+              onClick={() => sendText(q)}
+              disabled={isStreaming}
+              className="text-xs px-3 py-1.5 rounded-full border border-brand/40 text-brand hover:bg-brand/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* CTA button */}
+      {ctaLabel && ctaMessage && (
+        <div className="px-4 pb-2 shrink-0">
+          <button
+            onClick={() => sendText(ctaMessage)}
+            disabled={isStreaming}
+            className="w-full py-2.5 rounded-xl bg-brand text-bg text-sm font-semibold hover:bg-brand-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {ctaLabel}
+          </button>
+        </div>
+      )}
 
       {/* Input */}
       <ChatInput

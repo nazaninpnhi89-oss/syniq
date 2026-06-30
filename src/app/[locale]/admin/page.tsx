@@ -1,20 +1,9 @@
-import { redirect } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
-import { Header } from "@/components/site/header";
-import { Container } from "@/components/ui/container";
-import { createClient, createAdminClient } from "@/lib/supabase/server";
-import { BUSINESS_TIMEZONE } from "@/lib/config";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { createAdminClient } from "@/lib/supabase/server";
+import { StatsCard } from "@/components/admin/StatsCard";
+import { StatusBadge } from "@/components/admin/StatusBadge";
 
-type Row = {
-  id: string;
-  start_at: string;
-  status: string;
-  notes: string | null;
-  user_id: string;
-  services: { title_en: string } | null;
-};
-
-export default async function AdminPage({
+export default async function AdminDashboard({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -22,115 +11,132 @@ export default async function AdminPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  if (
-    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    !process.env.SUPABASE_SERVICE_ROLE_KEY
-  ) {
-    return (
-      <>
-        <Header />
-        <main className="pt-28 pb-24">
-          <Container>
-            <p className="text-muted">
-              برای پنل ادمین، کلید SUPABASE_SERVICE_ROLE_KEY لازم است.
-            </p>
-          </Container>
-        </main>
-      </>
-    );
-  }
+  const t = await getTranslations({ locale, namespace: "admin.dashboard" });
+  const tCommon = await getTranslations({ locale, namespace: "admin.common" });
 
-  const sb = await createClient();
-  const {
-    data: { user },
-  } = await sb.auth.getUser();
-  if (!user) redirect(`/${locale}/login?next=/admin`);
+  const db = createAdminClient();
 
-  const { data: profile } = await sb
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .maybeSingle();
-  if (profile?.role !== "admin") redirect(`/${locale}`);
+  const [
+    { count: totalSessions },
+    { count: totalMessages },
+    { count: totalLeads },
+    { count: positiveFeedback },
+    { data: recentSessions },
+    { data: recentLeads },
+  ] = await Promise.all([
+    db.from("chat_sessions").select("*", { count: "exact", head: true }),
+    db.from("chat_messages").select("*", { count: "exact", head: true }),
+    db.from("leads").select("*", { count: "exact", head: true }),
+    db
+      .from("feedback")
+      .select("*", { count: "exact", head: true })
+      .eq("rating", 1),
+    db
+      .from("chat_sessions")
+      .select("id, source, locale, status, created_at")
+      .order("created_at", { ascending: false })
+      .limit(8),
+    db
+      .from("leads")
+      .select("id, name, email, source, status, created_at")
+      .order("created_at", { ascending: false })
+      .limit(6),
+  ]);
 
-  const admin = createAdminClient();
-  const { data: bookings } = await admin
-    .from("bookings")
-    .select("id, start_at, status, notes, user_id, services(title_en)")
-    .order("start_at", { ascending: true });
-  const rows = (bookings ?? []) as unknown as Row[];
-
-  const ids = [...new Set(rows.map((r) => r.user_id))];
-  const { data: profiles } = await admin
-    .from("profiles")
-    .select("id, full_name, email")
-    .in("id", ids.length ? ids : ["00000000-0000-0000-0000-000000000000"]);
-  const pmap = new Map(
-    (profiles ?? []).map((p) => [p.id, p as { full_name: string; email: string }]),
-  );
-
-  const fmt = new Intl.DateTimeFormat("en-US", {
-    dateStyle: "medium",
+  const fmt = new Intl.DateTimeFormat(locale === "fa" ? "fa-IR" : "en-US", {
+    dateStyle: "short",
     timeStyle: "short",
-    timeZone: BUSINESS_TIMEZONE,
   });
 
   return (
-    <>
-      <Header />
-      <main className="pt-28 pb-24">
-        <Container>
-          <span className="brand-rule" />
-          <h1 className="mt-4 text-3xl font-bold text-fg">Admin · Bookings</h1>
-          <p className="mt-2 text-muted">
-            Times in {BUSINESS_TIMEZONE}. {rows.length} total.
-          </p>
+    <div className="max-w-5xl mx-auto space-y-8">
+      {/* Stats row */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatsCard label={t("totalSessions")} value={totalSessions ?? 0} />
+        <StatsCard label={t("totalMessages")} value={totalMessages ?? 0} />
+        <StatsCard label={t("totalLeads")} value={totalLeads ?? 0} />
+        <StatsCard label={t("positiveFeedback")} value={positiveFeedback ?? 0} />
+      </div>
 
-          <div className="mt-8 overflow-x-auto rounded-2xl border border-line">
-            <table className="w-full min-w-[680px] text-sm">
-              <thead className="bg-surface/60 text-left text-fg/70">
-                <tr>
-                  <th className="px-4 py-3 font-medium">When</th>
-                  <th className="px-4 py-3 font-medium">Customer</th>
-                  <th className="px-4 py-3 font-medium">Service</th>
-                  <th className="px-4 py-3 font-medium">Status</th>
-                  <th className="px-4 py-3 font-medium">Notes</th>
+      {/* Recent conversations */}
+      <section>
+        <h2 className="text-sm font-semibold text-fg mb-3">{t("recentConversations")}</h2>
+        <div className="bg-surface border border-line rounded-2xl overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="border-b border-line">
+              <tr className="text-muted text-xs">
+                <th className="px-4 py-3 text-start font-medium">ID</th>
+                <th className="px-4 py-3 text-start font-medium">Source</th>
+                <th className="px-4 py-3 text-start font-medium">Locale</th>
+                <th className="px-4 py-3 text-start font-medium">Status</th>
+                <th className="px-4 py-3 text-start font-medium">{tCommon("createdAt")}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-line">
+              {(recentSessions ?? []).map((s) => (
+                <tr key={s.id} className="text-fg/90 hover:bg-surface-2 transition-colors">
+                  <td className="px-4 py-3 font-mono text-xs text-muted truncate max-w-[120px]">{s.id}</td>
+                  <td className="px-4 py-3">{s.source}</td>
+                  <td className="px-4 py-3">{s.locale}</td>
+                  <td className="px-4 py-3">
+                    <StatusBadge status={s.status ?? "active"} />
+                  </td>
+                  <td className="px-4 py-3 text-muted text-xs">
+                    {fmt.format(new Date(s.created_at))}
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-line">
-                {rows.map((r) => {
-                  const p = pmap.get(r.user_id);
-                  return (
-                    <tr key={r.id} className="text-fg/90">
-                      <td className="px-4 py-3">
-                        {fmt.format(new Date(r.start_at))}
-                      </td>
-                      <td className="px-4 py-3">
-                        {p?.full_name || "—"}
-                        <span className="block text-xs text-muted">
-                          {p?.email}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">{r.services?.title_en ?? "—"}</td>
-                      <td className="px-4 py-3">{r.status}</td>
-                      <td className="px-4 py-3 max-w-[220px] text-muted">
-                        {r.notes}
-                      </td>
-                    </tr>
-                  );
-                })}
-                {rows.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="px-4 py-8 text-center text-muted">
-                      No bookings yet.
-                    </td>
-                  </tr>
-                ) : null}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </main>
-    </>
+              ))}
+              {!recentSessions?.length && (
+                <tr>
+                  <td colSpan={5} className="px-4 py-8 text-center text-muted">
+                    {tCommon("noData")}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Recent leads */}
+      <section>
+        <h2 className="text-sm font-semibold text-fg mb-3">{t("recentLeads")}</h2>
+        <div className="bg-surface border border-line rounded-2xl overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="border-b border-line">
+              <tr className="text-muted text-xs">
+                <th className="px-4 py-3 text-start font-medium">Name</th>
+                <th className="px-4 py-3 text-start font-medium">Email</th>
+                <th className="px-4 py-3 text-start font-medium">Source</th>
+                <th className="px-4 py-3 text-start font-medium">Status</th>
+                <th className="px-4 py-3 text-start font-medium">{tCommon("createdAt")}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-line">
+              {(recentLeads ?? []).map((l) => (
+                <tr key={l.id} className="text-fg/90 hover:bg-surface-2 transition-colors">
+                  <td className="px-4 py-3">{l.name ?? "—"}</td>
+                  <td className="px-4 py-3 text-muted text-xs">{l.email ?? "—"}</td>
+                  <td className="px-4 py-3">{l.source ?? "—"}</td>
+                  <td className="px-4 py-3">
+                    <StatusBadge status={l.status ?? "new"} />
+                  </td>
+                  <td className="px-4 py-3 text-muted text-xs">
+                    {fmt.format(new Date(l.created_at))}
+                  </td>
+                </tr>
+              ))}
+              {!recentLeads?.length && (
+                <tr>
+                  <td colSpan={5} className="px-4 py-8 text-center text-muted">
+                    {tCommon("noData")}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
   );
 }

@@ -1,72 +1,82 @@
 [
   {
     "title": "About SYNIQ",
-    "content": "SYNIQ is a B2B AI consulting brand that helps businesses automate operations, optimize workflows, and accelerate growth through AI-powered systems. Our tagline: \"From Strategy to Intelligent Growth.\" Core services: AI strategy consultation and personalized chatbot design for businesses.",
+    "content": "SYNIQ is a business founded by Nazanin Panahi that helps you grow your business intelligently. Tagline: \"From Strategy to Intelligent Growth.\" Sessions are 1:1, private, bilingual (Persian & English), online, and available worldwide including inside and outside Iran.",
     "locale": "en"
   },
   {
     "title": "AI Strategy Consultation Service",
-    "content": "A focused one-to-one session to map where AI delivers the highest ROI for your business. Duration: 45 minutes, online. Price: $45. Includes a clear action plan you can execute. Book via the consultation booking page or request through this chat.",
-    "locale": "en"
-  },
-  {
-    "title": "SYNIQ Collaboration Process",
-    "content": "Our 4-step process: 1. Consult — map your goals and where AI delivers the most value. 2. Design — a custom AI system blueprint tailored to your data. 3. Build — implement and integrate into your daily workflows. 4. Optimize — measure, refine, and scale the results. Initial results delivered in approximately 30 days.",
-    "locale": "en"
-  },
-  {
-    "title": "SYNIQ Values",
-    "content": "Continuous innovation: always a step ahead — today's technology turned into your next move. Trust and transparency: relationships built on full honesty and clear data. Global thinking: solutions that work anywhere in the world. Real partnership: working shoulder to shoulder with you for shared success. Tangible impact: every solution must deliver a real, measurable result.",
-    "locale": "en"
-  },
-  {
-    "title": "SYNIQ Competitive Advantage",
-    "content": "Systems are designed around your business, not an off-the-shelf template. Decisions are made with data, not guesswork. From start to finish, you work directly with Nazanin Panahi. Focus on ROI: measurable results within 60 days. Built around your data, focused on returns.",
-    "locale": "en"
-  },
-  {
-    "title": "About Nazanin Panahi",
-    "content": "Nazanin Panahi is a B2B AI consultant who helps founders and executives turn AI from hype into measurable growth. Core expertise: AI strategy consulting, operations automation, process optimization. Experience working with health-tech startups, logistics groups, and SaaS companies.",
+    "content": "A focused one-to-one session where Nazanin listens to your real business challenge and maps where AI delivers the highest ROI — with a clear next step you can start tomorrow. Format: private session, online. To book and pay, visit: https://syniq-sigma.vercel.app/en/book",
     "locale": "en"
   },
   {
     "title": "Personalize Your Chatbot Service",
-    "content": "Nazanin designs and builds a custom AI chatbot for your business — trained on your own content, aligned with your brand, and built to automate your team's most repetitive tasks 24/7. No price is set upfront; the project scope is determined in a free 30-minute discovery call. To get started, book a free 30-min call via the booking page.",
+    "content": "Nazanin designs and builds a custom AI chatbot for your business — trained on your own content, aligned with your brand, and built to automate your team's most repetitive tasks 24/7. This is a custom project done online. To get started, a free 30-minute discovery call is required to understand your business and find the best solution. Book the free 30-min call at: https://syniq-sigma.vercel.app/en/book",
     "locale": "en"
   },
   {
-    "title": "Customer Results",
-    "content": "Sara K., Founder & CEO of a health-tech startup: \"Nazanin identified all our AI opportunities in one session. Within three weeks we built a prototype that cut data processing time in half.\" David R., COO of a logistics group: \"We came in skeptical. SYNIQ delivered a clear strategy and we saw measurable results in 30 days.\"",
+    "title": "About Nazanin Panahi",
+    "content": "Nazanin Panahi is an AI Consultant and Founder of SYNIQ. She helps business owners, freelancers, and startups look more professional as a brand while working faster and more affordably with AI. She works bilingually in Persian and English with clients worldwide.",
+    "locale": "en"
+  },
+  {
+    "title": "SYNIQ Values",
+    "content": "The brand name **S Y N I Q** stands for our core values: S — Strategy-led: every proposal starts with a clear map, not guesswork. Y — Your Vision: the solution starts from your business reality, not a one-size-fits-all template. N — Navigate Change: we turn change from fear into a clear, actionable path. I — Applied Intelligence: we use the right tool in the right place — a solution, not a trend. Q — Quantify Growth: every action must deliver a visible, measurable result for your business.",
+    "locale": "en"
+  },
+  {
+    "title": "SYNIQ Process",
+    "content": "How we work in 4 steps: 1. Listen — first we listen to your real business challenge, then we build the solution. 2. Strategy — a clear brand map and where AI delivers the most value. 3. Build — we automate and integrate AI into your daily workflows. 4. Grow — measure, refine, and scale the real result.",
+    "locale": "en"
+  },
+  {
+    "title": "SYNIQ Brand Voice and Beliefs",
+    "content": "Brand voice: peer and warm — we sit beside your business, not above it; we listen first, then advise. Practical and data-driven — every proposal must be executable tomorrow, not just an attractive theory. Honest and realistic — we don't make promises that can't be measured. Core beliefs: AI is an opportunity, not a threat — whoever uses it right moves a step ahead. Brand first, then automation — first we clarify your brand identity, then we automate it with AI. Results, not just tools — AI consulting means measurable business results, not just learning a new tool.",
+    "locale": "en"
+  },
+  {
+    "title": "SYNIQ Contact and Social",
+    "content": "Website: https://syniq-sigma.vercel.app — Book a consultation: https://syniq-sigma.vercel.app/en/book — LinkedIn: @syniq.ai.agancy",
     "locale": "en"
   },
   {
     "title": "معرفی SYNIQ",
-    "content": "SYNIQ یک برند مشاوره هوش مصنوعی است که به کسب‌وکارها کمک می‌کند عملیات را خودکار، فرایندها را بهینه و رشد را با سیستم‌های مبتنی بر هوش مصنوعی شتاب‌دار کنند. شعار ما: «از استراتژی تا رشد هوشمند». خدمات اصلی شامل مشاوره استراتژی هوش مصنوعی و طراحی چت‌بات اختصاصی برای کسب‌وکار است.",
+    "content": "Syniq یک کسب‌وکار است که توسط نازنین پناهی بنیان‌گذاری شده و به رشد هوشمندانه کسب‌وکار شما کمک می‌کند. شعار: «از استراتژی تا رشد هوشمند.» جلسات ۱:۱، اختصاصی، دوزبانه (فارسی و انگلیسی)، آنلاین، داخل و خارج ایران.",
     "locale": "fa"
   },
   {
     "title": "خدمات مشاوره استراتژی هوش مصنوعی",
-    "content": "یک جلسه اختصاصی و متمرکز برای تعیین اینکه هوش مصنوعی کجا بیشترین بازده را برای کسب‌وکار شما دارد. مدت جلسه ۴۵ دقیقه، به صورت آنلاین. هزینه جلسه ۴۵ دلار. همراه با یک برنامه عملی روشن که می‌توانید اجرا کنید. برای رزرو به صفحه رزرو مشاوره مراجعه کنید یا همینجا درخواست دهید.",
-    "locale": "fa"
-  },
-  {
-    "title": "فرایند همکاری با SYNIQ",
-    "content": "فرایند کار در ۴ مرحله: ۱. مشاوره — اهداف شما و جایی که هوش مصنوعی بیشترین ارزش را دارد مشخص می‌کنیم. ۲. طراحی — نقشه یک سیستم هوش مصنوعی اختصاصی، متناسب با داده‌های شما. ۳. اجرا — پیاده‌سازی و یکپارچه‌سازی در فرایندهای روزمره شما. ۴. بهینه‌سازی — اندازه‌گیری، اصلاح و بزرگ‌تر کردن نتایج. کل فرایند حدود ۳۰ روز تا تحویل نتیجه اولیه زمان می‌برد.",
-    "locale": "fa"
-  },
-  {
-    "title": "ارزش‌های SYNIQ",
-    "content": "نوآوری مستمر: همیشه یک قدم جلوتر؛ فناوری روز را به حرکت بعدی تبدیل می‌کنیم. اعتماد و شفافیت: رابطه بر پایه صداقت کامل و داده روشن ساخته می‌شود. تفکر جهانی: راهکارها برای هر جای دنیا قابل استفاده‌اند. مشارکت واقعی: همکاری شانه‌به‌شانه با شما برای موفقیت مشترک. تأثیر ملموس: هر راهکار باید نتیجه واقعی و قابل‌اندازه‌گیری داشته باشد.",
+    "content": "یک جلسه‌ی اختصاصی و متمرکز که نازنین به چالش واقعی کسب‌وکار گوش می‌دهد و مشخص می‌کند هوش مصنوعی کجا بیشترین بازده را دارد — همراه با یک قدمِ بعدیِ روشن که فردا می‌توانید شروعش کنید. فرمت: جلسه‌ی اختصاصی، آنلاین. برای رزرو و پرداخت: https://syniq-sigma.vercel.app/fa/book",
     "locale": "fa"
   },
   {
     "title": "خدمات چت‌بات اختصاصی",
-    "content": "نازنین یک چت‌بات هوش مصنوعی اختصاصی برای کسب‌وکار شما طراحی و راه‌اندازی می‌کند — آموزش‌دیده با محتوای خودتان، هم‌راستا با برندتان، و ساخته‌شده برای اتوماسیون تکراری‌ترین کارهای تیم به صورت ۲۴ ساعته. قیمت مشخصی از ابتدا تعیین نمی‌شود؛ محدوده پروژه در یک جلسه اکتشافی رایگان ۳۰ دقیقه‌ای مشخص می‌شود. برای شروع، یک جلسه رایگان ۳۰ دقیقه‌ای از طریق صفحه رزرو بگیرید.",
+    "content": "نازنین یک چت‌بات هوش مصنوعی اختصاصی برای کسب‌وکار شما طراحی و راه‌اندازی می‌کند — آموزش‌دیده با محتوای خودتان، هم‌راستا با برندتان، و ساخته‌شده برای اتوماسیون تکراری‌ترین کارهای تیم به صورت ۲۴ ساعته. این یک پروژه‌ی سفارشی آنلاین است. برای شروع، یک جلسه‌ی اکتشافی رایگان ۳۰ دقیقه‌ای نیاز است. رزرو جلسه‌ی رایگان: https://syniq-sigma.vercel.app/fa/book",
     "locale": "fa"
   },
   {
     "title": "درباره نازنین پناهی",
-    "content": "نازنین پناهی مشاور هوش مصنوعی B2B است. او به بنیان‌گذاران و مدیران کمک می‌کند هوش مصنوعی را از یک شعار به رشد قابل‌اندازه‌گیری تبدیل کنند. تخصص اصلی: مشاوره استراتژی هوش مصنوعی، اتوماسیون عملیات، بهینه‌سازی فرایندها. سابقه کار با استارتاپ‌های سلامت‌محور، گروه‌های لجستیک و شرکت‌های SaaS.",
+    "content": "نازنین پناهی مشاور هوش مصنوعی و بنیان‌گذار SYNIQ است. او به صاحبان کسب‌وکار، فریلنسرها و استارتاپ‌ها کمک می‌کند تا هم برندشان حرفه‌ای‌تر دیده شود و هم با هوش مصنوعی سریع‌تر و کم‌هزینه‌تر کار کنند. به صورت دوزبانه (فارسی و انگلیسی) با مشتریان داخل و خارج ایران کار می‌کند.",
+    "locale": "fa"
+  },
+  {
+    "title": "ارزش‌های SYNIQ",
+    "content": "نام **S Y N I Q** مخفف ارزش‌های اصلی ماست: S — استراتژی‌محور: هر پیشنهاد با یک نقشه‌ی مشخص شروع می‌شود، نه حدس و آزمون‌وخطا. Y — چشم‌انداز تو: راه‌حل از واقعیت کسب‌وکار تو شروع می‌شود، نه از یک قالب آماده. N — هدایت تغییر: تغییر را به‌جای ترس، به یک مسیر روشن و قابل‌اجرا تبدیل می‌کنیم. I — هوش مصنوعی کاربردی: ابزار درست را سرِ جای درست به کار می‌بریم. Q — رشد قابل‌اندازه‌گیری: هر اقدام باید نتیجه‌ای قابل دیدن و اندازه‌گیری داشته باشد.",
+    "locale": "fa"
+  },
+  {
+    "title": "فرایند کار SYNIQ",
+    "content": "فرآیند کار در ۴ مرحله: ۱. گوش می‌دهیم — اول به چالش واقعی کسب‌وکار گوش می‌دهیم، بعد راه‌حل می‌سازیم. ۲. استراتژی — نقشه‌ی شفاف برند و جایی که هوش مصنوعی بیشترین بازده را دارد. ۳. پیاده‌سازی — اتوماسیون و یکپارچه‌سازی هوش مصنوعی در فرآیندهای روزمره. ۴. رشد — اندازه‌گیری، اصلاح و بزرگ‌تر کردن نتیجه‌ی واقعی.",
+    "locale": "fa"
+  },
+  {
+    "title": "صدای برند و باورهای SYNIQ",
+    "content": "صدای برند: هم‌سطح و صمیمی — کنار کسب‌وکارت می‌نشینیم، نه بالای سرش؛ اول گوش می‌دهیم، بعد پیشنهاد می‌دهیم. عملی و داده‌محور — هر پیشنهاد باید فردا قابل اجرا باشد. صادق و واقع‌بین — وعده‌ای که قابل اندازه‌گیری نباشد، نمی‌دهیم. باورها: هوش مصنوعی تهدید نیست، فرصت است. اول برند، بعد اتوماسیون. نتیجه، نه فقط ابزار.",
+    "locale": "fa"
+  },
+  {
+    "title": "اطلاعات تماس و شبکه‌های اجتماعی SYNIQ",
+    "content": "وب‌سایت: https://syniq-sigma.vercel.app — رزرو مشاوره: https://syniq-sigma.vercel.app/fa/book — لینکدین: @syniq.ai.agancy",
     "locale": "fa"
   }
 ]

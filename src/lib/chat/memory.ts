@@ -52,19 +52,36 @@ export async function getHistory(
   return (data ?? []).reverse() as ChatMessage[];
 }
 
+interface MessageMeta {
+  model_used?: string;
+  tokens_in?: number;
+  tokens_out?: number;
+  retrieved_chunk_ids?: string[];
+}
+
 export async function saveMessage(
   sessionId: string,
   role: "user" | "assistant" | "tool",
   content: string | null,
   toolCalls?: unknown,
-): Promise<void> {
+  meta?: MessageMeta,
+): Promise<string> {
   const db = createAdminClient();
-  const { error } = await db.from("chat_messages").insert({
-    session_id: sessionId,
-    role,
-    content,
-    tool_calls: toolCalls ?? null,
-  });
+  const { data, error } = await db
+    .from("chat_messages")
+    .insert({
+      session_id: sessionId,
+      role,
+      content,
+      tool_calls: toolCalls ?? null,
+      model_used: meta?.model_used ?? null,
+      tokens_in: meta?.tokens_in ?? null,
+      tokens_out: meta?.tokens_out ?? null,
+      retrieved_chunk_ids: meta?.retrieved_chunk_ids ?? null,
+    })
+    .select("id")
+    .single();
 
   if (error) throw new Error(`saveMessage: ${error.message}`);
+  return String(data.id);
 }

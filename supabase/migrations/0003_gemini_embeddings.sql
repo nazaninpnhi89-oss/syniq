@@ -11,8 +11,8 @@ alter table public.chat_embeddings
 -- بازسازی ایندکس با ابعاد جدید
 create index chat_embeddings_vector_idx
   on public.chat_embeddings
-  using ivfflat (embedding vector_cosine_ops)
-  with (lists = 100);
+  using hnsw (embedding vector_cosine_ops)
+  with (m = 16, ef_construction = 64);
 
 -- به‌روزرسانی تابع RPC جستجوی برداری
 create or replace function public.match_documents(

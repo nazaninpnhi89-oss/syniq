@@ -65,7 +65,7 @@
     "kicker": "About me",
     "name": "Nazanin Panahi",
     "role": "AI Consultant · Founder of SYNIQ",
-    "body": "Nazanin helps business owners, freelancers, and startups look more professional as a brand while working faster and more affordably with AI. [Your full bio goes here — your background, milestones, and the results you have delivered for clients. Your photo and résumé will replace this text soon.]",
+    "body": "I help business owners, freelancers, and startups look more professional as a brand while working faster and more affordably with AI. [Your full bio goes here — your background, milestones, and the results you have delivered for clients. Your photo and résumé will replace this text soon.]",
     "valuesTitle": "What I stand for — SYNIQ",
     "values": [
       { "title": "Strategy-led (S)", "desc": "Every proposal starts with a clear map, not guesswork and trial-and-error." },
@@ -193,6 +193,190 @@
     "newChat": "New conversation",
     "poweredBy": "Powered by SYNIQ AI",
     "greeting": "Hello! I'm SYNIQ's AI assistant. How can I help you today? 👋",
-    "close": "Close chat"
+    "close": "Close chat",
+    "feedbackThanks": "Thanks for the feedback!",
+    "sources": "Sources",
+    "helpful": "Helpful",
+    "notHelpful": "Not helpful"
+  },
+  "consultant": {
+    "title": "AI Consultation",
+    "subtitle": "Ask me about AI strategy, brand clarity, or how to start with AI.",
+    "ctaLabel": "Request Consultation",
+    "ctaMessage": "I'd like to book a consultation session to discuss my AI strategy.",
+    "starters": [
+      "What AI tools are right for my business?",
+      "How do I start with AI without a tech background?",
+      "What's the difference between AI strategy and just using ChatGPT?"
+    ]
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "knowledge": "Knowledge Base",
+      "embedding": "Embedding Config",
+      "models": "Model Config",
+      "prompts": "Prompts",
+      "conversations": "Conversations",
+      "handoff": "Handoff Queue",
+      "leads": "Leads",
+      "feedback": "Feedback",
+      "channels": "Channels",
+      "playground": "Playground",
+      "users": "Users",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "totalSessions": "Total Sessions",
+      "totalMessages": "Total Messages",
+      "totalLeads": "Total Leads",
+      "positiveFeedback": "Positive Feedback",
+      "recentConversations": "Recent Conversations",
+      "recentLeads": "Recent Leads"
+    },
+    "knowledge": {
+      "title": "Knowledge Base",
+      "addDocument": "Add Document",
+      "noDocuments": "No documents yet.",
+      "docTitle": "Title",
+      "docContent": "Content",
+      "docType": "Type",
+      "docStatus": "Status",
+      "docTags": "Tags",
+      "sourceUrl": "Source URL",
+      "ingestNow": "Re-embed",
+      "deleteConfirm": "Are you sure you want to delete this document?",
+      "statuses": {
+        "pending": "Pending",
+        "processing": "Processing",
+        "indexed": "Indexed",
+        "failed": "Failed"
+      }
+    },
+    "embedding": {
+      "title": "Embedding Config",
+      "provider": "Provider",
+      "model": "Model",
+      "dimensions": "Dimensions",
+      "chunkSize": "Chunk Size",
+      "chunkOverlap": "Chunk Overlap",
+      "topK": "Top K Results",
+      "similarityThreshold": "Similarity Threshold",
+      "reindexWarning": "Changing provider, model, or dimensions requires a full re-index of all documents.",
+      "saveAndReindex": "Save & Schedule Re-index",
+      "comingSoon": "Coming soon"
+    },
+    "models": {
+      "title": "Model Config",
+      "channel": "Channel",
+      "model": "Model",
+      "temperature": "Temperature",
+      "maxTokens": "Max Tokens",
+      "save": "Save"
+    },
+    "prompts": {
+      "title": "Prompt Versions",
+      "newVersion": "New Version",
+      "activate": "Activate",
+      "active": "Active",
+      "inactive": "Inactive",
+      "templateVars": "Available variables: {{SITE_URL}}, {{BOOK_URL}}, {{KNOWLEDGE}}, {{RAG_CONTEXT}}"
+    },
+    "conversations": {
+      "title": "Conversations",
+      "filterSource": "Filter by source",
+      "filterStatus": "Filter by status",
+      "noConversations": "No conversations found.",
+      "messages": "messages"
+    },
+    "handoff": {
+      "title": "Handoff Queue",
+      "resolve": "Mark Resolved",
+      "noHandoffs": "No active handoffs.",
+      "requestedAt": "Requested at"
+    },
+    "leads": {
+      "title": "Leads",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "source": "Source",
+      "status": "Status",
+      "noLeads": "No leads yet.",
+      "statuses": {
+        "new": "New",
+        "contacted": "Contacted",
+        "qualified": "Qualified",
+        "closed": "Closed"
+      }
+    },
+    "feedback": {
+      "title": "Feedback",
+      "positive": "Positive",
+      "negative": "Negative",
+      "all": "All",
+      "noFeedback": "No feedback yet.",
+      "comment": "Comment"
+    },
+    "channels": {
+      "title": "Channels",
+      "telegram": "Telegram",
+      "widget": "Web Widget",
+      "broadcast": "Broadcast Message",
+      "broadcastSend": "Send to All",
+      "widgetPreview": "Live Preview",
+      "allowedDomains": "Allowed Domains",
+      "position": "Position",
+      "colorPrimary": "Primary Color",
+      "welcomeMessageFa": "Welcome Message (FA)",
+      "welcomeMessageEn": "Welcome Message (EN)"
+    },
+    "playground": {
+      "title": "Playground",
+      "send": "Send",
+      "channel": "Channel",
+      "locale": "Locale",
+      "response": "Response",
+      "sources": "Sources",
+      "model": "Model used",
+      "tokens": "Tokens (in/out)"
+    },
+    "users": {
+      "title": "Users",
+      "auditLog": "Audit Log",
+      "action": "Action",
+      "target": "Target",
+      "at": "At"
+    },
+    "settings": {
+      "title": "Settings",
+      "envVars": "Environment Variables",
+      "danger": "Danger Zone",
+      "purgeData": "Purge old conversations",
+      "purgeConfirm": "This will permanently delete conversations older than 90 days."
+    },
+    "common": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "add": "Add",
+      "search": "Search",
+      "filter": "Filter",
+      "loading": "Loading…",
+      "noData": "No data",
+      "confirm": "Confirm",
+      "back": "Back",
+      "actions": "Actions",
+      "createdAt": "Created",
+      "updatedAt": "Updated",
+      "allSources": "All sources",
+      "allStatuses": "All statuses",
+      "page": "Page",
+      "of": "of",
+      "prev": "Previous",
+      "next": "Next"
+    }
   }
 }

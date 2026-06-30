@@ -57,15 +57,15 @@ export async function POST(req: NextRequest) {
       }
 
       try {
-        if (isNewSession) {
-          send({ type: "session", id: sessionId });
-        }
+        if (isNewSession) send({ type: "session", id: sessionId });
 
-        for await (const token of processMessage(sessionId, message, locale)) {
-          if (token === "​") {
-            send({ type: "status", message: "thinking" });
-          } else {
-            send({ type: "token", content: token });
+        for await (const token of processMessage(sessionId, message, locale, source)) {
+          if (token.type === "token") {
+            send({ type: "token", content: token.content });
+          } else if (token.type === "message_id") {
+            send({ type: "message_id", id: token.id });
+          } else if (token.type === "sources") {
+            send({ type: "sources", chunks: token.chunks });
           }
         }
 

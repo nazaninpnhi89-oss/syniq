@@ -26,8 +26,8 @@ create table if not exists public.chat_embeddings (
 
 create index if not exists chat_embeddings_vector_idx
   on public.chat_embeddings
-  using ivfflat (embedding vector_cosine_ops)
-  with (lists = 100);
+  using hnsw (embedding vector_cosine_ops)
+  with (m = 16, ef_construction = 64);
 
 -- ---------- chat_sessions ----------
 create table if not exists public.chat_sessions (

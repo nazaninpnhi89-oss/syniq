@@ -1,0 +1,72 @@
+import { redirect } from "next/navigation";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { createClient, createAdminClient } from "@/lib/supabase/server";
+import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { AdminHeader } from "@/components/admin/AdminHeader";
+
+export default async function AdminLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  // Auth guard
+  const sb = await createClient();
+  const {
+    data: { user },
+  } = await sb.auth.getUser();
+  if (!user) redirect(`/${locale}/login?next=/${locale}/admin`);
+
+  const { data: profile } = await sb
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (profile?.role !== "admin") redirect(`/${locale}`);
+
+  // Fetch email for header
+  const admin = createAdminClient();
+  const { data: profileData } = await admin
+    .from("profiles")
+    .select("email, full_name")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  const t = await getTranslations({ locale, namespace: "admin.nav" });
+  const navLabels: Record<string, string> = {
+    dashboard: t("dashboard"),
+    knowledge: t("knowledge"),
+    embedding: t("embedding"),
+    models: t("models"),
+    prompts: t("prompts"),
+    conversations: t("conversations"),
+    handoff: t("handoff"),
+    leads: t("leads"),
+    feedback: t("feedback"),
+    channels: t("channels"),
+    playground: t("playground"),
+    users: t("users"),
+    settings: t("settings"),
+  };
+
+  return (
+    <div
+      className="flex min-h-screen bg-bg text-fg font-sans"
+      dir={locale === "fa" ? "rtl" : "ltr"}
+    >
+      <AdminSidebar locale={locale} t={navLabels} />
+      <div className="flex-1 flex flex-col min-w-0">
+        <AdminHeader
+          email={profileData?.email ?? user.email ?? ""}
+          locale={locale}
+          navLabels={navLabels}
+        />
+        <main className="flex-1 overflow-auto p-6">{children}</main>
+      </div>
+    </div>
+  );
+}

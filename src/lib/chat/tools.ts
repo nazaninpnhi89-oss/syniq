@@ -1,8 +1,8 @@
-import type Groq from "groq-sdk";
+import type OpenAI from "openai";
 import { createAdminClient } from "@/lib/supabase/server";
 import type { CustomerStatusResult, LeadInput } from "./types";
 
-export const toolDefinitions: Groq.Chat.ChatCompletionTool[] = [
+export const toolDefinitions: OpenAI.Chat.ChatCompletionTool[] = [
   {
     type: "function",
     function: {

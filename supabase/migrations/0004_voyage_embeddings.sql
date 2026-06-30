@@ -9,8 +9,8 @@ alter table public.chat_embeddings
 
 create index chat_embeddings_vector_idx
   on public.chat_embeddings
-  using ivfflat (embedding vector_cosine_ops)
-  with (lists = 100);
+  using hnsw (embedding vector_cosine_ops)
+  with (m = 16, ef_construction = 64);
 
 create or replace function public.match_documents(
   query_embedding vector(1024),
