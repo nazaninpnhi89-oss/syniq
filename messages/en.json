@@ -45,18 +45,24 @@
   "services": {
     "kicker": "Services",
     "title": "Where to start",
-    "subtitle": "Two services, one goal: make your business smarter with AI.",
+    "subtitle": "Three services, one goal: make your business smarter, more visible, and more efficient.",
     "items": {
       "consult": {
         "title": "AI Strategy Consultation",
         "desc": "A focused one-to-one session where I listen to your real business challenge and we map where AI delivers the highest ROI — with a clear next step you can start tomorrow.",
-        "meta": "Private session · Online",
-        "cta": "Book & pay"
+        "meta": "Free · 30-min online session",
+        "cta": "Book a free 30-min call"
       },
       "chatbot": {
         "title": "Personalize Your Chatbot",
         "desc": "I design and build a custom AI chatbot for your business — trained on your content, aligned with your brand, and built to automate your team's most repetitive tasks. To get started, we'll need a 30-minute call to understand your business and find the best solution.",
-        "meta": "Custom project · Online",
+        "meta": "Free · 30-min discovery call",
+        "cta": "Book a free 30-min call"
+      },
+      "webdesign": {
+        "title": "Professional Website Design",
+        "desc": "I design and build clean, modern websites tailored to your brand — fast, mobile-friendly, and built to convert visitors into clients. We start with a free 30-minute call to understand your goals and vision.",
+        "meta": "Free · 30-min discovery call",
         "cta": "Book a free 30-min call"
       }
     }
@@ -65,7 +71,7 @@
     "kicker": "About me",
     "name": "Nazanin Panahi",
     "role": "AI Consultant · Founder of SYNIQ",
-    "body": "I help business owners, freelancers, and startups look more professional as a brand while working faster and more affordably with AI. [Your full bio goes here — your background, milestones, and the results you have delivered for clients. Your photo and résumé will replace this text soon.]",
+    "body": "I'm an AI consultant with a background in construction project management and five years of experience working on complex construction projects. That experience gave me firsthand insight into the challenges businesses face every day — managing client relationships, responding quickly to enquiries, staying organised, and keeping up with rapidly changing technology.\n\nI founded my AI consultancy to help business owners, freelancers, and startups use practical AI solutions to save time, improve customer experience, and operate more efficiently. From AI-powered customer support and content creation to workflow automation and branding, I help businesses look more professional while working smarter and more affordably.\n\nMy approach combines real-world business understanding with modern AI tools, ensuring that technology solves genuine business problems rather than adding complexity.",
     "valuesTitle": "What I stand for — SYNIQ",
     "values": [
       { "title": "Strategy-led (S)", "desc": "Every proposal starts with a clear map, not guesswork and trial-and-error." },

@@ -43,9 +43,11 @@ export function About() {
                 {t("name")}
               </h2>
               <p className="mt-2 text-brand-light">{t("role")}</p>
-              <p className="mt-6 max-w-2xl leading-relaxed text-muted">
-                {t("body")}
-              </p>
+              <div className="mt-6 max-w-2xl space-y-4">
+                {t("body").split("\n\n").map((para, i) => (
+                  <p key={i} className="leading-relaxed text-muted">{para}</p>
+                ))}
+              </div>
             </Reveal>
 
             <Reveal delay={0.1}>

@@ -77,7 +77,7 @@ export function AuthForm({
         {mode === "login" ? t("noAccount") : t("haveAccount")}{" "}
         <Link
           href={mode === "login" ? "/signup" : "/login"}
-          className="font-medium text-brand-light hover:underline"
+          className="font-medium text-brand-light"
         >
           {mode === "login" ? t("goSignup") : t("goLogin")}
         </Link>
