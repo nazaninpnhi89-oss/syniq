@@ -3,6 +3,7 @@ import { Vazirmatn } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { ChatBubble } from "@/components/chat/chat-bubble";
 import "../globals.css";
@@ -62,6 +63,12 @@ export default async function LocaleLayout({
           {children}
           <ChatBubble />
         </NextIntlClientProvider>
+        <elevenlabs-convai agent-id="agent_6401kwkknx3wft6az1nr7dnv32m0" />
+        <Script
+          src="https://unpkg.com/@elevenlabs/convai-widget-embed"
+          strategy="afterInteractive"
+          async
+        />
       </body>
     </html>
   );
