@@ -63,7 +63,7 @@ export default async function LocaleLayout({
           {children}
           <ChatBubble />
         </NextIntlClientProvider>
-        <elevenlabs-convai agent-id="agent_6401kwkknx3wft6az1nr7dnv32m0" />
+        <elevenlabs-convai agent-id="agent_0501kwpgjqxbf3xvj6fa4xtp5mn6" />
         <Script
           src="https://unpkg.com/@elevenlabs/convai-widget-embed"
           strategy="afterInteractive"
