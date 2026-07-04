@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { ChatBubble } from "@/components/chat/chat-bubble";
+import { VoiceButton } from "@/components/voice/voice-button";
 import "../globals.css";
 
 // تنها فونتِ سایت: Vazirmatn (هم فارسی، هم لاتین) — مطابق برند گاید
@@ -62,8 +63,13 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           {children}
           <ChatBubble />
+          <VoiceButton />
         </NextIntlClientProvider>
-        <elevenlabs-convai agent-id="agent_0501kwpgjqxbf3xvj6fa4xtp5mn6" />
+        {/* Default ElevenLabs UI is hidden; VoiceButton drives it via its JS API */}
+        <elevenlabs-convai
+          agent-id="agent_0501kwpgjqxbf3xvj6fa4xtp5mn6"
+          style={{ display: "none" }}
+        />
         <Script
           src="https://unpkg.com/@elevenlabs/convai-widget-embed"
           strategy="afterInteractive"
