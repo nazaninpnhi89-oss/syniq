@@ -73,6 +73,7 @@ export default async function LocaleLayout({
         <elevenlabs-convai
           agent-id="agent_0501kwpgjqxbf3xvj6fa4xtp5mn6"
           variant="compact"
+          avatar-image-url="/voice-call-icon.svg"
           avatar-orb-color-1="#1F7BB5"
           avatar-orb-color-2="#1F7BB5"
           action-text=""
