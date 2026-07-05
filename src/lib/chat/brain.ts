@@ -37,7 +37,7 @@ KNOWLEDGE BASE:
 {{RAG_CONTEXT}}`;
 
 function buildSystem(ragContext: string, locale: Locale, template: string): string {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://syniq-sigma.vercel.app";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://syniq.ai";
   const bookUrl = `${siteUrl}/${locale}/book`;
   const knowledge = loadKnowledge(locale);
   const ragSection = ragContext ? `ADDITIONAL RAG CONTEXT:\n${ragContext}` : "";
