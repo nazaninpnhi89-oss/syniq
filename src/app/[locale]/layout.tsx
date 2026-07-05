@@ -6,7 +6,6 @@ import { setRequestLocale } from "next-intl/server";
 import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { ChatBubble } from "@/components/chat/chat-bubble";
-import { VoiceButton } from "@/components/voice/voice-button";
 import "../globals.css";
 
 // تنها فونتِ سایت: Vazirmatn (هم فارسی، هم لاتین) — مطابق برند گاید
@@ -63,26 +62,29 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           {children}
           <ChatBubble />
-          <VoiceButton />
         </NextIntlClientProvider>
         {/*
-          Default ElevenLabs UI is visually hidden; VoiceButton drives it via
-          its JS API. Kept rendered (not display:none) because the widget
-          appears to skip mic requests when it considers itself invisible.
+          The widget has no public JS API to start a call directly (verified
+          by reading its actual bundle) — it only works through its own UI:
+          tap to expand, then tap "Start a call". So we show the real widget
+          (styled to be as compact/circular as its attributes allow) instead
+          of faking a single custom button, to keep the call flow reliable.
         */}
         <elevenlabs-convai
           agent-id="agent_0501kwpgjqxbf3xvj6fa4xtp5mn6"
+          variant="compact"
+          avatar-orb-color-1="#1F7BB5"
+          avatar-orb-color-2="#1F7BB5"
+          action-text=""
+          disable-banner="true"
+          start-call-text={dir === "rtl" ? "شروع تماس" : "Start call"}
+          end-call-text={dir === "rtl" ? "پایان تماس" : "End call"}
           style={{
             position: "fixed",
-            bottom: 0,
-            right: 0,
-            width: 1,
-            height: 1,
-            opacity: 0,
-            pointerEvents: "none",
-            overflow: "hidden",
+            bottom: "6rem",
+            [dir === "rtl" ? "left" : "right"]: "1.5rem",
+            zIndex: 50,
           }}
-          aria-hidden="true"
         />
         <Script
           src="https://unpkg.com/@elevenlabs/convai-widget-embed"
