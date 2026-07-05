@@ -65,26 +65,29 @@ export default async function LocaleLayout({
         </NextIntlClientProvider>
         {/*
           The widget has no public JS API to start a call directly (verified
-          by reading its actual bundle) — it only works through its own UI:
-          tap to expand, then tap "Start a call". So we show the real widget
-          (styled to be as compact/circular as its attributes allow) instead
-          of faking a single custom button, to keep the call flow reliable.
+          by reading its actual bundle) — it only works through its own UI,
+          so we render the real widget rather than faking a button, to keep
+          the call flow reliable. variant="tiny" gives a bare icon button;
+          the built-in agent-avatar slot next to it is made transparent
+          (avatar-image-url) and its wrapper background too (--el-base) so
+          only the phone-icon call button is visible, matching ChatBubble.
         */}
         <elevenlabs-convai
           agent-id="agent_0501kwpgjqxbf3xvj6fa4xtp5mn6"
-          variant="compact"
-          avatar-image-url="/voice-call-icon.svg"
-          avatar-orb-color-1="#1F7BB5"
-          avatar-orb-color-2="#1F7BB5"
-          action-text=""
-          disable-banner="true"
-          start-call-text={dir === "rtl" ? "شروع تماس" : "Start call"}
-          end-call-text={dir === "rtl" ? "پایان تماس" : "End call"}
+          variant="tiny"
+          avatar-image-url="/voice-call-icon-transparent.svg"
+          text-input="false"
           style={{
             position: "fixed",
             bottom: "6rem",
             [dir === "rtl" ? "left" : "right"]: "1.5rem",
             zIndex: 50,
+            // @ts-expect-error -- CSS custom property recognized by the widget's shadow DOM
+            "--el-accent": "#1f7bb5",
+            "--el-accent-hover": "#3db2ec",
+            "--el-accent-active": "#1a4d72",
+            "--el-base": "transparent",
+            "--el-base-border": "transparent",
           }}
         />
         <Script
