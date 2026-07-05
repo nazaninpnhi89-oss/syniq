@@ -65,10 +65,24 @@ export default async function LocaleLayout({
           <ChatBubble />
           <VoiceButton />
         </NextIntlClientProvider>
-        {/* Default ElevenLabs UI is hidden; VoiceButton drives it via its JS API */}
+        {/*
+          Default ElevenLabs UI is visually hidden; VoiceButton drives it via
+          its JS API. Kept rendered (not display:none) because the widget
+          appears to skip mic requests when it considers itself invisible.
+        */}
         <elevenlabs-convai
           agent-id="agent_0501kwpgjqxbf3xvj6fa4xtp5mn6"
-          style={{ display: "none" }}
+          style={{
+            position: "fixed",
+            bottom: 0,
+            right: 0,
+            width: 1,
+            height: 1,
+            opacity: 0,
+            pointerEvents: "none",
+            overflow: "hidden",
+          }}
+          aria-hidden="true"
         />
         <Script
           src="https://unpkg.com/@elevenlabs/convai-widget-embed"

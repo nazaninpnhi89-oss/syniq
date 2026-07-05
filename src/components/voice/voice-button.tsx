@@ -32,11 +32,35 @@ export function VoiceButton() {
   const toggle = async () => {
     setError(null);
 
+    if (inCall) {
+      const widget = document.querySelector("elevenlabs-convai") as ConvaiElement | null;
+      await widget?.endConversation?.();
+      return;
+    }
+
     if (!navigator.mediaDevices?.getUserMedia) {
       setError(
         isRtl
           ? "این مرورگر داخلی (مثلاً تلگرام) اجازه دسترسی به میکروفون را نمی‌دهد. لینک را در Safari یا Chrome باز کنید."
           : "This in-app browser (e.g. Telegram) doesn't allow microphone access. Open the link in Safari or Chrome instead.",
+      );
+      return;
+    }
+
+    // Request mic access ourselves first, as close to the click as possible.
+    // This surfaces the *real* browser error (denied / no device / blocked
+    // by an in-app browser) instead of relying on the widget's own handling,
+    // which can swallow the failure and leave the button doing nothing.
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach((t) => t.stop());
+    } catch (err) {
+      const name = err instanceof Error ? err.name : "UnknownError";
+      setError(
+        (isRtl
+          ? "دسترسی به میکروفون رد شد. اگر از داخل تلگرام باز کردی، لینک را در Safari یا Chrome باز کن."
+          : "Microphone access was denied. If you opened this from Telegram, open the link in Safari or Chrome instead.") +
+          ` (${name})`,
       );
       return;
     }
@@ -57,16 +81,11 @@ export function VoiceButton() {
     }
 
     try {
-      if (inCall) {
-        await widget.endConversation?.();
-      } else {
-        await widget.startConversation?.();
-      }
-    } catch {
+      await widget.startConversation?.();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
       setError(
-        isRtl
-          ? "دسترسی به میکروفون رد شد. اگر از داخل تلگرام باز کردی، لینک را در Safari یا Chrome باز کن."
-          : "Microphone access was denied. If you opened this from Telegram, open the link in Safari or Chrome instead.",
+        (isRtl ? "شروع تماس با خطا مواجه شد: " : "Failed to start the call: ") + message,
       );
     }
   };
