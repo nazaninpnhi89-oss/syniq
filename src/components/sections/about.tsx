@@ -21,10 +21,10 @@ export function About() {
                 <div className="h-48 w-48 rounded-full bg-brand-light/10 blur-3xl" />
               </div>
               <Image
-                src="/logo.jpg"
+                src="/about-photo.png"
                 alt={t("name")}
-                width={1280}
-                height={698}
+                width={843}
+                height={1227}
                 className="h-auto w-full"
               />
             </div>
