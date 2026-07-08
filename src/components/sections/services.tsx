@@ -1,11 +1,11 @@
 import { useTranslations } from "next-intl";
-import { ArrowUpRight, BrainCircuit, Bot, Monitor } from "lucide-react";
+import { ArrowUpRight, BrainCircuit, Bot, Monitor, Mic } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Container, SectionHeading } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 
-const icons = [BrainCircuit, Bot, Monitor] as const;
+const icons = [BrainCircuit, Bot, Monitor, Mic] as const;
 
 export function Services() {
   const t = useTranslations("services");
@@ -18,8 +18,8 @@ export function Services() {
           <p className="mt-4 max-w-2xl text-muted">{t("subtitle")}</p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {(["consult", "chatbot", "webdesign"] as const).map((key, i) => {
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          {(["consult", "chatbot", "webdesign", "voiceagent"] as const).map((key, i) => {
             const Icon = icons[i];
             return (
               <Reveal key={key} delay={i * 0.05}>

@@ -45,7 +45,7 @@
   "services": {
     "kicker": "Services",
     "title": "Where to start",
-    "subtitle": "Three services, one goal: make your business smarter, more visible, and more efficient.",
+    "subtitle": "Four services, one goal: make your business smarter, more visible, and more efficient.",
     "items": {
       "consult": {
         "title": "AI Strategy Consultation",
@@ -62,6 +62,12 @@
       "webdesign": {
         "title": "Professional Website Design",
         "desc": "I design and build clean, modern websites tailored to your brand, fast, mobile-friendly, and built to convert visitors into clients. We start with a free 30-minute call to understand your goals and vision.",
+        "meta": "Free · 30-min discovery call",
+        "cta": "Book a free 30-min call"
+      },
+      "voiceagent": {
+        "title": "AI Voice Agent",
+        "desc": "I build a custom AI voice agent for your business that answers calls, qualifies leads, and books appointments in a natural conversational voice, trained on your business and integrated with your existing tools. We start with a free 30-minute call to scope the right setup.",
         "meta": "Free · 30-min discovery call",
         "cta": "Book a free 30-min call"
       }
