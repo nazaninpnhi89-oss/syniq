@@ -7,6 +7,7 @@
   },
   "nav": {
     "services": "خدمات",
+    "funnelyze": "ارزیاب رایگان",
     "about": "درباره من",
     "process": "فرایند",
     "contact": "تماس",
@@ -196,6 +197,10 @@
     "langToggle": "EN",
     "loading": "در حال بارگذاری…",
     "comingSoon": "به‌زودی"
+  },
+  "funnelyze": {
+    "title": "ارزیاب قیف فروش",
+    "close": "بستن"
   },
   "chat": {
     "title": "دستیار هوش مصنوعی",

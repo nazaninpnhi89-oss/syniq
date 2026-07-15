@@ -7,6 +7,7 @@ import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { ChatBubble } from "@/components/chat/chat-bubble";
 import { VoiceButton } from "@/components/voice/voice-button";
+import { FunnelyzePanel } from "@/components/funnelyze/funnelyze-panel";
 import "../globals.css";
 
 // تنها فونتِ سایت: Vazirmatn (هم فارسی، هم لاتین) — مطابق برند گاید
@@ -64,6 +65,7 @@ export default async function LocaleLayout({
           {children}
           <ChatBubble />
           <VoiceButton dir={dir} />
+          <FunnelyzePanel />
         </NextIntlClientProvider>
         <Script
           src="https://unpkg.com/@elevenlabs/convai-widget-embed"

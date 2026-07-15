@@ -9,6 +9,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { LocaleSwitcher } from "./locale-switcher";
 import { cn } from "@/lib/utils";
+import { toggleFunnelyzePanel } from "@/lib/funnelyze-panel";
 
 export function Header() {
   const t = useTranslations("nav");
@@ -61,6 +62,15 @@ export function Header() {
         {/* دسکتاپ */}
         <div className="hidden items-center gap-8 md:flex">
           <ul className="flex items-center gap-7 text-sm text-fg/80">
+            <li>
+              <button
+                type="button"
+                onClick={toggleFunnelyzePanel}
+                className="transition-colors hover:text-fg"
+              >
+                {t("funnelyze")}
+              </button>
+            </li>
             {links.map((l) => (
               <li key={l.href}>
                 <Link
@@ -116,6 +126,16 @@ export function Header() {
       {open ? (
         <div className="border-t border-line/70 bg-bg/95 backdrop-blur-xl md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-4 sm:px-8">
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                toggleFunnelyzePanel();
+              }}
+              className="rounded-xl px-3 py-3 text-start text-fg/85 hover:bg-surface"
+            >
+              {t("funnelyze")}
+            </button>
             {links.map((l) => (
               <Link
                 key={l.href}
