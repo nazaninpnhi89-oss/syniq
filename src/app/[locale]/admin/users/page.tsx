@@ -4,6 +4,7 @@ import { createClient, createAdminClient } from "@/lib/supabase/server";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { UserManageControls } from "@/components/admin/UserManageControls";
 import { roleAtLeast, type AdminRole } from "@/lib/admin/roles";
+import { DEMO_MODE, demoUserId } from "@/lib/admin/demo-mode";
 
 export default async function UsersPage({
   params,
@@ -13,17 +14,24 @@ export default async function UsersPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const sb = await createClient();
-  const {
-    data: { user },
-  } = await sb.auth.getUser();
-  if (!user) redirect(`/${locale}/login?next=/${locale}/admin/users`);
-
   const db = createAdminClient();
+  let currentUserId: string;
+
+  if (DEMO_MODE && demoUserId()) {
+    currentUserId = demoUserId()!;
+  } else {
+    const sb = await createClient();
+    const {
+      data: { user },
+    } = await sb.auth.getUser();
+    if (!user) redirect(`/${locale}/login?next=/${locale}/admin/users`);
+    currentUserId = user.id;
+  }
+
   const { data: me } = await db
     .from("profiles")
     .select("role")
-    .eq("id", user.id)
+    .eq("id", currentUserId)
     .maybeSingle();
   if (!roleAtLeast(me?.role, "admin")) redirect(`/${locale}/admin`);
   const myRole = me!.role as AdminRole;

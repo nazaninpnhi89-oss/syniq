@@ -5,6 +5,7 @@ import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { AdminRoleProvider } from "@/lib/admin/role-context";
 import { type AdminRole, roleAtLeast } from "@/lib/admin/roles";
+import { DEMO_MODE, demoUserId } from "@/lib/admin/demo-mode";
 
 export default async function AdminLayout({
   children,
@@ -16,29 +17,51 @@ export default async function AdminLayout({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  // Auth guard
-  const sb = await createClient();
-  const {
-    data: { user },
-  } = await sb.auth.getUser();
-  if (!user) redirect(`/${locale}/login?next=/${locale}/admin`);
-
-  const { data: profile } = await sb
-    .from("profiles")
-    .select("role, is_active")
-    .eq("id", user.id)
-    .maybeSingle();
-  if (profile?.is_active === false || !roleAtLeast(profile?.role, "viewer")) {
-    redirect(`/${locale}`);
-  }
-  const role = profile!.role as AdminRole;
-
-  // Fetch email for header
   const admin = createAdminClient();
+
+  // Classroom-demo bypass: skip the login requirement entirely when
+  // ADMIN_DEMO_MODE is on, acting as the configured demo account.
+  let userId: string;
+  let userEmail: string | null;
+  let role: AdminRole;
+
+  if (DEMO_MODE && demoUserId()) {
+    const { data: profile } = await admin
+      .from("profiles")
+      .select("role, is_active, email")
+      .eq("id", demoUserId()!)
+      .maybeSingle();
+    if (!profile || profile.is_active === false || !roleAtLeast(profile.role, "viewer")) {
+      redirect(`/${locale}/login?next=/${locale}/admin`);
+    }
+    userId = demoUserId()!;
+    userEmail = profile!.email;
+    role = profile!.role as AdminRole;
+  } else {
+    const sb = await createClient();
+    const {
+      data: { user },
+    } = await sb.auth.getUser();
+    if (!user) redirect(`/${locale}/login?next=/${locale}/admin`);
+
+    const { data: profile } = await sb
+      .from("profiles")
+      .select("role, is_active")
+      .eq("id", user.id)
+      .maybeSingle();
+    if (profile?.is_active === false || !roleAtLeast(profile?.role, "viewer")) {
+      redirect(`/${locale}`);
+    }
+    userId = user.id;
+    userEmail = user.email ?? null;
+    role = profile!.role as AdminRole;
+  }
+
+  // Fetch email/name for header
   const { data: profileData } = await admin
     .from("profiles")
     .select("email, full_name")
-    .eq("id", user.id)
+    .eq("id", userId)
     .maybeSingle();
 
   const t = await getTranslations({ locale, namespace: "admin.nav" });
@@ -78,7 +101,7 @@ export default async function AdminLayout({
         <AdminSidebar locale={locale} t={navLabels} role={role} />
         <div className="flex-1 flex flex-col min-w-0">
           <AdminHeader
-            email={profileData?.email ?? user.email ?? ""}
+            email={profileData?.email ?? userEmail ?? ""}
             locale={locale}
             navLabels={navLabels}
           />
