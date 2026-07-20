@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { StatusBadge } from "@/components/admin/StatusBadge";
+import { formatDate } from "@/lib/format";
 
 interface Session {
   id: string;
@@ -16,6 +18,10 @@ const SOURCES = ["all", "web", "widget", "telegram"];
 const STATUSES = ["all", "active", "closed", "handed_off"];
 
 export default function ConversationsPage() {
+  const locale = useLocale();
+  const t = useTranslations("admin.conversations");
+  const tCommon = useTranslations("admin.common");
+
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
   const [source, setSource] = useState("all");
@@ -35,9 +41,6 @@ export default function ConversationsPage() {
 
   useEffect(() => { load(); }, [load]);
 
-  const fmt = (d: string) =>
-    new Date(d).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" });
-
   return (
     <div className="max-w-5xl mx-auto space-y-5">
       {/* Filters */}
@@ -48,7 +51,7 @@ export default function ConversationsPage() {
           className="bg-surface border border-line rounded-xl px-3 py-2 text-sm text-fg focus:outline-none focus:border-brand"
         >
           {SOURCES.map((s) => (
-            <option key={s} value={s}>{s === "all" ? "All sources" : s}</option>
+            <option key={s} value={s}>{s === "all" ? tCommon("allSources") : s}</option>
           ))}
         </select>
         <select
@@ -57,23 +60,23 @@ export default function ConversationsPage() {
           className="bg-surface border border-line rounded-xl px-3 py-2 text-sm text-fg focus:outline-none focus:border-brand"
         >
           {STATUSES.map((s) => (
-            <option key={s} value={s}>{s === "all" ? "All statuses" : s}</option>
+            <option key={s} value={s}>{s === "all" ? tCommon("allStatuses") : s}</option>
           ))}
         </select>
       </div>
 
       <div className="bg-surface border border-line rounded-2xl overflow-hidden">
         {loading ? (
-          <p className="px-4 py-8 text-center text-muted text-sm">Loading…</p>
+          <p className="px-4 py-8 text-center text-muted text-sm">{tCommon("loading")}</p>
         ) : (
           <table className="w-full text-sm">
             <thead className="border-b border-line">
               <tr className="text-muted text-xs">
-                <th className="px-4 py-3 text-start font-medium">Session ID</th>
-                <th className="px-4 py-3 text-start font-medium">Source</th>
-                <th className="px-4 py-3 text-start font-medium">Locale</th>
-                <th className="px-4 py-3 text-start font-medium">Status</th>
-                <th className="px-4 py-3 text-start font-medium">Created</th>
+                <th className="px-4 py-3 text-start font-medium">{t("sessionId")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("source")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("locale")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("status")}</th>
+                <th className="px-4 py-3 text-start font-medium">{tCommon("createdAt")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -83,12 +86,14 @@ export default function ConversationsPage() {
                   <td className="px-4 py-3">{s.source}</td>
                   <td className="px-4 py-3">{s.locale}</td>
                   <td className="px-4 py-3"><StatusBadge status={s.status ?? "active"} /></td>
-                  <td className="px-4 py-3 text-xs text-muted">{fmt(s.created_at)}</td>
+                  <td className="px-4 py-3 text-xs text-muted">
+                    {formatDate(locale, s.created_at)}
+                  </td>
                 </tr>
               ))}
               {sessions.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-muted">No conversations found.</td>
+                  <td colSpan={5} className="px-4 py-8 text-center text-muted">{t("noConversations")}</td>
                 </tr>
               )}
             </tbody>
@@ -98,21 +103,21 @@ export default function ConversationsPage() {
 
       {/* Pagination */}
       <div className="flex items-center justify-between text-sm text-muted">
-        <span>Page {page + 1}</span>
+        <span>{tCommon("page")} {page + 1}</span>
         <div className="flex gap-2">
           <button
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={page === 0}
             className="px-3 py-1.5 rounded-lg border border-line hover:border-brand/40 disabled:opacity-40 transition-colors"
           >
-            Previous
+            {tCommon("prev")}
           </button>
           <button
             onClick={() => setPage((p) => p + 1)}
             disabled={sessions.length < PAGE_SIZE}
             className="px-3 py-1.5 rounded-lg border border-line hover:border-brand/40 disabled:opacity-40 transition-colors"
           >
-            Next
+            {tCommon("next")}
           </button>
         </div>
       </div>

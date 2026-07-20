@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface ChannelConfig {
   channel: string;
@@ -24,6 +25,8 @@ const OPENROUTER_MODELS = [
 const CHANNELS = ["default", "web", "widget", "telegram"];
 
 export default function ModelsPage() {
+  const t = useTranslations("admin.models");
+  const tCommon = useTranslations("admin.common");
   const [configs, setConfigs] = useState<Record<string, ChannelConfig>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
@@ -68,11 +71,11 @@ export default function ModelsPage() {
     setTimeout(() => setSaved(null), 2000);
   }
 
-  if (loading) return <p className="text-muted text-sm">Loading…</p>;
+  if (loading) return <p className="text-muted text-sm">{tCommon("loading")}</p>;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <h2 className="text-sm font-semibold text-fg">Model Config</h2>
+      <h2 className="text-sm font-semibold text-fg">{t("title")}</h2>
       <div className="grid gap-5">
         {CHANNELS.map((ch) => {
           const cfg = configs[ch];
@@ -80,17 +83,17 @@ export default function ModelsPage() {
           return (
             <div key={ch} className="bg-surface border border-line rounded-2xl p-5 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-fg capitalize">{ch} channel</h3>
+                <h3 className="text-sm font-medium text-fg capitalize">{ch} {t("channelSuffix")}</h3>
                 {ch === "default" && (
                   <span className="text-[10px] text-muted border border-line rounded-full px-2 py-0.5">
-                    Fallback for unspecified channels
+                    {t("fallbackHint")}
                   </span>
                 )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs text-muted mb-1">Model</label>
+                  <label className="block text-xs text-muted mb-1">{t("model")}</label>
                   <select
                     value={cfg.active_model}
                     onChange={(e) => update(ch, "active_model", e.target.value)}
@@ -103,7 +106,7 @@ export default function ModelsPage() {
                 </div>
                 <div>
                   <label className="block text-xs text-muted mb-1">
-                    Temperature: <span className="text-fg">{cfg.temperature}</span>
+                    {t("temperature")}: <span className="text-fg">{cfg.temperature}</span>
                   </label>
                   <input
                     type="range"
@@ -116,7 +119,7 @@ export default function ModelsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-muted mb-1">Max Tokens</label>
+                  <label className="block text-xs text-muted mb-1">{t("maxTokens")}</label>
                   <input
                     type="number"
                     value={cfg.max_tokens}
@@ -134,7 +137,7 @@ export default function ModelsPage() {
                 disabled={saving === ch}
                 className="px-4 py-2 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors disabled:opacity-50"
               >
-                {saving === ch ? "Saving…" : saved === ch ? "Saved!" : "Save"}
+                {saving === ch ? t("saving") : saved === ch ? t("saved") : t("save")}
               </button>
             </div>
           );

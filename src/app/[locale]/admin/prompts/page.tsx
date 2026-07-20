@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { formatDate } from "@/lib/format";
 
 interface PromptVersion {
   id: string;
@@ -11,6 +13,10 @@ interface PromptVersion {
 }
 
 export default function PromptsPage() {
+  const locale = useLocale();
+  const t = useTranslations("admin.prompts");
+  const tCommon = useTranslations("admin.common");
+
   const [versions, setVersions] = useState<PromptVersion[]>([]);
   const [loading, setLoading] = useState(true);
   const [activating, setActivating] = useState<string | null>(null);
@@ -51,47 +57,44 @@ export default function PromptsPage() {
     load();
   }
 
-  const fmt = (d: string) =>
-    new Date(d).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" });
-
   const selectedVersion = versions.find((v) => v.id === selectedId);
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-fg">Prompt Versions</h2>
+        <h2 className="text-sm font-semibold text-fg">{t("title")}</h2>
         <button
           onClick={() => setShowNew(true)}
           className="px-4 py-2 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors"
         >
-          + New Version
+          + {t("newVersion")}
         </button>
       </div>
 
       <div className="text-xs text-muted bg-surface border border-line rounded-xl px-4 py-3">
-        Template variables: <code className="text-brand">{"{{SITE_URL}}"}</code>, <code className="text-brand">{"{{BOOK_URL}}"}</code>, <code className="text-brand">{"{{KNOWLEDGE}}"}</code>, <code className="text-brand">{"{{RAG_CONTEXT}}"}</code>
+        {t("templateVars")}
       </div>
 
       {showNew && (
         <div className="bg-surface border border-line rounded-2xl p-5 space-y-4">
-          <h3 className="text-sm font-semibold text-fg">New Prompt Version</h3>
+          <h3 className="text-sm font-semibold text-fg">{t("newVersionTitle")}</h3>
           <div>
-            <label className="block text-xs text-muted mb-1">Persona (optional)</label>
+            <label className="block text-xs text-muted mb-1">{t("persona")}</label>
             <input
               value={newPersona}
               onChange={(e) => setNewPersona(e.target.value)}
               className="w-full bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand"
-              placeholder="e.g. formal, friendly, concise"
+              placeholder={t("personaPlaceholder")}
             />
           </div>
           <div>
-            <label className="block text-xs text-muted mb-1">System Prompt Content *</label>
+            <label className="block text-xs text-muted mb-1">{t("contentLabel")}</label>
             <textarea
               value={newContent}
               onChange={(e) => setNewContent(e.target.value)}
               rows={12}
               className="w-full bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand resize-none font-mono"
-              placeholder="You are SYNIQ's AI assistant…"
+              placeholder={t("contentPlaceholder")}
             />
           </div>
           <div className="flex gap-3 justify-end">
@@ -99,14 +102,14 @@ export default function PromptsPage() {
               onClick={() => setShowNew(false)}
               className="px-4 py-2 rounded-xl text-sm text-muted hover:text-fg hover:bg-surface-2 transition-colors"
             >
-              Cancel
+              {tCommon("cancel")}
             </button>
             <button
               onClick={create}
               disabled={creating || !newContent.trim()}
               className="px-4 py-2 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors disabled:opacity-50"
             >
-              {creating ? "Creating…" : "Create (Inactive)"}
+              {creating ? t("creating") : t("createInactive")}
             </button>
           </div>
         </div>
@@ -116,7 +119,7 @@ export default function PromptsPage() {
         {/* Version list */}
         <div className="w-64 shrink-0 space-y-2">
           {loading ? (
-            <p className="text-sm text-muted">Loading…</p>
+            <p className="text-sm text-muted">{tCommon("loading")}</p>
           ) : (
             versions.map((v) => (
               <button
@@ -132,11 +135,13 @@ export default function PromptsPage() {
                   <span className="text-xs font-mono text-muted">{v.id.slice(0, 8)}</span>
                   {v.is_active && (
                     <span className="text-[10px] bg-green-500/15 text-green-400 px-2 py-0.5 rounded-full">
-                      Active
+                      {t("active")}
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-muted">{fmt(v.created_at)}</p>
+                <p className="text-xs text-muted">
+                  {formatDate(locale, v.created_at)}
+                </p>
               </button>
             ))
           )}
@@ -148,9 +153,9 @@ export default function PromptsPage() {
             <div className="bg-surface border border-line rounded-2xl p-5 space-y-4 h-full">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-muted mb-0.5">Version {selectedVersion.id.slice(0, 8)}</p>
+                  <p className="text-xs text-muted mb-0.5">{t("version")} {selectedVersion.id.slice(0, 8)}</p>
                   {selectedVersion.persona && (
-                    <p className="text-xs text-brand">Persona: {selectedVersion.persona}</p>
+                    <p className="text-xs text-brand">{t("personaLabel")}: {selectedVersion.persona}</p>
                   )}
                 </div>
                 {!selectedVersion.is_active && (
@@ -159,12 +164,12 @@ export default function PromptsPage() {
                     disabled={activating === selectedVersion.id}
                     className="px-4 py-2 rounded-xl bg-brand/20 text-brand text-sm font-medium hover:bg-brand/30 transition-colors disabled:opacity-50"
                   >
-                    {activating === selectedVersion.id ? "Activating…" : "Activate"}
+                    {activating === selectedVersion.id ? t("activating") : t("activate")}
                   </button>
                 )}
                 {selectedVersion.is_active && (
                   <span className="text-xs text-green-400 bg-green-500/15 px-3 py-1.5 rounded-xl">
-                    Currently Active
+                    {t("currentlyActive")}
                   </span>
                 )}
               </div>
@@ -174,7 +179,7 @@ export default function PromptsPage() {
             </div>
           ) : (
             <div className="bg-surface border border-line rounded-2xl flex items-center justify-center h-48">
-              <p className="text-sm text-muted">Select a version to preview</p>
+              <p className="text-sm text-muted">{t("selectVersion")}</p>
             </div>
           )}
         </div>

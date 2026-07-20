@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface Config {
   provider: string;
@@ -22,6 +23,9 @@ const PROVIDERS = [
 const VOYAGE_MODELS = ["voyage-3", "voyage-3-lite", "voyage-large-2"];
 
 export default function EmbeddingPage() {
+  const t = useTranslations("admin.embedding");
+  const tCommon = useTranslations("admin.common");
+
   const [config, setConfig] = useState<Config | null>(null);
   const [form, setForm] = useState<Config | null>(null);
   const [loading, setLoading] = useState(true);
@@ -82,40 +86,35 @@ export default function EmbeddingPage() {
   }
 
   if (loading || !form) {
-    return <p className="text-muted text-sm">Loading…</p>;
+    return <p className="text-muted text-sm">{tCommon("loading")}</p>;
   }
-
-  const selectedProvider = PROVIDERS.find((p) => p.value === form.provider);
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <h2 className="text-sm font-semibold text-fg">Embedding Config</h2>
+      <h2 className="text-sm font-semibold text-fg">{t("title")}</h2>
 
       {requiresReindex && (
         <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl px-4 py-3 text-sm text-yellow-400">
-          Changing provider, model, or dimensions requires a full re-index of all documents.
+          {t("reindexWarning")}
         </div>
       )}
 
       {showWarning && (
         <div className="bg-surface border border-line rounded-2xl p-5 space-y-4">
-          <p className="text-sm text-fg font-semibold">Re-index Required</p>
-          <p className="text-sm text-muted">
-            This will change the embedding model. After saving, you must manually re-embed all
-            documents from the Knowledge Base page.
-          </p>
+          <p className="text-sm text-fg font-semibold">{t("reindexTitle")}</p>
+          <p className="text-sm text-muted">{t("reindexBody")}</p>
           <div className="flex gap-3 justify-end">
             <button
               onClick={() => setShowWarning(false)}
               className="px-4 py-2 rounded-xl text-sm text-muted hover:text-fg hover:bg-surface-2 transition-colors"
             >
-              Cancel
+              {tCommon("cancel")}
             </button>
             <button
               onClick={doSave}
               className="px-4 py-2 rounded-xl bg-yellow-500/20 text-yellow-400 text-sm font-medium hover:bg-yellow-500/30 transition-colors"
             >
-              Save & Re-index Later
+              {t("saveReindexLater")}
             </button>
           </div>
         </div>
@@ -124,7 +123,7 @@ export default function EmbeddingPage() {
       <div className="bg-surface border border-line rounded-2xl p-5 space-y-5">
         {/* Provider */}
         <div>
-          <label className="block text-xs text-muted mb-2">Provider</label>
+          <label className="block text-xs text-muted mb-2">{t("provider")}</label>
           <div className="grid grid-cols-2 gap-2">
             {PROVIDERS.map((p) => (
               <button
@@ -145,7 +144,7 @@ export default function EmbeddingPage() {
                 <span>{p.label}</span>
                 {!p.available && (
                   <span className="text-[10px] text-muted/60 border border-muted/20 rounded-full px-2 py-0.5">
-                    Soon
+                    {t("soon")}
                   </span>
                 )}
               </button>
@@ -156,7 +155,7 @@ export default function EmbeddingPage() {
         {/* Model */}
         {form.provider === "voyage" && (
           <div>
-            <label className="block text-xs text-muted mb-1">Model</label>
+            <label className="block text-xs text-muted mb-1">{t("model")}</label>
             <select
               value={form.model}
               onChange={(e) => { update("model", e.target.value); checkReindex(); }}
@@ -172,7 +171,7 @@ export default function EmbeddingPage() {
         {/* Dimensions */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs text-muted mb-1">Dimensions</label>
+            <label className="block text-xs text-muted mb-1">{t("dimensions")}</label>
             <input
               type="number"
               value={form.dimensions}
@@ -181,7 +180,7 @@ export default function EmbeddingPage() {
             />
           </div>
           <div>
-            <label className="block text-xs text-muted mb-1">Top K Results</label>
+            <label className="block text-xs text-muted mb-1">{t("topK")}</label>
             <input
               type="number"
               value={form.top_k}
@@ -196,7 +195,7 @@ export default function EmbeddingPage() {
         {/* Chunk config */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs text-muted mb-1">Chunk Size (chars)</label>
+            <label className="block text-xs text-muted mb-1">{t("chunkSizeChars")}</label>
             <input
               type="number"
               value={form.chunk_size}
@@ -205,7 +204,7 @@ export default function EmbeddingPage() {
             />
           </div>
           <div>
-            <label className="block text-xs text-muted mb-1">Chunk Overlap (chars)</label>
+            <label className="block text-xs text-muted mb-1">{t("chunkOverlapChars")}</label>
             <input
               type="number"
               value={form.chunk_overlap}
@@ -218,7 +217,7 @@ export default function EmbeddingPage() {
         {/* Similarity threshold */}
         <div>
           <label className="block text-xs text-muted mb-1">
-            Similarity Threshold: <span className="text-fg">{form.similarity_threshold}</span>
+            {t("similarityThreshold")}: <span className="text-fg">{form.similarity_threshold}</span>
           </label>
           <input
             type="range"
@@ -230,8 +229,8 @@ export default function EmbeddingPage() {
             className="w-full accent-brand"
           />
           <div className="flex justify-between text-[10px] text-muted mt-1">
-            <span>0.3 (broader)</span>
-            <span>0.95 (stricter)</span>
+            <span>0.3 ({t("broader")})</span>
+            <span>0.95 ({t("stricter")})</span>
           </div>
         </div>
 
@@ -240,7 +239,7 @@ export default function EmbeddingPage() {
           disabled={saving}
           className="w-full py-2.5 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors disabled:opacity-50"
         >
-          {saving ? "Saving…" : saved ? "Saved!" : requiresReindex ? "Save & Schedule Re-index" : "Save Changes"}
+          {saving ? t("saving") : saved ? t("saved") : requiresReindex ? t("saveAndReindex") : t("saveChanges")}
         </button>
       </div>
     </div>

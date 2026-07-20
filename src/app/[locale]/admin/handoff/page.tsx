@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { StatusBadge } from "@/components/admin/StatusBadge";
+import { useTranslations, useLocale } from "next-intl";
+import { formatDate } from "@/lib/format";
 
 interface Session {
   id: string;
@@ -12,6 +13,10 @@ interface Session {
 }
 
 export default function HandoffPage() {
+  const locale = useLocale();
+  const t = useTranslations("admin.handoff");
+  const tCommon = useTranslations("admin.common");
+
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
   const [resolving, setResolving] = useState<string | null>(null);
@@ -36,30 +41,25 @@ export default function HandoffPage() {
     load();
   }
 
-  const fmt = (d: string) =>
-    new Date(d).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
-
   return (
     <div className="max-w-4xl mx-auto space-y-5">
-      <h2 className="text-sm font-semibold text-fg">Handoff Queue</h2>
-      <p className="text-sm text-muted">
-        Sessions where the AI requested human support. Resolve them after attending to the user.
-      </p>
+      <h2 className="text-sm font-semibold text-fg">{t("title")}</h2>
+      <p className="text-sm text-muted">{t("subtitle")}</p>
 
       <div className="bg-surface border border-line rounded-2xl overflow-hidden">
         {loading ? (
-          <p className="px-4 py-8 text-center text-muted text-sm">Loading…</p>
+          <p className="px-4 py-8 text-center text-muted text-sm">{tCommon("loading")}</p>
         ) : sessions.length === 0 ? (
-          <p className="px-4 py-12 text-center text-muted text-sm">No active handoffs.</p>
+          <p className="px-4 py-12 text-center text-muted text-sm">{t("noHandoffs")}</p>
         ) : (
           <table className="w-full text-sm">
             <thead className="border-b border-line">
               <tr className="text-muted text-xs">
-                <th className="px-4 py-3 text-start font-medium">Session</th>
-                <th className="px-4 py-3 text-start font-medium">Source</th>
-                <th className="px-4 py-3 text-start font-medium">Locale</th>
-                <th className="px-4 py-3 text-start font-medium">Requested at</th>
-                <th className="px-4 py-3 text-start font-medium">Action</th>
+                <th className="px-4 py-3 text-start font-medium">{t("session")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("source")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("locale")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("requestedAt")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("action")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -68,14 +68,16 @@ export default function HandoffPage() {
                   <td className="px-4 py-3 font-mono text-xs text-muted max-w-[160px] truncate">{s.id}</td>
                   <td className="px-4 py-3">{s.source}</td>
                   <td className="px-4 py-3">{s.locale}</td>
-                  <td className="px-4 py-3 text-xs text-muted">{fmt(s.created_at)}</td>
+                  <td className="px-4 py-3 text-xs text-muted">
+                    {formatDate(locale, s.created_at, { dateStyle: "medium", timeStyle: "short" })}
+                  </td>
                   <td className="px-4 py-3">
                     <button
                       onClick={() => resolve(s.id)}
                       disabled={resolving === s.id}
                       className="text-xs text-brand hover:text-brand-light transition-colors disabled:opacity-50"
                     >
-                      {resolving === s.id ? "Resolving…" : "Mark Resolved"}
+                      {resolving === s.id ? t("resolving") : t("resolve")}
                     </button>
                   </td>
                 </tr>

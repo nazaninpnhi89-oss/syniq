@@ -342,7 +342,26 @@
         "processing": "Processing",
         "indexed": "Indexed",
         "failed": "Failed"
-      }
+      },
+      "editDocument": "Edit Document",
+      "titleLabel": "Title *",
+      "titlePlaceholder": "Document title",
+      "typeLabel": "Type",
+      "typeManual": "Manual",
+      "typeUrl": "URL",
+      "typePdf": "PDF",
+      "typeWord": "Word",
+      "urlPlaceholder": "https://example.com/page",
+      "contentPlaceholder": "Paste your document content here…",
+      "tagsLabel": "Tags (comma-separated)",
+      "tagsPlaceholder": "faq, pricing, about",
+      "queued": "Queued",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteTitle": "Delete Document",
+      "deleteMessage": "This will permanently delete the document and all its embeddings.",
+      "noDocumentsHint": "No documents yet. Add your first document to get started.",
+      "saving": "Saving…"
     },
     "embedding": {
       "title": "Embedding Config",
@@ -355,7 +374,18 @@
       "similarityThreshold": "Similarity Threshold",
       "reindexWarning": "Changing provider, model, or dimensions requires a full re-index of all documents.",
       "saveAndReindex": "Save & Schedule Re-index",
-      "comingSoon": "Coming soon"
+      "comingSoon": "Coming soon",
+      "reindexTitle": "Re-index Required",
+      "reindexBody": "This will change the embedding model. After saving, you must manually re-embed all documents from the Knowledge Base page.",
+      "saveReindexLater": "Save & Re-index Later",
+      "soon": "Soon",
+      "chunkSizeChars": "Chunk Size (chars)",
+      "chunkOverlapChars": "Chunk Overlap (chars)",
+      "broader": "broader",
+      "stricter": "stricter",
+      "saving": "Saving…",
+      "saved": "Saved!",
+      "saveChanges": "Save Changes"
     },
     "models": {
       "title": "Model Config",
@@ -363,7 +393,11 @@
       "model": "Model",
       "temperature": "Temperature",
       "maxTokens": "Max Tokens",
-      "save": "Save"
+      "save": "Save",
+      "channelSuffix": "channel",
+      "fallbackHint": "Fallback for unspecified channels",
+      "saving": "Saving…",
+      "saved": "Saved!"
     },
     "prompts": {
       "title": "Prompt Versions",
@@ -371,20 +405,42 @@
       "activate": "Activate",
       "active": "Active",
       "inactive": "Inactive",
-      "templateVars": "Available variables: {{SITE_URL}}, {{BOOK_URL}}, {{KNOWLEDGE}}, {{RAG_CONTEXT}}"
+      "templateVars": "Available variables: {{SITE_URL}}, {{BOOK_URL}}, {{KNOWLEDGE}}, {{RAG_CONTEXT}}",
+      "newVersionTitle": "New Prompt Version",
+      "persona": "Persona (optional)",
+      "personaPlaceholder": "e.g. formal, friendly, concise",
+      "contentLabel": "System Prompt Content *",
+      "contentPlaceholder": "You are SYNIQ's AI assistant…",
+      "creating": "Creating…",
+      "createInactive": "Create (Inactive)",
+      "activating": "Activating…",
+      "currentlyActive": "Currently Active",
+      "selectVersion": "Select a version to preview",
+      "version": "Version",
+      "personaLabel": "Persona"
     },
     "conversations": {
       "title": "Conversations",
       "filterSource": "Filter by source",
       "filterStatus": "Filter by status",
       "noConversations": "No conversations found.",
-      "messages": "messages"
+      "messages": "messages",
+      "sessionId": "Session ID",
+      "source": "Source",
+      "locale": "Locale",
+      "status": "Status"
     },
     "handoff": {
       "title": "Handoff Queue",
       "resolve": "Mark Resolved",
       "noHandoffs": "No active handoffs.",
-      "requestedAt": "Requested at"
+      "requestedAt": "Requested at",
+      "subtitle": "Sessions where the AI requested human support. Resolve them after attending to the user.",
+      "session": "Session",
+      "source": "Source",
+      "locale": "Locale",
+      "action": "Action",
+      "resolving": "Resolving…"
     },
     "leads": {
       "title": "Leads",
@@ -409,7 +465,10 @@
       "negative": "Negative",
       "all": "All",
       "noFeedback": "No feedback yet.",
-      "comment": "Comment"
+      "comment": "Comment",
+      "total": "Total",
+      "rating": "Rating",
+      "messageId": "Message ID"
     },
     "channels": {
       "title": "Channels",
@@ -422,7 +481,21 @@
       "position": "Position",
       "colorPrimary": "Primary Color",
       "welcomeMessageFa": "Welcome Message (FA)",
-      "welcomeMessageEn": "Welcome Message (EN)"
+      "welcomeMessageEn": "Welcome Message (EN)",
+      "positionLeft": "Left",
+      "positionRight": "Right",
+      "allowedDomainsHint": "Allowed Domains (empty = allow all)",
+      "domainPlaceholder": "example.com",
+      "add": "Add",
+      "allDomainsAllowed": "All domains allowed",
+      "saveWidgetConfig": "Save Widget Config",
+      "saving": "Saving…",
+      "saved": "Saved!",
+      "broadcastDesc": "Send a message to all users who have interacted with the Telegram bot.",
+      "broadcastPlaceholder": "Type your broadcast message…",
+      "sent": "Sent",
+      "failed": "Failed",
+      "sending": "Sending…"
     },
     "playground": {
       "title": "Playground",
@@ -432,7 +505,14 @@
       "response": "Response",
       "sources": "Sources",
       "model": "Model used",
-      "tokens": "Tokens (in/out)"
+      "tokens": "Tokens (in/out)",
+      "message": "Message",
+      "messagePlaceholder": "Type your message…",
+      "cmdEnterHint": "Cmd+Enter to send",
+      "processing": "Processing…",
+      "errorGeneric": "Request failed. Check the console.",
+      "responseWillAppear": "Response will appear here",
+      "tokensInOut": "in / out"
     },
     "users": {
       "title": "Users",
@@ -467,7 +547,16 @@
       "envVars": "Environment Variables",
       "danger": "Danger Zone",
       "purgeData": "Purge old conversations",
-      "purgeConfirm": "This will permanently delete conversations older than 90 days."
+      "purgeConfirm": "This will permanently delete conversations older than 90 days.",
+      "envVarsHint": "Read-only view. Edit values in your deployment environment or .env.local file.",
+      "variable": "Variable",
+      "value": "Value",
+      "status": "Status",
+      "set": "Set",
+      "missing": "Missing",
+      "purgeTitle": "Purge old conversations",
+      "purgeHint": "Permanently delete chat sessions and messages older than 90 days. This cannot be undone.",
+      "contactAdmin": "Contact your system administrator to perform data purges via direct database access."
     },
     "common": {
       "save": "Save",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface WidgetConfig {
   color_primary: string;
@@ -11,6 +12,8 @@ interface WidgetConfig {
 }
 
 export default function ChannelsPage() {
+  const t = useTranslations("admin.channels");
+  const tCommon = useTranslations("admin.common");
   const [widget, setWidget] = useState<WidgetConfig | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -73,17 +76,17 @@ export default function ChannelsPage() {
     setBroadcast("");
   }
 
-  if (loading || !widget) return <p className="text-muted text-sm">Loading…</p>;
+  if (loading || !widget) return <p className="text-muted text-sm">{tCommon("loading")}</p>;
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Widget config */}
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold text-fg">Web Widget</h2>
+        <h2 className="text-sm font-semibold text-fg">{t("widget")}</h2>
         <div className="bg-surface border border-line rounded-2xl p-5 space-y-5">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-muted mb-1">Primary Color</label>
+              <label className="block text-xs text-muted mb-1">{t("colorPrimary")}</label>
               <div className="flex items-center gap-3">
                 <input
                   type="color"
@@ -99,7 +102,7 @@ export default function ChannelsPage() {
               </div>
             </div>
             <div>
-              <label className="block text-xs text-muted mb-1">Position</label>
+              <label className="block text-xs text-muted mb-1">{t("position")}</label>
               <div className="flex gap-2">
                 {(["left", "right"] as const).map((p) => (
                   <button
@@ -111,7 +114,7 @@ export default function ChannelsPage() {
                         : "border-line text-muted hover:border-brand/40"
                     }`}
                   >
-                    {p.charAt(0).toUpperCase() + p.slice(1)}
+                    {p === "left" ? t("positionLeft") : t("positionRight")}
                   </button>
                 ))}
               </div>
@@ -119,7 +122,7 @@ export default function ChannelsPage() {
           </div>
 
           <div>
-            <label className="block text-xs text-muted mb-1">Welcome Message (FA)</label>
+            <label className="block text-xs text-muted mb-1">{t("welcomeMessageFa")}</label>
             <input
               value={widget.welcome_message_fa}
               onChange={(e) => updateWidget("welcome_message_fa", e.target.value)}
@@ -129,7 +132,7 @@ export default function ChannelsPage() {
           </div>
 
           <div>
-            <label className="block text-xs text-muted mb-1">Welcome Message (EN)</label>
+            <label className="block text-xs text-muted mb-1">{t("welcomeMessageEn")}</label>
             <input
               value={widget.welcome_message_en}
               onChange={(e) => updateWidget("welcome_message_en", e.target.value)}
@@ -139,20 +142,20 @@ export default function ChannelsPage() {
 
           {/* Allowed domains */}
           <div>
-            <label className="block text-xs text-muted mb-2">Allowed Domains (empty = allow all)</label>
+            <label className="block text-xs text-muted mb-2">{t("allowedDomainsHint")}</label>
             <div className="flex gap-2 mb-2">
               <input
                 value={domainInput}
                 onChange={(e) => setDomainInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addDomain()}
-                placeholder="example.com"
+                placeholder={t("domainPlaceholder")}
                 className="flex-1 bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand"
               />
               <button
                 onClick={addDomain}
                 className="px-4 py-2 rounded-xl bg-brand/20 text-brand text-sm font-medium hover:bg-brand/30 transition-colors"
               >
-                Add
+                {t("add")}
               </button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -168,7 +171,7 @@ export default function ChannelsPage() {
                 </span>
               ))}
               {widget.allowed_domains.length === 0 && (
-                <span className="text-xs text-muted">All domains allowed</span>
+                <span className="text-xs text-muted">{t("allDomainsAllowed")}</span>
               )}
             </div>
           </div>
@@ -178,29 +181,27 @@ export default function ChannelsPage() {
             disabled={saving}
             className="w-full py-2.5 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors disabled:opacity-50"
           >
-            {saving ? "Saving…" : saved ? "Saved!" : "Save Widget Config"}
+            {saving ? t("saving") : saved ? t("saved") : t("saveWidgetConfig")}
           </button>
         </div>
       </section>
 
       {/* Telegram broadcast */}
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold text-fg">Telegram Broadcast</h2>
+        <h2 className="text-sm font-semibold text-fg">{t("telegram")} · {t("broadcast")}</h2>
         <div className="bg-surface border border-line rounded-2xl p-5 space-y-4">
-          <p className="text-xs text-muted">
-            Send a message to all users who have interacted with the Telegram bot.
-          </p>
+          <p className="text-xs text-muted">{t("broadcastDesc")}</p>
           <textarea
             value={broadcast}
             onChange={(e) => setBroadcast(e.target.value)}
             rows={4}
             className="w-full bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand resize-none"
-            placeholder="Type your broadcast message…"
+            placeholder={t("broadcastPlaceholder")}
           />
           {broadcastResult && (
             <p className="text-sm text-muted">
-              Sent: <span className="text-green-400">{broadcastResult.sent}</span>
-              {" · "}Failed: <span className="text-red-400">{broadcastResult.failed}</span>
+              {t("sent")}: <span className="text-green-400">{broadcastResult.sent}</span>
+              {" · "}{t("failed")}: <span className="text-red-400">{broadcastResult.failed}</span>
             </p>
           )}
           <button
@@ -208,7 +209,7 @@ export default function ChannelsPage() {
             disabled={broadcasting || !broadcast.trim()}
             className="px-4 py-2 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors disabled:opacity-50"
           >
-            {broadcasting ? "Sending…" : "Send to All"}
+            {broadcasting ? t("sending") : t("broadcastSend")}
           </button>
         </div>
       </section>

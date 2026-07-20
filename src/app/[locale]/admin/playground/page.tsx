@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface PlaygroundResult {
   response: string;
@@ -15,6 +16,7 @@ const CHANNELS = ["web", "widget", "telegram"];
 const LOCALES = ["fa", "en"];
 
 export default function PlaygroundPage() {
+  const t = useTranslations("admin.playground");
   const [message, setMessage] = useState("");
   const [channel, setChannel] = useState("web");
   const [locale, setLocale] = useState("fa");
@@ -37,7 +39,7 @@ export default function PlaygroundPage() {
     setSending(false);
 
     if (!res.ok) {
-      setError("Request failed. Check the console.");
+      setError(t("errorGeneric"));
       return;
     }
 
@@ -49,10 +51,10 @@ export default function PlaygroundPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
         {/* Left: Input */}
         <div className="space-y-4">
-          <h2 className="text-sm font-semibold text-fg">Playground</h2>
+          <h2 className="text-sm font-semibold text-fg">{t("title")}</h2>
           <div className="flex gap-3">
             <div>
-              <label className="block text-xs text-muted mb-1">Channel</label>
+              <label className="block text-xs text-muted mb-1">{t("channel")}</label>
               <select
                 value={channel}
                 onChange={(e) => setChannel(e.target.value)}
@@ -64,7 +66,7 @@ export default function PlaygroundPage() {
               </select>
             </div>
             <div>
-              <label className="block text-xs text-muted mb-1">Locale</label>
+              <label className="block text-xs text-muted mb-1">{t("locale")}</label>
               <select
                 value={locale}
                 onChange={(e) => setLocale(e.target.value)}
@@ -78,7 +80,7 @@ export default function PlaygroundPage() {
           </div>
 
           <div>
-            <label className="block text-xs text-muted mb-1">Message</label>
+            <label className="block text-xs text-muted mb-1">{t("message")}</label>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -88,9 +90,9 @@ export default function PlaygroundPage() {
               rows={8}
               dir="auto"
               className="w-full bg-surface border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand resize-none"
-              placeholder={locale === "fa" ? "پیام خود را بنویسید…" : "Type your message…"}
+              placeholder={t("messagePlaceholder")}
             />
-            <p className="text-[10px] text-muted mt-1">Cmd+Enter to send</p>
+            <p className="text-[10px] text-muted mt-1">{t("cmdEnterHint")}</p>
           </div>
 
           <button
@@ -98,17 +100,17 @@ export default function PlaygroundPage() {
             disabled={sending || !message.trim()}
             className="w-full py-2.5 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors disabled:opacity-50"
           >
-            {sending ? "Processing…" : "Send"}
+            {sending ? t("processing") : t("send")}
           </button>
         </div>
 
         {/* Right: Result */}
         <div className="space-y-4">
-          <h2 className="text-sm font-semibold text-fg">Response</h2>
+          <h2 className="text-sm font-semibold text-fg">{t("response")}</h2>
 
           {sending && (
             <div className="bg-surface border border-line rounded-xl p-4 min-h-[120px] flex items-center justify-center">
-              <p className="text-sm text-muted animate-pulse">Processing…</p>
+              <p className="text-sm text-muted animate-pulse">{t("processing")}</p>
             </div>
           )}
 
@@ -129,7 +131,7 @@ export default function PlaygroundPage() {
                 )}
                 {result.tokensIn !== undefined && (
                   <span className="bg-surface border border-line rounded-full px-2.5 py-1">
-                    {result.tokensIn} in / {result.tokensOut} out
+                    {result.tokensIn} {t("tokensInOut").split(" / ")[0]} / {result.tokensOut} {t("tokensInOut").split(" / ")[1]}
                   </span>
                 )}
               </div>
@@ -142,14 +144,14 @@ export default function PlaygroundPage() {
               {/* Sources */}
               {result.sources?.length > 0 && (
                 <div>
-                  <p className="text-xs text-muted mb-2">Sources ({result.sources.length})</p>
+                  <p className="text-xs text-muted mb-2">{t("sources")} ({result.sources.length})</p>
                   <div className="space-y-1.5">
                     {result.sources.map((s, i) => (
                       <div
                         key={i}
                         className="flex items-center justify-between text-xs bg-surface border border-line rounded-lg px-3 py-2"
                       >
-                        <span className="text-muted truncate">{s.title || `Chunk ${i + 1}`}</span>
+                        <span className="text-muted truncate">{s.title || `#${i + 1}`}</span>
                         <span className="text-muted/60 shrink-0 ms-2">{Math.round(s.similarity * 100)}%</span>
                       </div>
                     ))}
@@ -161,7 +163,7 @@ export default function PlaygroundPage() {
 
           {!sending && !result && !error && (
             <div className="bg-surface border border-line rounded-xl p-4 min-h-[120px] flex items-center justify-center">
-              <p className="text-sm text-muted">Response will appear here</p>
+              <p className="text-sm text-muted">{t("responseWillAppear")}</p>
             </div>
           )}
         </div>

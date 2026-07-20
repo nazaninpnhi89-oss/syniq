@@ -342,7 +342,26 @@
         "processing": "در حال پردازش",
         "indexed": "ایندکس‌شده",
         "failed": "خطا"
-      }
+      },
+      "editDocument": "ویرایش سند",
+      "titleLabel": "عنوان *",
+      "titlePlaceholder": "عنوان سند",
+      "typeLabel": "نوع",
+      "typeManual": "دستی",
+      "typeUrl": "آدرس اینترنتی",
+      "typePdf": "PDF",
+      "typeWord": "Word",
+      "urlPlaceholder": "https://example.com/page",
+      "contentPlaceholder": "محتوای سند را اینجا وارد کنید…",
+      "tagsLabel": "برچسب‌ها (با کاما جدا کنید)",
+      "tagsPlaceholder": "سوالات متداول، قیمت‌گذاری، درباره ما",
+      "queued": "در صف",
+      "edit": "ویرایش",
+      "delete": "حذف",
+      "deleteTitle": "حذف سند",
+      "deleteMessage": "این سند و تمام embeddingهای آن برای همیشه حذف خواهند شد.",
+      "noDocumentsHint": "هنوز سندی ثبت نشده. اولین سند خود را اضافه کنید.",
+      "saving": "در حال ذخیره…"
     },
     "embedding": {
       "title": "تنظیمات امبدینگ",
@@ -355,7 +374,18 @@
       "similarityThreshold": "آستانه شباهت",
       "reindexWarning": "تغییر ارائه‌دهنده، مدل یا ابعاد نیاز به بازایندکس کامل همه اسناد دارد.",
       "saveAndReindex": "ذخیره و بازایندکس",
-      "comingSoon": "به‌زودی"
+      "comingSoon": "به‌زودی",
+      "reindexTitle": "نیاز به ایندکس مجدد",
+      "reindexBody": "این تغییر، مدل embedding را عوض می‌کند. پس از ذخیره، باید همه‌ی اسناد را از صفحه‌ی پایگاه دانش دوباره embed کنید.",
+      "saveReindexLater": "ذخیره و ایندکس مجدد بعداً",
+      "soon": "به‌زودی",
+      "chunkSizeChars": "اندازه‌ی chunk (کاراکتر)",
+      "chunkOverlapChars": "همپوشانی chunk (کاراکتر)",
+      "broader": "گسترده‌تر",
+      "stricter": "دقیق‌تر",
+      "saving": "در حال ذخیره…",
+      "saved": "ذخیره شد!",
+      "saveChanges": "ذخیره‌ی تغییرات"
     },
     "models": {
       "title": "تنظیمات مدل",
@@ -363,7 +393,11 @@
       "model": "مدل",
       "temperature": "دما",
       "maxTokens": "حداکثر توکن",
-      "save": "ذخیره"
+      "save": "ذخیره",
+      "channelSuffix": "کانال",
+      "fallbackHint": "پیش‌فرض برای کانال‌های تعیین‌نشده",
+      "saving": "در حال ذخیره…",
+      "saved": "ذخیره شد!"
     },
     "prompts": {
       "title": "نسخه‌های پرامپت",
@@ -371,20 +405,42 @@
       "activate": "فعال‌سازی",
       "active": "فعال",
       "inactive": "غیرفعال",
-      "templateVars": "متغیرهای قابل استفاده: {{SITE_URL}}, {{BOOK_URL}}, {{KNOWLEDGE}}, {{RAG_CONTEXT}}"
+      "templateVars": "متغیرهای قابل استفاده: {{SITE_URL}}, {{BOOK_URL}}, {{KNOWLEDGE}}, {{RAG_CONTEXT}}",
+      "newVersionTitle": "نسخه‌ی جدید پرامپت",
+      "persona": "پرسونا (اختیاری)",
+      "personaPlaceholder": "مثلاً: رسمی، دوستانه، مختصر",
+      "contentLabel": "متن پرامپت سیستمی *",
+      "contentPlaceholder": "شما دستیار هوش مصنوعی سینیک هستید…",
+      "creating": "در حال ساخت…",
+      "createInactive": "ساخت (غیرفعال)",
+      "activating": "در حال فعال‌سازی…",
+      "currentlyActive": "در حال حاضر فعال",
+      "selectVersion": "یک نسخه را برای پیش‌نمایش انتخاب کنید",
+      "version": "نسخه",
+      "personaLabel": "پرسونا"
     },
     "conversations": {
       "title": "مکالمات",
       "filterSource": "فیلتر بر اساس منبع",
       "filterStatus": "فیلتر بر اساس وضعیت",
       "noConversations": "مکالمه‌ای یافت نشد.",
-      "messages": "پیام"
+      "messages": "پیام",
+      "sessionId": "شناسه‌ی گفتگو",
+      "source": "منبع",
+      "locale": "زبان",
+      "status": "وضعیت"
     },
     "handoff": {
       "title": "صف انتقال به انسان",
       "resolve": "علامت‌گذاری به عنوان حل‌شده",
       "noHandoffs": "انتقالی در صف نیست.",
-      "requestedAt": "درخواست در"
+      "requestedAt": "درخواست در",
+      "subtitle": "گفتگوهایی که هوش مصنوعی درخواست پشتیبانی انسانی داده. پس از رسیدگی به کاربر، آن‌ها را «حل‌شده» علامت بزنید.",
+      "session": "گفتگو",
+      "source": "منبع",
+      "locale": "زبان",
+      "action": "عملیات",
+      "resolving": "در حال حل‌شدن…"
     },
     "leads": {
       "title": "لیدها",
@@ -409,7 +465,10 @@
       "negative": "منفی",
       "all": "همه",
       "noFeedback": "هنوز بازخوردی ثبت نشده.",
-      "comment": "نظر"
+      "comment": "نظر",
+      "total": "مجموع",
+      "rating": "امتیاز",
+      "messageId": "شناسه‌ی پیام"
     },
     "channels": {
       "title": "کانال‌ها",
@@ -422,7 +481,21 @@
       "position": "موقعیت",
       "colorPrimary": "رنگ اصلی",
       "welcomeMessageFa": "پیام خوش‌آمدگویی (فارسی)",
-      "welcomeMessageEn": "پیام خوش‌آمدگویی (انگلیسی)"
+      "welcomeMessageEn": "پیام خوش‌آمدگویی (انگلیسی)",
+      "positionLeft": "چپ",
+      "positionRight": "راست",
+      "allowedDomainsHint": "دامنه‌های مجاز (خالی = همه مجاز)",
+      "domainPlaceholder": "example.com",
+      "add": "افزودن",
+      "allDomainsAllowed": "همه‌ی دامنه‌ها مجاز هستند",
+      "saveWidgetConfig": "ذخیره‌ی تنظیمات ویجت",
+      "saving": "در حال ذخیره…",
+      "saved": "ذخیره شد!",
+      "broadcastDesc": "پیامی به همه‌ی کاربرانی که با ربات تلگرام تعامل داشته‌اند ارسال کنید.",
+      "broadcastPlaceholder": "پیام همگانی خود را بنویسید…",
+      "sent": "ارسال‌شده",
+      "failed": "ناموفق",
+      "sending": "در حال ارسال…"
     },
     "playground": {
       "title": "آزمایشگاه",
@@ -432,7 +505,14 @@
       "response": "پاسخ",
       "sources": "منابع",
       "model": "مدل استفاده‌شده",
-      "tokens": "توکن (ورودی/خروجی)"
+      "tokens": "توکن (ورودی/خروجی)",
+      "message": "پیام",
+      "messagePlaceholder": "پیام خود را بنویسید…",
+      "cmdEnterHint": "Cmd+Enter برای ارسال",
+      "processing": "در حال پردازش…",
+      "errorGeneric": "درخواست ناموفق بود. کنسول را بررسی کنید.",
+      "responseWillAppear": "پاسخ اینجا نمایش داده می‌شود",
+      "tokensInOut": "ورودی / خروجی"
     },
     "users": {
       "title": "کاربران",
@@ -467,7 +547,16 @@
       "envVars": "متغیرهای محیطی",
       "danger": "منطقه خطر",
       "purgeData": "حذف مکالمات قدیمی",
-      "purgeConfirm": "این عملیات مکالمات قدیمی‌تر از ۹۰ روز را به طور دائمی حذف می‌کند."
+      "purgeConfirm": "این عملیات مکالمات قدیمی‌تر از ۹۰ روز را به طور دائمی حذف می‌کند.",
+      "envVarsHint": "نمای فقط‌خواندنی. مقادیر را در محیط استقرار یا فایل .env.local ویرایش کنید.",
+      "variable": "متغیر",
+      "value": "مقدار",
+      "status": "وضعیت",
+      "set": "تنظیم‌شده",
+      "missing": "تنظیم‌نشده",
+      "purgeTitle": "پاک‌سازی گفتگوهای قدیمی",
+      "purgeHint": "حذف دائمی گفتگوها و پیام‌های قدیمی‌تر از ۹۰ روز. این عملیات قابل بازگشت نیست.",
+      "contactAdmin": "برای پاک‌سازی داده از طریق دسترسی مستقیم به دیتابیس، با مدیر سیستم تماس بگیرید."
     },
     "common": {
       "save": "ذخیره",

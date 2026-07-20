@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { formatDate } from "@/lib/format";
 
 interface Doc {
   id: string;
@@ -30,6 +32,10 @@ const EMPTY_FORM: FormState = {
 };
 
 export default function KnowledgePage() {
+  const locale = useLocale();
+  const t = useTranslations("admin.knowledge");
+  const tCommon = useTranslations("admin.common");
+
   const [docs, setDocs] = useState<Doc[]>([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
@@ -99,79 +105,76 @@ export default function KnowledgePage() {
     setShowForm(true);
   }
 
-  const fmt = (d: string) =>
-    new Date(d).toLocaleDateString("en-US", { dateStyle: "short" });
-
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-fg">Knowledge Base</h2>
+        <h2 className="text-sm font-semibold text-fg">{t("title")}</h2>
         <button
           onClick={() => { setShowForm(true); setEditId(null); setForm(EMPTY_FORM); }}
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors"
         >
-          + Add Document
+          + {t("addDocument")}
         </button>
       </div>
 
       {/* Form */}
       {showForm && (
         <div className="bg-surface border border-line rounded-2xl p-5 space-y-4">
-          <h3 className="text-sm font-semibold text-fg">{editId ? "Edit Document" : "Add Document"}</h3>
+          <h3 className="text-sm font-semibold text-fg">{editId ? t("editDocument") : t("addDocument")}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-muted mb-1">Title *</label>
+              <label className="block text-xs text-muted mb-1">{t("titleLabel")}</label>
               <input
                 value={form.title}
                 onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
                 className="w-full bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand"
-                placeholder="Document title"
+                placeholder={t("titlePlaceholder")}
               />
             </div>
             <div>
-              <label className="block text-xs text-muted mb-1">Type</label>
+              <label className="block text-xs text-muted mb-1">{t("typeLabel")}</label>
               <select
                 value={form.source_type}
                 onChange={(e) => setForm((f) => ({ ...f, source_type: e.target.value }))}
                 className="w-full bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg focus:outline-none focus:border-brand"
               >
-                <option value="manual">Manual</option>
-                <option value="url">URL</option>
-                <option value="pdf">PDF</option>
-                <option value="word">Word</option>
+                <option value="manual">{t("typeManual")}</option>
+                <option value="url">{t("typeUrl")}</option>
+                <option value="pdf">{t("typePdf")}</option>
+                <option value="word">{t("typeWord")}</option>
               </select>
             </div>
           </div>
           {form.source_type === "url" && (
             <div>
-              <label className="block text-xs text-muted mb-1">URL</label>
+              <label className="block text-xs text-muted mb-1">{t("sourceUrl")}</label>
               <input
                 value={form.source_url}
                 onChange={(e) => setForm((f) => ({ ...f, source_url: e.target.value }))}
                 className="w-full bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand"
-                placeholder="https://example.com/page"
+                placeholder={t("urlPlaceholder")}
               />
             </div>
           )}
           {form.source_type === "manual" && (
             <div>
-              <label className="block text-xs text-muted mb-1">Content</label>
+              <label className="block text-xs text-muted mb-1">{t("docContent")}</label>
               <textarea
                 value={form.content}
                 onChange={(e) => setForm((f) => ({ ...f, content: e.target.value }))}
                 rows={6}
                 className="w-full bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand resize-none"
-                placeholder="Paste your document content here…"
+                placeholder={t("contentPlaceholder")}
               />
             </div>
           )}
           <div>
-            <label className="block text-xs text-muted mb-1">Tags (comma-separated)</label>
+            <label className="block text-xs text-muted mb-1">{t("tagsLabel")}</label>
             <input
               value={form.tags}
               onChange={(e) => setForm((f) => ({ ...f, tags: e.target.value }))}
               className="w-full bg-bg border border-line rounded-xl px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none focus:border-brand"
-              placeholder="faq, pricing, about"
+              placeholder={t("tagsPlaceholder")}
             />
           </div>
           <div className="flex gap-3 justify-end">
@@ -179,14 +182,14 @@ export default function KnowledgePage() {
               onClick={() => { setShowForm(false); setEditId(null); setForm(EMPTY_FORM); }}
               className="px-4 py-2 rounded-xl text-sm text-muted hover:text-fg hover:bg-surface-2 transition-colors"
             >
-              Cancel
+              {tCommon("cancel")}
             </button>
             <button
               onClick={save}
               disabled={saving || !form.title.trim()}
               className="px-4 py-2 rounded-xl bg-brand text-bg text-sm font-medium hover:bg-brand-light transition-colors disabled:opacity-50"
             >
-              {saving ? "Saving…" : "Save"}
+              {saving ? t("saving") : tCommon("save")}
             </button>
           </div>
         </div>
@@ -195,17 +198,17 @@ export default function KnowledgePage() {
       {/* Table */}
       <div className="bg-surface border border-line rounded-2xl overflow-hidden">
         {loading ? (
-          <p className="px-4 py-8 text-center text-muted text-sm">Loading…</p>
+          <p className="px-4 py-8 text-center text-muted text-sm">{tCommon("loading")}</p>
         ) : (
           <table className="w-full text-sm">
             <thead className="border-b border-line">
               <tr className="text-muted text-xs">
-                <th className="px-4 py-3 text-start font-medium">Title</th>
-                <th className="px-4 py-3 text-start font-medium">Type</th>
-                <th className="px-4 py-3 text-start font-medium">Status</th>
-                <th className="px-4 py-3 text-start font-medium">Tags</th>
-                <th className="px-4 py-3 text-start font-medium">Created</th>
-                <th className="px-4 py-3 text-start font-medium">Actions</th>
+                <th className="px-4 py-3 text-start font-medium">{t("docTitle")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("docType")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("docStatus")}</th>
+                <th className="px-4 py-3 text-start font-medium">{t("docTags")}</th>
+                <th className="px-4 py-3 text-start font-medium">{tCommon("createdAt")}</th>
+                <th className="px-4 py-3 text-start font-medium">{tCommon("actions")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -214,12 +217,14 @@ export default function KnowledgePage() {
                   <td className="px-4 py-3 font-medium">{doc.title}</td>
                   <td className="px-4 py-3 text-muted">{doc.source_type}</td>
                   <td className="px-4 py-3">
-                    <StatusBadge status={doc.status} />
+                    <StatusBadge status={doc.status} label={t(`statuses.${doc.status}`)} />
                   </td>
                   <td className="px-4 py-3 text-xs text-muted">
                     {doc.tags?.join(", ") || "—"}
                   </td>
-                  <td className="px-4 py-3 text-xs text-muted">{fmt(doc.created_at)}</td>
+                  <td className="px-4 py-3 text-xs text-muted">
+                    {formatDate(locale, doc.created_at, { dateStyle: "short" })}
+                  </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <button
@@ -227,19 +232,19 @@ export default function KnowledgePage() {
                         disabled={ingestingId === doc.id}
                         className="text-xs text-brand hover:text-brand-light transition-colors disabled:opacity-50"
                       >
-                        {ingestingId === doc.id ? "Queued" : "Re-embed"}
+                        {ingestingId === doc.id ? t("queued") : t("ingestNow")}
                       </button>
                       <button
                         onClick={() => startEdit(doc)}
                         className="text-xs text-muted hover:text-fg transition-colors"
                       >
-                        Edit
+                        {t("edit")}
                       </button>
                       <button
                         onClick={() => setDeleteId(doc.id)}
                         className="text-xs text-red-400 hover:text-red-300 transition-colors"
                       >
-                        Delete
+                        {t("delete")}
                       </button>
                     </div>
                   </td>
@@ -248,7 +253,7 @@ export default function KnowledgePage() {
               {docs.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-4 py-8 text-center text-muted">
-                    No documents yet. Add your first document to get started.
+                    {t("noDocumentsHint")}
                   </td>
                 </tr>
               )}
@@ -259,10 +264,10 @@ export default function KnowledgePage() {
 
       <ConfirmDialog
         open={Boolean(deleteId)}
-        title="Delete Document"
-        message="This will permanently delete the document and all its embeddings."
-        confirmLabel="Delete"
-        cancelLabel="Cancel"
+        title={t("deleteTitle")}
+        message={t("deleteMessage")}
+        confirmLabel={t("delete")}
+        cancelLabel={tCommon("cancel")}
         danger
         onConfirm={() => deleteId && deleteDoc(deleteId)}
         onCancel={() => setDeleteId(null)}
