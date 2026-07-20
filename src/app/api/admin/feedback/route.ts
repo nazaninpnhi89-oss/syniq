@@ -4,7 +4,7 @@ import { requireAdmin } from "@/lib/admin/require-admin";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("viewer");
   if (guard instanceof NextResponse) return guard;
   const { db } = guard;
 

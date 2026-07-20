@@ -6,6 +6,7 @@ import { search } from "./rag";
 import { toolDefinitions, executeTool } from "./tools";
 import { getModelConfig } from "./model-config";
 import { getActivePrompt } from "./prompt-manager";
+import { getGroqClient } from "@/lib/ai/groq-client";
 import type { Locale } from "./types";
 
 interface KnowledgeEntry { title: string; content: string; locale: string; }
@@ -49,16 +50,7 @@ function buildSystem(ragContext: string, locale: Locale, template: string): stri
     .replace(/\{\{RAG_CONTEXT\}\}/g, ragSection);
 }
 
-let _client: OpenAI | null = null;
-function getClient(): OpenAI {
-  if (!_client) {
-    _client = new OpenAI({
-      baseURL: "https://api.groq.com/openai/v1",
-      apiKey: process.env.GROQ_API_KEY!,
-    });
-  }
-  return _client;
-}
+const getClient = getGroqClient;
 
 type Message = OpenAI.Chat.ChatCompletionMessageParam;
 

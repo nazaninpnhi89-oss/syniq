@@ -13,11 +13,16 @@ export function AdminHeader({ email, locale, navLabels }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const segment = pathname.split("/").filter(Boolean).pop() ?? "admin";
+  const parts = pathname.split("/").filter(Boolean);
+  const segment = parts.at(-1) ?? "admin";
+  const crmKey =
+    parts.includes("crm") && segment !== "crm"
+      ? `crm${segment.charAt(0).toUpperCase()}${segment.slice(1)}`
+      : null;
   const title =
     segment === "admin"
       ? navLabels.dashboard
-      : navLabels[segment] ?? segment;
+      : (crmKey && navLabels[crmKey]) || navLabels[segment] || segment;
 
   async function logout() {
     const sb = createClient();

@@ -3,6 +3,8 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { createClient, createAdminClient } from "@/lib/supabase/server";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminRoleProvider } from "@/lib/admin/role-context";
+import { type AdminRole, roleAtLeast } from "@/lib/admin/roles";
 
 export default async function AdminLayout({
   children,
@@ -23,10 +25,13 @@ export default async function AdminLayout({
 
   const { data: profile } = await sb
     .from("profiles")
-    .select("role")
+    .select("role, is_active")
     .eq("id", user.id)
     .maybeSingle();
-  if (profile?.role !== "admin") redirect(`/${locale}`);
+  if (profile?.is_active === false || !roleAtLeast(profile?.role, "viewer")) {
+    redirect(`/${locale}`);
+  }
+  const role = profile!.role as AdminRole;
 
   // Fetch email for header
   const admin = createAdminClient();
@@ -51,22 +56,35 @@ export default async function AdminLayout({
     playground: t("playground"),
     users: t("users"),
     settings: t("settings"),
+    sectionCrm: t("sectionCrm"),
+    sectionChatbot: t("sectionChatbot"),
+    sectionSettings: t("sectionSettings"),
+    crmContacts: t("crmContacts"),
+    crmCompanies: t("crmCompanies"),
+    crmDeals: t("crmDeals"),
+    crmActivities: t("crmActivities"),
+    crmContracts: t("crmContracts"),
+    crmCampaigns: t("crmCampaigns"),
+    crmReports: t("crmReports"),
+    crmAssistant: t("crmAssistant"),
   };
 
   return (
-    <div
-      className="flex min-h-screen bg-bg text-fg font-sans"
-      dir={locale === "fa" ? "rtl" : "ltr"}
-    >
-      <AdminSidebar locale={locale} t={navLabels} />
-      <div className="flex-1 flex flex-col min-w-0">
-        <AdminHeader
-          email={profileData?.email ?? user.email ?? ""}
-          locale={locale}
-          navLabels={navLabels}
-        />
-        <main className="flex-1 overflow-auto p-6">{children}</main>
+    <AdminRoleProvider role={role}>
+      <div
+        className="flex min-h-screen bg-bg text-fg font-sans"
+        dir={locale === "fa" ? "rtl" : "ltr"}
+      >
+        <AdminSidebar locale={locale} t={navLabels} role={role} />
+        <div className="flex-1 flex flex-col min-w-0">
+          <AdminHeader
+            email={profileData?.email ?? user.email ?? ""}
+            locale={locale}
+            navLabels={navLabels}
+          />
+          <main className="flex-1 overflow-auto p-6">{children}</main>
+        </div>
       </div>
-    </div>
+    </AdminRoleProvider>
   );
 }

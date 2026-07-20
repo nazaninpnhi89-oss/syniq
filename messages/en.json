@@ -32,10 +32,22 @@
   },
   "stats": {
     "items": [
-      { "value": "1:1", "label": "Private session" },
-      { "value": "Bilingual", "label": "Persian & English" },
-      { "value": "Online", "label": "Worldwide" },
-      { "value": "2-in-1", "label": "Brand + AI" }
+      {
+        "value": "1:1",
+        "label": "Private session"
+      },
+      {
+        "value": "Bilingual",
+        "label": "Persian & English"
+      },
+      {
+        "value": "Online",
+        "label": "Worldwide"
+      },
+      {
+        "value": "2-in-1",
+        "label": "Brand + AI"
+      }
     ]
   },
   "usp": {
@@ -81,11 +93,26 @@
     "body": "I'm an AI consultant with a background in construction project management and five years of experience working on complex construction projects. That experience gave me firsthand insight into the challenges businesses face every day, managing client relationships, responding quickly to enquiries, staying organised, and keeping up with rapidly changing technology.\n\nI founded my AI consultancy to help business owners, freelancers, and startups use practical AI solutions to save time, improve customer experience, and operate more efficiently. From AI-powered customer support and content creation to workflow automation and branding, I help businesses look more professional while working smarter and more affordably.\n\nMy approach combines real-world business understanding with modern AI tools, ensuring that technology solves genuine business problems rather than adding complexity.",
     "valuesTitle": "What I stand for, SYNIQ",
     "values": [
-      { "title": "Strategy-led (S)", "desc": "Every proposal starts with a clear map, not guesswork and trial-and-error." },
-      { "title": "Your Vision (Y)", "desc": "The solution starts from your business reality, not a one-size-fits-all template." },
-      { "title": "Navigate Change (N)", "desc": "We turn change from fear into a clear, actionable path." },
-      { "title": "Applied Intelligence (I)", "desc": "We use the right tool in the right place, a solution, not a trend." },
-      { "title": "Quantify Growth (Q)", "desc": "Every action must deliver a visible, measurable result for your business." }
+      {
+        "title": "Strategy-led (S)",
+        "desc": "Every proposal starts with a clear map, not guesswork and trial-and-error."
+      },
+      {
+        "title": "Your Vision (Y)",
+        "desc": "The solution starts from your business reality, not a one-size-fits-all template."
+      },
+      {
+        "title": "Navigate Change (N)",
+        "desc": "We turn change from fear into a clear, actionable path."
+      },
+      {
+        "title": "Applied Intelligence (I)",
+        "desc": "We use the right tool in the right place, a solution, not a trend."
+      },
+      {
+        "title": "Quantify Growth (Q)",
+        "desc": "Every action must deliver a visible, measurable result for your business."
+      }
     ],
     "badge": "Applied",
     "badgeSub": "AI"
@@ -94,28 +121,62 @@
     "kicker": "How we work",
     "title": "How we work",
     "steps": [
-      { "no": "01", "title": "Listen", "desc": "First we listen to your real business challenge, then we build the solution." },
-      { "no": "02", "title": "Strategy", "desc": "A clear brand map and where AI delivers the most value." },
-      { "no": "03", "title": "Build", "desc": "We automate and integrate AI into your daily workflows." },
-      { "no": "04", "title": "Grow", "desc": "Measure, refine, and scale the real result." }
+      {
+        "no": "01",
+        "title": "Listen",
+        "desc": "First we listen to your real business challenge, then we build the solution."
+      },
+      {
+        "no": "02",
+        "title": "Strategy",
+        "desc": "A clear brand map and where AI delivers the most value."
+      },
+      {
+        "no": "03",
+        "title": "Build",
+        "desc": "We automate and integrate AI into your daily workflows."
+      },
+      {
+        "no": "04",
+        "title": "Grow",
+        "desc": "Measure, refine, and scale the real result."
+      }
     ]
   },
   "why": {
     "kicker": "Brand voice",
     "title": "Like an experienced colleague beside your business",
     "items": [
-      { "title": "Peer and warm", "desc": "We sit beside your business, not above it, we listen first, then advise." },
-      { "title": "Practical and data-driven", "desc": "Every proposal must be executable tomorrow, not just an attractive theory." },
-      { "title": "Honest and realistic", "desc": "We don't make promises that can't be measured." }
+      {
+        "title": "Peer and warm",
+        "desc": "We sit beside your business, not above it, we listen first, then advise."
+      },
+      {
+        "title": "Practical and data-driven",
+        "desc": "Every proposal must be executable tomorrow, not just an attractive theory."
+      },
+      {
+        "title": "Honest and realistic",
+        "desc": "We don't make promises that can't be measured."
+      }
     ]
   },
   "principles": {
     "kicker": "What we believe",
     "title": "AI done right, and measurable",
     "items": [
-      { "title": "Opportunity, not threat", "desc": "AI doesn't threaten your job or your brand; whoever uses it right moves a step ahead." },
-      { "title": "Brand first, then automation", "desc": "First we clarify your brand identity, then we automate it with AI." },
-      { "title": "Results, not just tools", "desc": "AI consulting means measurable business results, not just learning a new tool." }
+      {
+        "title": "Opportunity, not threat",
+        "desc": "AI doesn't threaten your job or your brand; whoever uses it right moves a step ahead."
+      },
+      {
+        "title": "Brand first, then automation",
+        "desc": "First we clarify your brand identity, then we automate it with AI."
+      },
+      {
+        "title": "Results, not just tools",
+        "desc": "AI consulting means measurable business results, not just learning a new tool."
+      }
     ]
   },
   "quote": {
@@ -241,7 +302,18 @@
       "channels": "Channels",
       "playground": "Playground",
       "users": "Users",
-      "settings": "Settings"
+      "settings": "Settings",
+      "sectionCrm": "CRM",
+      "sectionChatbot": "Chatbot",
+      "sectionSettings": "Settings",
+      "crmContacts": "Contacts",
+      "crmCompanies": "Companies",
+      "crmDeals": "Deals",
+      "crmActivities": "Activities",
+      "crmContracts": "Contracts",
+      "crmCampaigns": "Campaigns",
+      "crmReports": "Reports",
+      "crmAssistant": "Assistant"
     },
     "dashboard": {
       "title": "Dashboard",
@@ -250,7 +322,8 @@
       "totalLeads": "Total Leads",
       "positiveFeedback": "Positive Feedback",
       "recentConversations": "Recent Conversations",
-      "recentLeads": "Recent Leads"
+      "recentLeads": "Recent Leads",
+      "overdueTasks": "Overdue Tasks"
     },
     "knowledge": {
       "title": "Knowledge Base",
@@ -325,8 +398,10 @@
         "new": "New",
         "contacted": "Contacted",
         "qualified": "Qualified",
-        "closed": "Closed"
-      }
+        "closed": "Closed",
+        "converted": "Converted"
+      },
+      "aiScore": "AI Score"
     },
     "feedback": {
       "title": "Feedback",
@@ -364,7 +439,28 @@
       "auditLog": "Audit Log",
       "action": "Action",
       "target": "Target",
-      "at": "At"
+      "at": "At",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "joined": "Joined",
+      "status": "Status",
+      "activeLabel": "Active",
+      "inactiveLabel": "Inactive",
+      "deactivate": "Deactivate",
+      "activate": "Activate",
+      "noUsers": "No users found.",
+      "noAudit": "No audit entries.",
+      "onlyOwnerCanModifyOwner": "Only an owner can change another owner's role or access.",
+      "onlyOwnerCanGrantAdmin": "Only an owner can grant admin or owner access.",
+      "roles": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "editor": "Editor",
+        "operator": "Operator",
+        "viewer": "Viewer",
+        "user": "Customer"
+      }
     },
     "settings": {
       "title": "Settings",
@@ -394,6 +490,177 @@
       "of": "of",
       "prev": "Previous",
       "next": "Next"
+    },
+    "crm": {
+      "convert": {
+        "button": "Convert to Contact",
+        "already": "View Contact",
+        "modalTitle": "Convert Lead to Contact",
+        "companyName": "Company name (optional)",
+        "createDeal": "Also create a deal",
+        "dealTitle": "Deal title",
+        "dealAmount": "Estimated amount (Toman)",
+        "submit": "Convert",
+        "cancel": "Cancel",
+        "success": "Lead converted to contact."
+      },
+      "contacts": {
+        "title": "Contacts",
+        "search": "Search contacts…",
+        "name": "Name",
+        "company": "Company",
+        "email": "Email",
+        "phone": "Phone",
+        "source": "Source",
+        "noContacts": "No contacts yet.",
+        "new": "New Contact",
+        "insightCard": "Customer Insight (AI)",
+        "summarize": "Summarize Conversation",
+        "score": "AI Score",
+        "deals": "Deals",
+        "timeline": "Timeline",
+        "addNote": "Add note",
+        "addTask": "Add task",
+        "noTimeline": "No activity yet."
+      },
+      "companies": {
+        "title": "Companies",
+        "search": "Search companies…",
+        "name": "Name",
+        "industry": "Industry",
+        "contacts": "Contacts",
+        "deals": "Deals",
+        "noCompanies": "No companies yet.",
+        "new": "New Company"
+      },
+      "deals": {
+        "title": "Deals",
+        "noDeals": "No deals in this stage.",
+        "lostReasonTitle": "Reason for loss",
+        "lostReasonPlaceholder": "Why was this deal lost?",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "daysInStage": "days in stage",
+        "stageTotal": "Total",
+        "nextAction": "Suggested next action (AI)",
+        "suggest": "Suggest",
+        "new": "New Deal"
+      },
+      "activities": {
+        "title": "Activities",
+        "overdue": "Overdue",
+        "today": "Today",
+        "upcoming": "Upcoming",
+        "completed": "Completed",
+        "type": "Type",
+        "dueAt": "Due",
+        "markDone": "Mark done",
+        "new": "New Activity",
+        "noActivities": "No activities.",
+        "types": {
+          "call": "Call",
+          "meeting": "Meeting",
+          "note": "Note",
+          "task": "Task",
+          "stage_change": "Stage change"
+        }
+      },
+      "reports": {
+        "title": "Reports",
+        "funnel": "Conversion Funnel",
+        "pipelineValue": "Pipeline Value by Stage",
+        "leadSources": "Lead Sources",
+        "revenue": "Monthly Revenue (last 12 months)",
+        "funnelSteps": {
+          "leads": "Leads",
+          "converted": "Converted",
+          "deals": "Deals",
+          "pastConsult": "Past consultation",
+          "won": "Won"
+        }
+      },
+      "contracts": {
+        "title": "Contracts",
+        "new": "New Contract",
+        "number": "Number",
+        "status": "Status",
+        "amount": "Amount",
+        "send": "Send",
+        "copyLink": "Copy link",
+        "rewrite": "Rewrite with AI",
+        "followUp": "Generate follow-up",
+        "statuses": {
+          "draft": "Draft",
+          "sent": "Sent",
+          "viewed": "Viewed",
+          "accepted": "Accepted",
+          "canceled": "Canceled"
+        },
+        "contact": "Contact",
+        "scope": "Scope",
+        "startDate": "Start date",
+        "duration": "Duration",
+        "cancel": "Cancel",
+        "cancelContract": "Cancel contract",
+        "editor": "Editor",
+        "preview": "Preview",
+        "followUpResult": "Follow-up message",
+        "copy": "Copy",
+        "noContracts": "No contracts yet.",
+        "sentAt": "Sent",
+        "viewedAt": "First viewed",
+        "acceptedAt": "Accepted",
+        "acceptedBy": "Accepted by"
+      },
+      "campaigns": {
+        "title": "Campaigns",
+        "new": "New Campaign",
+        "segment": "Segment",
+        "goal": "Goal",
+        "generateAll": "Generate All",
+        "review": "Review",
+        "approve": "Approve",
+        "reject": "Reject",
+        "send": "Send Campaign",
+        "missingKey": "RESEND_API_KEY is not configured — emails will stay in review-only mode.",
+        "name": "Name",
+        "recipients": "Recipients",
+        "noCampaigns": "No campaigns yet.",
+        "generate": "Generate",
+        "subject": "Subject",
+        "body": "Body",
+        "sendResult": "sent, failed",
+        "segments": {
+          "stale_leads": "Stale leads (7+ days, unfollowed)",
+          "lost_leads": "Lost leads",
+          "lost_deals": "Lost deals",
+          "won_customers": "Won customers"
+        },
+        "emailStatuses": {
+          "pending": "Pending",
+          "ready": "Ready",
+          "approved": "Approved",
+          "skipped": "Skipped",
+          "rejected": "Rejected",
+          "sent": "Sent",
+          "failed": "Failed"
+        }
+      },
+      "assistant": {
+        "title": "CRM Assistant",
+        "placeholder": "Ask about your leads, deals, or pipeline…",
+        "send": "Send",
+        "missingKey": "AI is not configured — please set the API key."
+      }
     }
+  },
+  "contract": {
+    "print": "Print / Save PDF",
+    "acceptLabel": "Type your full name below to accept this contract.",
+    "namePlaceholder": "Full name",
+    "acceptSubmit": "Accept Contract",
+    "acceptedNotice": "This contract has been accepted.",
+    "canceledNotice": "This contract has been canceled.",
+    "notFound": "Contract not found."
   }
 }

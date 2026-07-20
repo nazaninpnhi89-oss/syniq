@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 const TELEGRAM_API = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}`;
 
 export async function POST(req: NextRequest) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("operator");
   if (guard instanceof NextResponse) return guard;
   const { user, db } = guard;
 

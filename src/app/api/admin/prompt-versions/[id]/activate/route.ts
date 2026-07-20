@@ -9,7 +9,7 @@ export async function POST(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("operator");
   if (guard instanceof NextResponse) return guard;
   const { user, db } = guard;
   const { id } = await params;

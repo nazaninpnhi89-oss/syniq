@@ -14,6 +14,20 @@ const STATUS_COLORS: Record<string, string> = {
   cancelled: "bg-red-500/15 text-red-400",
   closed: "bg-surface-2 text-muted",
   handed_off: "bg-orange-500/15 text-orange-400",
+  converted: "bg-purple-500/15 text-purple-400",
+  won: "bg-green-500/15 text-green-400",
+  lost: "bg-red-500/15 text-red-400",
+  open: "bg-brand/15 text-brand",
+  draft: "bg-surface-2 text-muted",
+  sent: "bg-blue-500/15 text-blue-400",
+  viewed: "bg-yellow-500/15 text-yellow-400",
+  accepted: "bg-green-500/15 text-green-400",
+  canceled: "bg-red-500/15 text-red-400",
+  owner: "bg-gold/15 text-gold",
+  admin: "bg-brand/15 text-brand",
+  editor: "bg-blue-500/15 text-blue-400",
+  operator: "bg-yellow-500/15 text-yellow-400",
+  viewer: "bg-surface-2 text-muted",
 };
 
 interface Props {

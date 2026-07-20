@@ -5,7 +5,7 @@ import { logAudit } from "@/lib/admin/audit";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("viewer");
   if (guard instanceof NextResponse) return guard;
   const { db } = guard;
 
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("operator");
   if (guard instanceof NextResponse) return guard;
   const { user, db } = guard;
 

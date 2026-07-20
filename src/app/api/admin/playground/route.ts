@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/chat/types";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("operator");
   if (guard instanceof NextResponse) return guard;
   const { user } = guard;
 

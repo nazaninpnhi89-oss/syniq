@@ -8,7 +8,7 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("viewer");
   if (guard instanceof NextResponse) return guard;
   const { db } = guard;
   const { id } = await params;
@@ -28,7 +28,7 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("operator");
   if (guard instanceof NextResponse) return guard;
   const { user, db } = guard;
   const { id } = await params;
@@ -56,7 +56,7 @@ export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("operator");
   if (guard instanceof NextResponse) return guard;
   const { user, db } = guard;
   const { id } = await params;

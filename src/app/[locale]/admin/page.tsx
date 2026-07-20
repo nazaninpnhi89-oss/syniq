@@ -21,6 +21,7 @@ export default async function AdminDashboard({
     { count: totalMessages },
     { count: totalLeads },
     { count: positiveFeedback },
+    { count: overdueTasks },
     { data: recentSessions },
     { data: recentLeads },
   ] = await Promise.all([
@@ -31,6 +32,12 @@ export default async function AdminDashboard({
       .from("feedback")
       .select("*", { count: "exact", head: true })
       .eq("rating", 1),
+    db
+      .from("activities")
+      .select("*", { count: "exact", head: true })
+      .eq("type", "task")
+      .is("completed_at", null)
+      .lt("due_at", new Date().toISOString()),
     db
       .from("chat_sessions")
       .select("id, source, locale, status, created_at")
@@ -51,11 +58,12 @@ export default async function AdminDashboard({
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       {/* Stats row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <StatsCard label={t("totalSessions")} value={totalSessions ?? 0} />
         <StatsCard label={t("totalMessages")} value={totalMessages ?? 0} />
         <StatsCard label={t("totalLeads")} value={totalLeads ?? 0} />
         <StatsCard label={t("positiveFeedback")} value={positiveFeedback ?? 0} />
+        <StatsCard label={t("overdueTasks")} value={overdueTasks ?? 0} />
       </div>
 
       {/* Recent conversations */}

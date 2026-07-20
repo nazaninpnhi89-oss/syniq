@@ -6,7 +6,7 @@ import { invalidateEmbeddingConfigCache, getEmbeddingConfig } from "@/lib/chat/e
 export const dynamic = "force-dynamic";
 
 export async function GET(_req: NextRequest) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("viewer");
   if (guard instanceof NextResponse) return guard;
 
   const config = await getEmbeddingConfig();
@@ -14,7 +14,7 @@ export async function GET(_req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  const guard = await requireAdmin();
+  const guard = await requireAdmin("operator");
   if (guard instanceof NextResponse) return guard;
   const { user, db } = guard;
 
