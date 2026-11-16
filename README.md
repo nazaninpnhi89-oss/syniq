@@ -1,174 +1,140 @@
-# SYNIQ — وب‌سایت برند نازنین پناهی
+# SYNIQ — AI Consulting Platform
 
 > **Scale Your Next Intelligent Growth** · _Where data becomes direction._
 
-وب‌سایت دو‌زبانه (فارسی RTL + انگلیسی) برند مشاوره‌ی هوش مصنوعی، با لندینگ حرفه‌ای،
-ثبت‌نام کاربر، رزرو وقت مشاوره و پرداخت آنلاین. ساخته‌شده با Next.js + Supabase + Stripe،
-آماده‌ی انتشار روی Vercel.
+🌐 **Live site:** https://syniq-sigma.vercel.app · 🇮🇷 [نسخه‌ی فارسی](README.fa.md)
+
+SYNIQ is the website and business platform for my AI consulting practice. It was my first full production project. It presents my services, lets clients book and pay for consultations, and works as a live showcase of the AI tools I build for clients: a knowledge-grounded **AI chatbot**, a real-time **voice agent**, and an **admin panel with a built-in CRM**.
+
+The whole product is bilingual: Persian (right-to-left) and English (left-to-right).
 
 ---
 
-## امکانات
-- 🎨 لندینگ مدرن و کاملاً برندشده (رنگ‌ها/فونت/لحن از روی برند گاید)
-- 🌐 دو‌زبانه فارسی (RTL) و انگلیسی (LTR) با کلید تغییر زبان
-- 🔐 ثبت‌نام و ورود کاربر (Supabase Auth)
-- 📅 رزرو وقت مشاوره با نمایش اسلات‌های خالی و مدیریت تایم‌زون
-- 💳 پرداخت آنلاین با Stripe Checkout (دلار/یورو)
-- 📧 ایمیل تأیید رزرو (Resend)
-- 🗄 دیتابیس Supabase (آماده برای افزودن وبینار/کلاس در آینده)
-- 👤 پنل ادمین برای مشاهده‌ی رزروها
+## What's inside
 
-## تکنولوژی
-Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · next-intl · Supabase · Stripe · Resend · motion
+### 🌍 Bilingual marketing website
+- Branded landing page with sections for services, process, values and an about page
+- Full Persian (RTL) and English (LTR) support with a language switcher (`next-intl`)
+- Animated, responsive UI built with Tailwind CSS v4 and `motion`
+
+### 💬 AI chatbot (website widget and Telegram)
+- Streams answers live (server-sent events) and **replies in the user's own language**
+- Answers are grounded in a **knowledge base and RAG**: Voyage AI embeddings stored in Supabase `pgvector`
+- **Tool calling:** captures leads into the CRM (`capture_lead`) and looks up a customer's booking or payment status (`get_customer_status`)
+- Remembers the conversation across messages, and users can rate answers with thumbs up or down
+- The model is configurable per channel (web, widget, Telegram, CRM) from the admin panel, including scheduled model switching; inference runs on Groq
+- The same chat engine also powers a **Telegram bot** through a webhook
+
+### 🎙️ Voice agent
+- A real-time conversational voice assistant (ElevenLabs Conversational AI) that visitors can talk to straight from the browser
+- Its button is custom-built to match the chatbot's design
+
+### 📅 Booking and payments
+- Shows available consultation slots, handles time zones, and displays each slot in the visitor's local time
+- **Stripe Checkout** for payment, with a webhook that confirms the booking
+- Confirmation emails through **Resend**
+- User sign-up and login with Supabase Auth
+
+### 🛠️ Admin panel and CRM
+- **Chatbot operations:** conversations, leads, knowledge base and document embedding, prompt versioning, model settings, a playground, feedback review and human handoff
+- **CRM:** contacts, companies, a drag-and-drop deal pipeline with configurable stages, activities and tasks, contracts with public share links, and email campaigns
+- **AI features in the CRM:** lead scoring and conversation summaries
+- Reports: conversion funnel and 12-month revenue chart
+- Five-level role-based access (`owner > admin > editor > operator > viewer`) enforced with Supabase Row Level Security
 
 ---
 
-## راه‌اندازی محلی
+## Tech stack
 
-### ۱) نصب وابستگی‌ها
-```bash
-npm install
+| Area | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router), React, TypeScript |
+| Styling | Tailwind CSS v4, `motion` |
+| i18n | `next-intl` (fa / en) |
+| Database and auth | Supabase (Postgres, Auth, RLS, `pgvector`) |
+| LLM | Groq (OpenAI-compatible API) |
+| Embeddings | Voyage AI |
+| Voice | ElevenLabs Conversational AI |
+| Payments | Stripe Checkout and webhooks |
+| Email | Resend |
+| Hosting | Vercel |
+
+## Architecture
+
+```
+            ┌─────────────── Next.js (Vercel) ───────────────┐
+Visitor ──▶ │  Landing · Booking · Chat widget · Voice agent │
+Telegram ─▶ │  /api/chat  ──▶  chat engine (brain.ts)        │
+            │                   ├─ RAG search ──▶ Voyage AI  │
+            │                   ├─ LLM + tools ─▶ Groq       │
+            │                   └─ memory/leads ▶ Supabase   │
+            │  /api/checkout ─▶ Stripe ─▶ webhook ─▶ Supabase │
+            │  /admin  (CRM, chatbot ops) ─────────▶ Supabase │
+            └────────────────────────────────────────────────┘
 ```
 
-### ۲) متغیرهای محیطی
-```bash
-cp .env.example .env.local
-```
-سپس مقادیر را در `.env.local` پر کنید (پایین‌تر توضیح داده شده).
+## Project structure
 
-### ۳) اجرا
-```bash
-npm run dev
-```
-سایت روی http://localhost:3000 بالا می‌آید (`/` به‌صورت خودکار به `/fa` یا `/en` می‌رود).
-
-> تا وقتی کلیدهای Supabase/Stripe خالی باشند، لندینگ کامل نمایش داده می‌شود اما
-> رزرو و ورود غیرفعال است.
-
----
-
-## پیکربندی سرویس‌ها
-
-### Supabase (دیتابیس + احراز هویت)
-1. در [supabase.com](https://supabase.com) یک پروژه بسازید.
-2. **SQL Editor** → محتوای `supabase/migrations/0001_init.sql` را اجرا کنید
-   (جداول، RLS، خدمت مشاوره و ساعات کاری پیش‌فرض را می‌سازد).
-3. **Project Settings → API** → این مقادیر را در `.env.local` بگذارید:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY` (محرمانه — فقط سرور)
-4. **Authentication → Providers → Email** را فعال کنید. برای تست سریع می‌توانید
-   «Confirm email» را موقتاً خاموش کنید تا ثبت‌نام بدون تأیید ایمیل وارد شود.
-
-#### تنظیم قیمت و مدت مشاوره
-در **Table Editor → services** ردیف `consultation` را ویرایش کنید:
-`price_cents` (مثلاً `15000` = ۱۵۰ دلار)، `duration_min`، `currency`.
-
-#### تنظیم ساعات کاری
-جدول **availability_rules** را ویرایش کنید. `weekday`: `0`=یکشنبه … `6`=شنبه.
-ساعت‌ها به وقت `BUSINESS_TIMEZONE` تفسیر می‌شوند.
-
-#### ادمین کردن حساب خودتان
-پس از ثبت‌نام، در **SQL Editor** اجرا کنید:
-```sql
-update public.profiles set role = 'admin' where email = 'YOUR_EMAIL';
-```
-سپس `/fa/admin` در دسترس شماست.
-
-### Stripe (پرداخت)
-1. در [stripe.com](https://stripe.com) حساب بسازید.
-2. **Developers → API keys** → بگذارید:
-   - `STRIPE_SECRET_KEY`
-   - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
-3. **Webhook** برای تأیید پرداخت لازم است:
-   - محلی: `stripe login` و سپس
-     ```bash
-     stripe listen --forward-to localhost:3000/api/stripe/webhook
-     ```
-     مقدار `whsec_...` چاپ‌شده را در `STRIPE_WEBHOOK_SECRET` بگذارید.
-   - روی Vercel: در داشبورد Stripe یک Webhook به آدرس
-     `https://YOUR_DOMAIN/api/stripe/webhook` با رویداد
-     `checkout.session.completed` بسازید و امضای آن را در `STRIPE_WEBHOOK_SECRET` بگذارید.
-4. کارت تست: `4242 4242 4242 4242` با هر تاریخ آینده و CVC دلخواه.
-
-### Resend (ایمیل)
-1. در [resend.com](https://resend.com) کلید بسازید → `RESEND_API_KEY`.
-2. دامنه‌ی فرستنده را تأیید کنید و `EMAIL_FROM` را تنظیم کنید
-   (برای تست می‌توانید از `onboarding@resend.dev` استفاده کنید).
-3. `ADMIN_EMAIL` = ایمیلی که می‌خواهید اعلان رزرو جدید را بگیرد.
-
-### لینک جلسه (اختیاری)
-`MEETING_LINK` در env = لینک ثابت جلسه (Google Meet/Zoom) که در ایمیل تأیید برای مشتری ارسال می‌شود.
-
-### منطقه‌ی زمانی
-`BUSINESS_TIMEZONE` (مثل `America/Toronto` یا `Asia/Tehran`) منطقه‌ی زمانی شماست که
-ساعات کاری بر اساس آن تعریف می‌شوند. اسلات‌ها برای هر کاربر به وقت محلی خودش نمایش داده می‌شوند.
-
----
-
-## انتشار روی Vercel
-1. پروژه را به یک ریپوی GitHub پوش کنید.
-2. در [vercel.com](https://vercel.com) ریپو را Import کنید.
-3. همه‌ی متغیرهای `.env.local` را در **Project Settings → Environment Variables** اضافه کنید
-   (با این تفاوت که `NEXT_PUBLIC_SITE_URL` را روی دامنه‌ی واقعی بگذارید).
-4. Deploy.
-5. Webhook استرایپ را روی دامنه‌ی production تنظیم کنید (بالا توضیح داده شد).
-
----
-
-## ساختار پروژه
 ```
 src/
-  app/[locale]/            # صفحات دو‌زبانه (لندینگ، رزرو، ورود، داشبورد، ادمین)
-  app/api/                 # slots / checkout / stripe webhook
-  components/              # site (هدر/فوتر)، sections (بخش‌های لندینگ)، booking، auth، ui
-  i18n/                    # پیکربندی next-intl
-  lib/                     # supabase، stripe، email، slots، days، config
-  proxy.ts                 # (جایگزین middleware در Next 16) i18n + رفرش نشست
-messages/{fa,en}.json      # تمام متن‌های سایت
-supabase/migrations/       # اسکیمای دیتابیس
+  app/[locale]/        # bilingual pages: landing, booking, chat, consultant, dashboard, admin
+  app/api/             # chat, checkout, slots, stripe webhook, telegram webhook, admin APIs
+  components/          # site, sections, booking, chat, voice, auth, ui
+  lib/chat/            # chat engine: brain, RAG, tools, memory, model and prompt config
+  lib/crm/             # CRM logic and AI assistant
+  lib/ai/              # Groq client
+  proxy.ts             # i18n routing and session refresh (Next 16 replacement for middleware)
+messages/{fa,en}.json  # all site copy
+supabase/migrations/   # database schema and RLS policies
 ```
-
-## چیزهایی که باید جایگزین شوند (placeholder)
-- **عکس نازنین**: در `hero.tsx` و `about.tsx` به‌جای نشان «AI» قرار می‌گیرد.
-- **بیوگرافی**: متن `about.body` در `messages/fa.json` و `messages/en.json`.
-- **قیمت مشاوره**: ردیف `services` در Supabase.
 
 ---
 
-## CRM (پنل ادمین)
+## Running locally
 
-روی همان Supabase و همان `/admin` سوار شده — کنار بخش‌های چت‌بات، گروه ناوبری جدید «CRM» اضافه شده است.
-
-### معماری
-لید (ورودی خام از فرم سایت یا تول `capture_lead` چت‌بات) با اقدام «تبدیل» به **مخاطب** + **شرکت** (find-or-create) + به‌صورت اختیاری **معامله** ارتقا پیدا می‌کند. از آن‌جا به بعد همه‌چیز — فعالیت‌ها/وظایف، تغییر مرحله در پایپ‌لاین، قرارداد، کمپین، خروجی‌های هوش مصنوعی — حول پرونده‌ی مخاطب (`/admin/crm/contacts/[id]`) جمع می‌شود. مراحل پایپ‌لاین (`pipeline_stages`) config-driven هستند، نه enum ثابت.
-
-نقش‌ها پنج‌سطحی روی همان Supabase Auth موجود ساخته شده‌اند (نه یک سیستم احراز هویت جدا):
-`owner > admin > editor > operator > viewer` — بیننده (`viewer`) در **کل پنل** فقط‌خواندنی است؛ ساخت/تنزل نقش admin و owner فقط با owner ممکن است. ویژگی‌های هوش مصنوعی از همان کلاینت Groq چت‌بات (`src/lib/ai/groq-client.ts`) و همان جدول `model_config` (کانال `crm`) استفاده می‌کنند.
-
-### ترتیب اجرای SQL
-پس از `0001` تا `0005` موجود، فایل جدید را هم در **SQL Editor** اجرا کنید:
+```bash
+npm install
+cp .env.example .env.local   # then fill in the values
+npm run dev                  # http://localhost:3000
 ```
-supabase/migrations/0006_crm.sql
-```
-این فایل idempotent است (اجرای دوباره‌اش خطا نمی‌دهد) و شامل: جداول `companies`, `contacts`, `pipeline_stages` (با seed مراحل)، `deals`, `activities`, `contracts`, `campaigns`/`campaign_emails`، به‌روزرسانی enum وضعیت `leads` و نقش‌های پنج‌گانه‌ی `profiles`، و RLS متناظر.
 
-### دادن اولین نقش owner
+Without Supabase and Stripe keys the landing page still renders, but booking and login are disabled.
+
+### Environment variables
+
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Public site URL, used for links and Stripe redirects |
+| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` | Supabase |
+| `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET` | Stripe |
+| `RESEND_API_KEY`, `EMAIL_FROM`, `ADMIN_EMAIL` | Transactional email |
+| `GROQ_API_KEY` | LLM for the chatbot and CRM AI |
+| `VOYAGE_API_KEY` | Embeddings for RAG |
+| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET` | Telegram bot |
+| `BUSINESS_TIMEZONE` | Time zone that working hours are defined in |
+
+### Database
+
+Run the SQL files in `supabase/migrations/` in order (`0001` → `0006`) in the Supabase SQL editor. Then give your account the owner role:
+
 ```sql
 update public.profiles set role = 'owner' where email = 'YOUR_EMAIL';
 ```
 
-### داده‌ی نمایشی (دمو)
-```bash
-npm run seed-crm-demo          # پر کردن CRM با داده‌ی نمونه‌ی واقع‌گرایانه
-npm run seed-crm-demo -- --clean   # پاک‌سازی همان داده‌ی نمونه
-```
-این اسکریپت ~۱۰ شرکت، ~۱۵ مخاطب، معاملات در همه‌ی مراحل پایپ‌لاین (شامل برد/باخت پخش‌شده در چند ماه گذشته برای نمودار درآمد)، فعالیت‌های معوق/امروز/آینده/انجام‌شده، چند لید تازه برای دموی زنده‌ی «تبدیل»، و یک گفتگوی نمونه‌ی چت‌بات متصل به مخاطب می‌سازد. همه‌ی ردیف‌ها نشانه‌گذاری‌شده‌اند تا `--clean` فقط همان‌ها را پاک کند.
+Optional demo data for the CRM:
 
-### سناریوی دموی کلاس
-۱. `/admin/leads` → روی یکی از لیدهای تازه «تبدیل به مخاطب» بزنید.
-۲. در `/admin/crm/deals` معامله‌ی ساخته‌شده را در کانبان جابه‌جا کنید (درگ‌اند‌دراپ یا select موبایل).
-۳. در پرونده‌ی مخاطب، «امتیازدهی لید» یا «خلاصه‌سازی گفتگو» را بزنید (نیاز به `GROQ_API_KEY`).
-۴. در `/admin/crm/contracts` یک قرارداد بسازید، لینک عمومی‌اش را کپی و در حالت ناشناس باز کنید.
-۵. در `/admin/crm/campaigns` یک کمپین از یک سگمنت بسازید و ایمیل‌ها را تولید/بازبینی کنید (ارسال واقعی نیاز به `RESEND_API_KEY` و نقش editor+ دارد).
-۶. در `/admin/crm/reports` قیف تبدیل و نمودار درآمد ۱۲ ماه اخیر را ببینید.
+```bash
+npm run seed-crm-demo            # seed realistic sample data
+npm run seed-crm-demo -- --clean # remove it
+```
+
+### Deployment
+
+Import the repository into Vercel, add the environment variables, and deploy. Then point a Stripe webhook (`checkout.session.completed`) to `https://YOUR_DOMAIN/api/stripe/webhook`.
+
+---
+
+## Author
+
+**Nazanin Panahi**, AI Consultant and founder of SYNIQ
+🌐 https://syniq-sigma.vercel.app
