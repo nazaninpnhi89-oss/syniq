@@ -43,7 +43,15 @@ function buildSystem(ragContext: string, locale: Locale, template: string): stri
   const knowledge = loadKnowledge(locale);
   const ragSection = ragContext ? `ADDITIONAL RAG CONTEXT:\n${ragContext}` : "";
 
-  return template
+  // Prompts edited in the admin panel may omit the placeholders; without them
+  // the model never sees the knowledge base and invents services. Append them.
+  let tpl = template;
+  if (!tpl.includes("{{KNOWLEDGE}}")) {
+    tpl += `\n\nWebsite: {{SITE_URL}} · Booking: {{BOOK_URL}}\n\nAnswer ONLY from the knowledge base below. If something is not covered, say so and offer a consultation instead of guessing.\n\nKNOWLEDGE BASE:\n{{KNOWLEDGE}}`;
+  }
+  if (!tpl.includes("{{RAG_CONTEXT}}")) tpl += "\n\n{{RAG_CONTEXT}}";
+
+  return tpl
     .replace(/\{\{SITE_URL\}\}/g, siteUrl)
     .replace(/\{\{BOOK_URL\}\}/g, bookUrl)
     .replace(/\{\{KNOWLEDGE\}\}/g, knowledge)
