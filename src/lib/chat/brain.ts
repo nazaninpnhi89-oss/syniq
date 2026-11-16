@@ -38,7 +38,7 @@ KNOWLEDGE BASE:
 {{RAG_CONTEXT}}`;
 
 function buildSystem(ragContext: string, locale: Locale, template: string): string {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://syniq.ai";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://syniq-sigma.vercel.app";
   const bookUrl = `${siteUrl}/${locale}/book`;
   const knowledge = loadKnowledge(locale);
   const ragSection = ragContext ? `ADDITIONAL RAG CONTEXT:\n${ragContext}` : "";
@@ -244,24 +244,61 @@ export async function* processMessage(
     });
   }
 
-  const stream2 = await client.chat.completions.create({
-    ...commonParams,
-    messages: toolMessages,
-  });
-
+  // Tools must stay enabled here: some models (e.g. gpt-oss on Groq) try to
+  // call a tool again, and Groq rejects that outright when no tools are sent.
+  // Any repeat calls are executed and the model gets another round, up to a cap.
   let secondPassText = "";
   let phase2TokensIn: number | undefined;
   let phase2TokensOut: number | undefined;
+  let callSeq = toolCalls.length;
 
-  for await (const chunk of stream2) {
-    const text = chunk.choices[0]?.delta?.content ?? "";
-    if (text) {
-      secondPassText += text;
-      yield { type: "token", content: text };
+  for (let round = 0; round < 3 && !secondPassText; round++) {
+    const stream2 = await client.chat.completions.create({
+      ...commonParams,
+      messages: toolMessages,
+      tools: toolDefinitions,
+      tool_choice: round < 2 ? "auto" : "none",
+    });
+
+    const repeatCalls: Record<string, { name: string; args: string }> = {};
+    for await (const chunk of stream2) {
+      const delta = chunk.choices[0]?.delta;
+      if (delta?.content) {
+        secondPassText += delta.content;
+        yield { type: "token", content: delta.content };
+      }
+      for (const tc of delta?.tool_calls ?? []) {
+        const r = (repeatCalls[tc.index] ??= { name: "", args: "" });
+        if (tc.function?.name) r.name = tc.function.name;
+        if (tc.function?.arguments) r.args += tc.function.arguments;
+      }
+      if (chunk.usage) {
+        phase2TokensIn = (phase2TokensIn ?? 0) + chunk.usage.prompt_tokens;
+        phase2TokensOut = (phase2TokensOut ?? 0) + chunk.usage.completion_tokens;
+      }
     }
-    if (chunk.usage) {
-      phase2TokensIn = chunk.usage.prompt_tokens;
-      phase2TokensOut = chunk.usage.completion_tokens;
+
+    const extra = Object.values(repeatCalls);
+    if (secondPassText || extra.length === 0) break;
+
+    const ids = extra.map(() => `call_${callSeq++}`);
+    toolMessages.push({
+      role: "assistant",
+      content: null,
+      tool_calls: extra.map((tc, i) => ({
+        id: ids[i],
+        type: "function" as const,
+        function: { name: tc.name, arguments: tc.args },
+      })),
+    });
+    for (let i = 0; i < extra.length; i++) {
+      let args: Record<string, unknown> = {};
+      try { args = JSON.parse(extra[i].args); } catch { /* keep empty */ }
+      toolMessages.push({
+        role: "tool",
+        tool_call_id: ids[i],
+        content: await executeTool(extra[i].name, args, sessionId),
+      });
     }
   }
 
